@@ -1,0 +1,1035 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum RoleType {
+  SUPER_ADMIN
+  TENANT_ADMIN
+  HR
+  ACCOUNTANT
+  EMPLOYEE
+}
+
+enum AccountType {
+  ASSET
+  LIABILITY
+  EQUITY
+  REVENUE
+  EXPENSE
+}
+
+enum PurchaseOrderStatus {
+  PENDING
+  APPROVED
+  RECEIVED
+  CANCELLED
+}
+
+enum TransactionType {
+  DEBIT
+  CREDIT
+}
+
+enum PayrollStatus {
+  PENDING
+  PROCESSED
+  PAID
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  HALF_DAY
+  LEAVE
+}
+
+enum LeaveStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum LeaveType {
+  SICK
+  CASUAL
+  EARNED
+  UNPAID
+}
+
+enum AssetStatus {
+  AVAILABLE
+  ASSIGNED
+  UNDER_MAINTENANCE
+  RETIRED
+}
+
+enum PurchaseRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  LOST
+}
+
+enum OpportunityStatus {
+  OPEN
+  WON
+  LOST
+}
+
+enum SalesOrderStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PAID
+  OVERDUE
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum ExpenseStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REIMBURSED
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Tenant {
+  id       String  @id @default(cuid())
+  name     String
+  slug     String  @unique
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users       User[]
+  departments Department[]
+  employees   Employee[]
+
+  salaryStructures SalaryStructure[]
+  payrolls         Payroll[]
+  attendances      Attendance[]
+  leaves           Leave[]
+
+  accounts       Account[]
+  transactions   Transaction[]
+  journalEntries JournalEntry[]
+
+  inventoryItems InventoryItem[]
+  purchaseOrders PurchaseOrder[]
+
+  notifications Notification[]
+  auditLogs     AuditLog[]
+
+  assets           Asset[]
+  assetAssignments AssetAssignment[]
+
+  suppliers        Supplier[]
+  purchaseRequests PurchaseRequest[]
+
+  customers        Customer[]
+  leads            Lead[]
+  opportunities    Opportunity[]
+  salesOrders      SalesOrder[]
+  invoices         Invoice[]
+  payments         Payment[]
+  expenses         Expense[]
+  approvalRequests ApprovalRequest[]
+  documents        Document[]
+  goodsReceiptNotes GoodsReceiptNote[]
+  stockMovements StockMovement[]
+  projects Project[]
+
+  @@index([slug])
+  @@index([isActive])
+}
+
+model User {
+  id String @id @default(cuid())
+
+  name     String
+  email    String @unique
+  password String
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  requestedApprovals ApprovalRequest[] @relation("RequestedBy")
+  approvedApprovals  ApprovalRequest[] @relation("ApprovedBy")
+
+  role RoleType
+
+  isActive Boolean @default(true)
+
+  refreshToken String?
+
+  employee Employee?
+
+  auditLogs        AuditLog[]
+  documents        Document[]
+  purchaseRequests PurchaseRequest[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([email])
+}
+
+model Department {
+  id   String @id @default(cuid())
+  name String
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  employees Employee[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Employee {
+  id String @id @default(cuid())
+
+  firstName String
+  lastName  String
+  email     String @unique
+
+  userId String? @unique
+
+  user User? @relation(fields: [userId], references: [id])
+
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  salaryStructure SalaryStructure?
+  payrolls        Payroll[]
+  attendances     Attendance[]
+  leaves          Leave[]
+
+  assetAssignments AssetAssignment[]
+  expenses         Expense[]
+  tasks Task[]
+  resourceAllocations ResourceAllocation[]
+  timeEntries TimeEntry[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Attendance {
+  id String @id @default(cuid())
+
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  date DateTime
+
+  status AttendanceStatus
+
+  checkIn DateTime?
+
+  checkOut DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([employeeId, date])
+  @@index([employeeId])
+  @@index([tenantId])
+}
+
+model Leave {
+  id String @id @default(cuid())
+
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  leaveType LeaveType
+
+  startDate DateTime
+  endDate   DateTime
+
+  reason String?
+
+  status LeaveStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([employeeId])
+  @@index([tenantId])
+  @@index([status])
+}
+
+model SalaryStructure {
+  id String @id @default(cuid())
+
+  employeeId String   @unique
+  employee   Employee @relation(fields: [employeeId], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  basicSalary Decimal @default(0.00) @db.Decimal(12, 2)
+
+  hra Decimal @default(0.00) @db.Decimal(12, 2)
+
+  bonus Decimal @default(0.00) @db.Decimal(12, 2)
+
+  pfPercentage Decimal @default(12.00) @db.Decimal(5, 2)
+
+  taxPercentage Decimal @default(0.00) @db.Decimal(5, 2)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model Payroll {
+  id String @id @default(cuid())
+
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  month Int
+  year  Int
+
+  grossSalary Decimal @db.Decimal(12, 2)
+
+  deductions Decimal @db.Decimal(12, 2)
+
+  netSalary Decimal @db.Decimal(12, 2)
+
+  status PayrollStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([employeeId, month, year])
+  @@index([employeeId])
+  @@index([tenantId])
+  @@index([month, year])
+}
+
+model Account {
+  id String @id @default(cuid())
+
+  name String
+  code String @unique
+
+  type AccountType
+
+  balance Decimal @default(0.00) @db.Decimal(15, 2)
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  transactions Transaction[]
+
+  debitEntries JournalEntry[] @relation("DebitAccount")
+
+  creditEntries JournalEntry[] @relation("CreditAccount")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Transaction {
+  id String @id @default(cuid())
+
+  description String
+
+  amount Decimal @db.Decimal(12, 2)
+
+  type TransactionType
+
+  accountId String
+  account   Account @relation(fields: [accountId], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  journalEntries JournalEntry[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model JournalEntry {
+  id String @id @default(cuid())
+
+  amount Decimal @db.Decimal(12, 2)
+
+  debitAccountId String
+  debitAccount   Account @relation("DebitAccount", fields: [debitAccountId], references: [id])
+
+  creditAccountId String
+  creditAccount   Account @relation("CreditAccount", fields: [creditAccountId], references: [id])
+
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model InventoryItem {
+  id String @id @default(cuid())
+
+  name String
+  sku  String @unique
+
+  quantity Int @default(0)
+
+  unitPrice Decimal @db.Decimal(12, 2)
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  purchaseOrders   PurchaseOrder[]
+  purchaseRequests PurchaseRequest[]
+  salesOrders      SalesOrder[]
+  stockMovements StockMovement[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sku])
+  @@index([tenantId])
+}
+
+model PurchaseOrder {
+  id String @id @default(cuid())
+
+  orderNumber String @unique
+
+  quantity Int
+
+  unitPrice Decimal @db.Decimal(12, 2)
+
+  status PurchaseOrderStatus @default(PENDING)
+
+  inventoryItemId String
+  inventoryItem   InventoryItem @relation(fields: [inventoryItemId], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  supplierId String?
+  supplier   Supplier? @relation(fields: [supplierId], references: [id])
+
+  purchaseRequests PurchaseRequest[]
+  goodsReceiptNotes GoodsReceiptNote[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([orderNumber])
+  @@index([tenantId])
+  @@index([supplierId])
+}
+
+model Notification {
+  id String @id @default(cuid())
+
+  title   String
+  message String
+
+  isRead Boolean @default(false)
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([isRead])
+}
+
+model AuditLog {
+  id String @id @default(cuid())
+
+  action String
+
+  entity String
+
+  entityId String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model Asset {
+  id String @id @default(cuid())
+
+  name String
+
+  serialNumber String @unique
+
+  purchaseDate DateTime
+
+  purchaseCost Decimal @db.Decimal(12, 2)
+
+  status AssetStatus @default(AVAILABLE)
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  assignments AssetAssignment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model AssetAssignment {
+  id String @id @default(cuid())
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  assetId String
+  asset   Asset  @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  assignedAt DateTime @default(now())
+
+  returnedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([assetId])
+  @@index([employeeId])
+}
+
+model Supplier {
+  id String @id @default(cuid())
+
+  name String
+
+  email String @unique
+
+  phone String?
+
+  address String?
+
+  isActive Boolean @default(true)
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  purchaseOrders PurchaseOrder[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([email])
+}
+
+model PurchaseRequest {
+  id String @id @default(cuid())
+
+  title String
+
+  description String?
+
+  quantity Int
+
+  status PurchaseRequestStatus @default(PENDING)
+
+  requestedById String
+  requestedBy   User   @relation(fields: [requestedById], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  purchaseOrderId String?
+  purchaseOrder   PurchaseOrder? @relation(fields: [purchaseOrderId], references: [id])
+
+  inventoryItemId String
+  inventoryItem   InventoryItem @relation(fields: [inventoryItemId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([requestedById])
+}
+
+model Customer {
+  id String @id @default(cuid())
+
+  name String
+
+  email String?
+
+  phone String?
+
+  address String?
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  leads Lead[]
+
+  opportunities Opportunity[]
+  salesOrders   SalesOrder[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model Lead {
+  id String @id @default(cuid())
+
+  title String
+
+  status LeadStatus @default(NEW)
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model Opportunity {
+  id String @id @default(cuid())
+
+  title String
+
+  value Decimal @db.Decimal(12, 2)
+
+  status OpportunityStatus @default(OPEN)
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model SalesOrder {
+  id String @id @default(cuid())
+
+  orderNumber String @unique
+
+  quantity Int
+
+  unitPrice Decimal @db.Decimal(12, 2)
+
+  status SalesOrderStatus @default(PENDING)
+
+  invoice Invoice?
+
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+
+  inventoryItemId String
+  inventoryItem   InventoryItem @relation(fields: [inventoryItemId], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([customerId])
+  @@index([inventoryItemId])
+  @@index([tenantId])
+}
+
+model Invoice {
+  id String @id @default(cuid())
+
+  invoiceNumber String @unique
+
+  amount Decimal @db.Decimal(12, 2)
+
+  dueDate DateTime
+
+  status InvoiceStatus @default(DRAFT)
+
+  salesOrderId String     @unique
+  salesOrder   SalesOrder @relation(fields: [salesOrderId], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  payments Payment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([salesOrderId])
+}
+
+model Payment {
+  id String @id @default(cuid())
+
+  paymentNumber String @unique
+
+  amount Decimal @db.Decimal(12, 2)
+
+  paymentDate DateTime
+
+  status PaymentStatus @default(PENDING)
+
+  invoiceId String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([invoiceId])
+  @@index([tenantId])
+}
+
+model Expense {
+  id String @id @default(cuid())
+
+  title String
+
+  description String?
+
+  amount Decimal @db.Decimal(12, 2)
+
+  expenseDate DateTime
+
+  status ExpenseStatus @default(PENDING)
+
+  employeeId String
+  employee   Employee @relation(fields: [employeeId], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([employeeId])
+  @@index([tenantId])
+}
+
+model ApprovalRequest {
+  id String @id @default(cuid())
+
+  module String
+
+  entityId String
+
+  status ApprovalStatus @default(PENDING)
+
+  remarks String?
+
+  requestedById String
+  requestedBy   User   @relation("RequestedBy", fields: [requestedById], references: [id])
+
+  approvedById String?
+  approvedBy   User?   @relation("ApprovedBy", fields: [approvedById], references: [id])
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum DocumentCategory {
+  EMPLOYEE
+  PAYSLIP
+  INVOICE
+  PURCHASE_ORDER
+  EXPENSE
+  ASSET
+  SUPPLIER
+  CONTRACT
+  OTHER
+}
+
+model Document {
+  id String @id @default(cuid())
+
+  name String
+
+  fileUrl String
+
+  category DocumentCategory
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  uploadedById String?
+  uploadedBy   User?   @relation(fields: [uploadedById], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([tenantId])
+  @@index([category])
+}
+
+enum GRNStatus {
+  PENDING
+  RECEIVED
+  REJECTED
+}
+
+model GoodsReceiptNote {
+  id String @id @default(cuid())
+
+  grnNumber String @unique
+
+  quantityReceived Int
+
+  remarks String?
+
+  status GRNStatus @default(PENDING)
+
+  purchaseOrderId String
+  purchaseOrder PurchaseOrder @relation(fields: [purchaseOrderId],references: [id])
+
+  tenantId String
+  tenant Tenant @relation(fields: [tenantId],references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([purchaseOrderId])
+  @@index([tenantId])
+}
+
+enum StockMovementType {
+  PURCHASE
+  GRN
+  SALE
+  ASSET_ASSIGNMENT
+  ADJUSTMENT
+}
+
+model StockMovement {
+  id String @id @default(cuid())
+
+  movementType StockMovementType
+
+  quantity Int
+
+  remarks String?
+
+  inventoryItemId String
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId],references: [id])
+
+  tenantId String
+  tenant Tenant @relation(fields: [tenantId],references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([inventoryItemId])
+  @@index([tenantId])
+}
+
+enum ProjectStatus {
+  PLANNING
+  IN_PROGRESS
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+model Project {
+  id String @id @default(cuid())
+
+  name String
+  description String?
+
+  startDate DateTime?
+  endDate DateTime?
+
+  status ProjectStatus @default(PLANNING)
+
+  tenantId String
+  tenant Tenant @relation(fields: [tenantId],references: [id])
+
+  tasks Task[]
+  milestones Milestone[]
+  resourceAllocations ResourceAllocation[]
+  timeEntries TimeEntry[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+}
+
+model Task {
+  id String @id @default(cuid())
+
+  title String
+  description String?
+
+  status TaskStatus @default(TODO)
+
+  projectId String
+  project Project @relation(fields: [projectId],references: [id])
+
+  assignedToId String?
+  assignedTo Employee? @relation(fields: [assignedToId],references: [id])
+
+  timeEntries TimeEntry[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId])
+  @@index([assignedToId])
+}
+
+enum MilestoneStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+model Milestone {
+  id String @id @default(cuid())
+
+  title String
+  description String?
+
+  dueDate DateTime?
+
+  status MilestoneStatus @default(PENDING)
+
+  projectId String
+  project Project @relation(fields: [projectId],references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId])
+}
+
+model ResourceAllocation {
+  id String @id @default(cuid())
+
+  allocationPercentage Int
+
+  projectId String
+  project Project @relation(fields: [projectId],references: [id])
+
+  employeeId String
+  employee Employee @relation(fields: [employeeId],references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([projectId, employeeId])
+  @@index([projectId])
+  @@index([employeeId])
+}
+
+model TimeEntry {
+  id String @id @default(cuid())
+
+  date DateTime
+
+  hours Decimal @db.Decimal(5,2)
+
+  description String?
+
+  employeeId String
+  employee Employee @relation(fields: [employeeId],references: [id])
+
+  projectId String
+  project Project @relation(fields: [projectId],references: [id])
+
+  taskId String?
+  task Task? @relation(fields: [taskId],references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([employeeId])
+  @@index([projectId])
+  @@index([taskId])
+}
