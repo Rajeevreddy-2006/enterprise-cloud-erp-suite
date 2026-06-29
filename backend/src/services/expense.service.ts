@@ -5,6 +5,7 @@ import workflowService from "./workflow.service";
 import auditLogService from "./auditLog.service";
 import AppError from "../utils/AppError";
 import { CreateExpenseDto, UpdateExpenseDto, } from "../types/expense.types";
+import { AuditContext } from "../types/audit.types";
 
 class ExpenseService {
 
@@ -20,29 +21,30 @@ class ExpenseService {
     return expense;
   }
 
-  async createExpense(data: CreateExpenseDto) {
+  async createExpense(data: CreateExpenseDto,context: AuditContext) {
     const employee = await expenseRepository.getEmployeeById(data.employeeId);
     if (!employee) {
-      throw new AppError("Employee not found",404);
+        throw new AppError("Employee not found",404);
     }
     const expense = await expenseRepository.createExpense(data);
     await approvalService.createRequest({
-      module: "EXPENSE",
-      entityId: expense.id,
-      requestedById: employee.userId,
-      tenantId: expense.tenantId,
+        module: "EXPENSE",
+        entityId: expense.id,
+        requestedById: employee.userId,
+        tenantId: expense.tenantId,
     });
     await workflowService.onExpenseCreated(expense.title,expense.tenantId);
-    await auditLogService.createLog({
-      action: "CREATE",
-      entity: "EXPENSE",
-      entityId: expense.id,
-      userId: employee.user!.id,
-      tenantId: expense.tenantId,
-    });
+    await auditLogService.createLog(
+        context,
+        {
+        action: "CREATE",
+        entity: "EXPENSE",
+        entityId: expense.id,
+        }
+    );
     return expense;
   }
-
+  
   async updateExpense(id: string,data: UpdateExpenseDto) {
     await this.getExpenseById(id);
     return expenseRepository.updateExpense(id,data);

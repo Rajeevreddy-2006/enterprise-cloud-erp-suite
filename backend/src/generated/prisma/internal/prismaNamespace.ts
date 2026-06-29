@@ -418,7 +418,9 @@ export const ModelName = {
   Task: 'Task',
   Milestone: 'Milestone',
   ResourceAllocation: 'ResourceAllocation',
-  TimeEntry: 'TimeEntry'
+  TimeEntry: 'TimeEntry',
+  InteractionLog: 'InteractionLog',
+  Quotation: 'Quotation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -434,7 +436,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "tenant" | "user" | "department" | "employee" | "attendance" | "leave" | "salaryStructure" | "payroll" | "account" | "transaction" | "journalEntry" | "inventoryItem" | "purchaseOrder" | "notification" | "auditLog" | "asset" | "assetAssignment" | "supplier" | "purchaseRequest" | "customer" | "lead" | "opportunity" | "salesOrder" | "invoice" | "payment" | "expense" | "approvalRequest" | "document" | "goodsReceiptNote" | "stockMovement" | "project" | "task" | "milestone" | "resourceAllocation" | "timeEntry"
+    modelProps: "tenant" | "user" | "department" | "employee" | "attendance" | "leave" | "salaryStructure" | "payroll" | "account" | "transaction" | "journalEntry" | "inventoryItem" | "purchaseOrder" | "notification" | "auditLog" | "asset" | "assetAssignment" | "supplier" | "purchaseRequest" | "customer" | "lead" | "opportunity" | "salesOrder" | "invoice" | "payment" | "expense" | "approvalRequest" | "document" | "goodsReceiptNote" | "stockMovement" | "project" | "task" | "milestone" | "resourceAllocation" | "timeEntry" | "interactionLog" | "quotation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3028,6 +3030,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    InteractionLog: {
+      payload: Prisma.$InteractionLogPayload<ExtArgs>
+      fields: Prisma.InteractionLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.InteractionLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteractionLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.InteractionLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteractionLogPayload>
+        }
+        findFirst: {
+          args: Prisma.InteractionLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteractionLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.InteractionLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteractionLogPayload>
+        }
+        findMany: {
+          args: Prisma.InteractionLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteractionLogPayload>[]
+        }
+        create: {
+          args: Prisma.InteractionLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteractionLogPayload>
+        }
+        createMany: {
+          args: Prisma.InteractionLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.InteractionLogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteractionLogPayload>[]
+        }
+        delete: {
+          args: Prisma.InteractionLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteractionLogPayload>
+        }
+        update: {
+          args: Prisma.InteractionLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteractionLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.InteractionLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.InteractionLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.InteractionLogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteractionLogPayload>[]
+        }
+        upsert: {
+          args: Prisma.InteractionLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InteractionLogPayload>
+        }
+        aggregate: {
+          args: Prisma.InteractionLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInteractionLog>
+        }
+        groupBy: {
+          args: Prisma.InteractionLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InteractionLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.InteractionLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InteractionLogCountAggregateOutputType> | number
+        }
+      }
+    }
+    Quotation: {
+      payload: Prisma.$QuotationPayload<ExtArgs>
+      fields: Prisma.QuotationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.QuotationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuotationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.QuotationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuotationPayload>
+        }
+        findFirst: {
+          args: Prisma.QuotationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuotationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.QuotationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuotationPayload>
+        }
+        findMany: {
+          args: Prisma.QuotationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuotationPayload>[]
+        }
+        create: {
+          args: Prisma.QuotationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuotationPayload>
+        }
+        createMany: {
+          args: Prisma.QuotationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.QuotationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuotationPayload>[]
+        }
+        delete: {
+          args: Prisma.QuotationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuotationPayload>
+        }
+        update: {
+          args: Prisma.QuotationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuotationPayload>
+        }
+        deleteMany: {
+          args: Prisma.QuotationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.QuotationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.QuotationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuotationPayload>[]
+        }
+        upsert: {
+          args: Prisma.QuotationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$QuotationPayload>
+        }
+        aggregate: {
+          args: Prisma.QuotationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateQuotation>
+        }
+        groupBy: {
+          args: Prisma.QuotationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QuotationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.QuotationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.QuotationCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3088,6 +3238,8 @@ export const UserScalarFieldEnum = {
   role: 'role',
   isActive: 'isActive',
   refreshToken: 'refreshToken',
+  resetToken: 'resetToken',
+  resetTokenExpiresAt: 'resetTokenExpiresAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -3284,10 +3436,13 @@ export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typ
 
 export const AssetScalarFieldEnum = {
   id: 'id',
+  assetCode: 'assetCode',
   name: 'name',
   serialNumber: 'serialNumber',
+  category: 'category',
   purchaseDate: 'purchaseDate',
   purchaseCost: 'purchaseCost',
+  currentValue: 'currentValue',
   status: 'status',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
@@ -3304,6 +3459,7 @@ export const AssetAssignmentScalarFieldEnum = {
   employeeId: 'employeeId',
   assignedAt: 'assignedAt',
   returnedAt: 'returnedAt',
+  remarks: 'remarks',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -3389,6 +3545,7 @@ export const SalesOrderScalarFieldEnum = {
   orderNumber: 'orderNumber',
   quantity: 'quantity',
   unitPrice: 'unitPrice',
+  totalAmount: 'totalAmount',
   status: 'status',
   customerId: 'customerId',
   inventoryItemId: 'inventoryItemId',
@@ -3569,6 +3726,40 @@ export const TimeEntryScalarFieldEnum = {
 } as const
 
 export type TimeEntryScalarFieldEnum = (typeof TimeEntryScalarFieldEnum)[keyof typeof TimeEntryScalarFieldEnum]
+
+
+export const InteractionLogScalarFieldEnum = {
+  id: 'id',
+  interactionType: 'interactionType',
+  subject: 'subject',
+  notes: 'notes',
+  interactionDate: 'interactionDate',
+  customerId: 'customerId',
+  leadId: 'leadId',
+  opportunityId: 'opportunityId',
+  employeeId: 'employeeId',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InteractionLogScalarFieldEnum = (typeof InteractionLogScalarFieldEnum)[keyof typeof InteractionLogScalarFieldEnum]
+
+
+export const QuotationScalarFieldEnum = {
+  id: 'id',
+  quotationNumber: 'quotationNumber',
+  customerId: 'customerId',
+  opportunityId: 'opportunityId',
+  amount: 'amount',
+  status: 'status',
+  validUntil: 'validUntil',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type QuotationScalarFieldEnum = (typeof QuotationScalarFieldEnum)[keyof typeof QuotationScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3773,6 +3964,20 @@ export type EnumPurchaseOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputTy
  * Reference to a field of type 'PurchaseOrderStatus[]'
  */
 export type ListEnumPurchaseOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PurchaseOrderStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AssetCategory'
+ */
+export type EnumAssetCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssetCategory'>
+    
+
+
+/**
+ * Reference to a field of type 'AssetCategory[]'
+ */
+export type ListEnumAssetCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AssetCategory[]'>
     
 
 
@@ -3987,6 +4192,34 @@ export type ListEnumMilestoneStatusFieldRefInput<$PrismaModel> = FieldRefInputTy
 
 
 /**
+ * Reference to a field of type 'InteractionType'
+ */
+export type EnumInteractionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InteractionType'>
+    
+
+
+/**
+ * Reference to a field of type 'InteractionType[]'
+ */
+export type ListEnumInteractionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InteractionType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'QuotationStatus'
+ */
+export type EnumQuotationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuotationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'QuotationStatus[]'
+ */
+export type ListEnumQuotationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuotationStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -4144,6 +4377,8 @@ export type GlobalOmitConfig = {
   milestone?: Prisma.MilestoneOmit
   resourceAllocation?: Prisma.ResourceAllocationOmit
   timeEntry?: Prisma.TimeEntryOmit
+  interactionLog?: Prisma.InteractionLogOmit
+  quotation?: Prisma.QuotationOmit
 }
 
 /* Types for Logging */

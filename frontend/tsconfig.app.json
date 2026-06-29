@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    "types": [
+      "vite/client"
+    ],
+
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM"],
+
+    "module": "ESNext",
+
+    "moduleResolution": "bundler",
+
+    "jsx": "react-jsx",
+
+    "allowImportingTsExtensions": true,
+
+    "verbatimModuleSyntax": true,
+
+    "moduleDetection": "force",
+
+    "skipLibCheck": true,
+
+    "noEmit": true
+  },
+
+  "include": [
+    "src"
+  ]
+}

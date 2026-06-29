@@ -1,0 +1,14 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import departmentService from "@/services/department.service";
+
+export function useUpdateDepartment(){
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn:({ id, data }:{ id:string; data:any; }) => departmentService.updateDepartment(id,data),
+        onSuccess(){
+            queryClient.invalidateQueries({
+                queryKey:[ "departments" ]
+            });
+        }
+    });
+}

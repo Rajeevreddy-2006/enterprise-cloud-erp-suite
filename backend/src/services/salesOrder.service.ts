@@ -6,6 +6,7 @@ import AppError from "../utils/AppError";
 import { CreateSalesOrderDto, UpdateSalesOrderDto, } from "../types/salesOrder.types";
 
 class SalesOrderService {
+
   async getAllSalesOrders() {
     return salesOrderRepository.getAllSalesOrders();
   }
@@ -27,33 +28,62 @@ class SalesOrderService {
     if (!inventoryItem) {
       throw new AppError("Inventory item not found",404);
     }
-    if (inventoryItem.quantity <data.quantity) {
+    if (inventoryItem.quantity < data.quantity) {
       throw new AppError("Insufficient stock",400);
     }
+    const orderNumber = `SO-${Date.now()}`;
+    const unitPrice = Number(inventoryItem.unitPrice);
+    const totalAmount = unitPrice * data.quantity;
     const salesOrder = await salesOrderRepository.createSalesOrder({
-        orderNumber: `SO-${Date.now()}`,
-        quantity: data.quantity,
-        unitPrice: inventoryItem.unitPrice,
+        orderNumber,
         customerId: data.customerId,
         inventoryItemId: data.inventoryItemId,
+        quantity: data.quantity,
+        unitPrice,
+        totalAmount,
         tenantId: data.tenantId,
     });
     await inventoryRepository.updateInventoryItem(
       inventoryItem.id,
       {
-        quantity:inventoryItem.quantity - data.quantity,
+        quantity: inventoryItem.quantity - data.quantity,
       }
     );
     await notificationService.createNotification({
       title: "Sales Order Created",
-      message: salesOrder.orderNumber,
-      tenantId: salesOrder.tenantId,
+      message: `Sales Order ${orderNumber} created successfully`,
+      tenantId: data.tenantId,
     });
     return salesOrder;
   }
 
   async updateSalesOrder(id: string,data: UpdateSalesOrderDto) {
-    await this.getSalesOrderById(id);
+    const order = await this.getSalesOrderById(id);
+    if (data.quantity !== undefined) {
+      const inventoryItem = await inventoryRepository.getInventoryItemById(order.inventoryItemId);
+      if (!inventoryItem) {
+        throw new AppError("Inventory item not found",404);
+      }
+      const availableStock = inventoryItem.quantity + order.quantity;
+      if (availableStock < data.quantity) {
+        throw new AppError("Insufficient stock",400);
+      }
+      await inventoryRepository.updateInventoryItem(
+        inventoryItem.id,
+        {
+          quantity: availableStock - data.quantity,
+        }
+      );
+      const unitPrice = Number(order.unitPrice);
+      return salesOrderRepository.updateSalesOrder(
+        id,
+        {
+          quantity: data.quantity,
+          status: data.status,
+          totalAmount: unitPrice * data.quantity,
+        }
+      );
+    }
     return salesOrderRepository.updateSalesOrder(id,data);
   }
 

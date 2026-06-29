@@ -1,13 +1,17 @@
 import { RoleType } from "../generated/prisma/enums";
 
-declare module "express-serve-static-core" {
-  interface Request {
-    user: {
+declare global {
+  namespace Express {
+    interface User {
       id: string;
       email: string;
       role: RoleType;
       tenantId: string;
-    };
+    }
+
+    interface Request {
+      user: User;
+    }
   }
 }
 

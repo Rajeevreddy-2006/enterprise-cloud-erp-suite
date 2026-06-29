@@ -25,7 +25,11 @@ class ExpenseController {
 
   createExpense = asyncHandler(
     async (req: Request,res: Response) => {
-      const expense = await expenseService.createExpense(req.body);
+      const user = (req as any).user;
+      const expense = await expenseService.createExpense(
+        { ...req.body, tenantId: user.tenantId, },
+        { userId: user.id, tenantId: user.tenantId,}
+      );
       return res.status(201).json(
         successResponse(expense,"Expense created successfully")
       );

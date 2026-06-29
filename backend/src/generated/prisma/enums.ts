@@ -87,16 +87,6 @@ export const LeaveType = {
 export type LeaveType = (typeof LeaveType)[keyof typeof LeaveType]
 
 
-export const AssetStatus = {
-  AVAILABLE: 'AVAILABLE',
-  ASSIGNED: 'ASSIGNED',
-  UNDER_MAINTENANCE: 'UNDER_MAINTENANCE',
-  RETIRED: 'RETIRED'
-} as const
-
-export type AssetStatus = (typeof AssetStatus)[keyof typeof AssetStatus]
-
-
 export const PurchaseRequestStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
@@ -173,6 +163,30 @@ export const ApprovalStatus = {
 export type ApprovalStatus = (typeof ApprovalStatus)[keyof typeof ApprovalStatus]
 
 
+export const AssetStatus = {
+  AVAILABLE: 'AVAILABLE',
+  ASSIGNED: 'ASSIGNED',
+  UNDER_MAINTENANCE: 'UNDER_MAINTENANCE',
+  RETIRED: 'RETIRED'
+} as const
+
+export type AssetStatus = (typeof AssetStatus)[keyof typeof AssetStatus]
+
+
+export const AssetCategory = {
+  COMPUTER: 'COMPUTER',
+  LAPTOP: 'LAPTOP',
+  MOBILE: 'MOBILE',
+  FURNITURE: 'FURNITURE',
+  VEHICLE: 'VEHICLE',
+  MACHINERY: 'MACHINERY',
+  NETWORK_DEVICE: 'NETWORK_DEVICE',
+  OTHER: 'OTHER'
+} as const
+
+export type AssetCategory = (typeof AssetCategory)[keyof typeof AssetCategory]
+
+
 export const DocumentCategory = {
   EMPLOYEE: 'EMPLOYEE',
   PAYSLIP: 'PAYSLIP',
@@ -235,3 +249,25 @@ export const MilestoneStatus = {
 } as const
 
 export type MilestoneStatus = (typeof MilestoneStatus)[keyof typeof MilestoneStatus]
+
+
+export const InteractionType = {
+  CALL: 'CALL',
+  EMAIL: 'EMAIL',
+  MEETING: 'MEETING',
+  FOLLOW_UP: 'FOLLOW_UP',
+  NOTE: 'NOTE'
+} as const
+
+export type InteractionType = (typeof InteractionType)[keyof typeof InteractionType]
+
+
+export const QuotationStatus = {
+  DRAFT: 'DRAFT',
+  SENT: 'SENT',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type QuotationStatus = (typeof QuotationStatus)[keyof typeof QuotationStatus]

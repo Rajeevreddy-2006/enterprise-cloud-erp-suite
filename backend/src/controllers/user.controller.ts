@@ -34,13 +34,17 @@ class UserController {
     async (req: Request, res: Response) => {
         const currentUser = (req as any).user;
         const user = await userService.createUser({...req.body,tenantId: currentUser.tenantId,});
-        await auditLogService.createLog({
-        action: "CREATE",
-        entity: "USER",
-        entityId: user.id,
-        userId: currentUser.id,
-        tenantId: currentUser.tenantId,
-        });
+        await auditLogService.createLog(
+            {
+                userId: currentUser.id,
+                tenantId: currentUser.tenantId,
+            },
+            {
+                action: "CREATE",
+                entity: "USER",
+                entityId: user.id,
+            }
+        );
         return res.status(201).json(
             successResponse(user,"User created successfully")
         );
@@ -50,14 +54,19 @@ class UserController {
   updateUser = asyncHandler(
     async (req: Request, res: Response) => {
         const id = req.params.id as string;
+        const currentUser = (req as any).user;
         const user = await userService.updateUser(id,req.body);
-        await auditLogService.createLog({
-            action: "UPDATE",
-            entity: "USER",
-            entityId: user.id,
-            userId: user.id,
-            tenantId: user.tenantId,
-        });
+        await auditLogService.createLog(
+            {
+                userId: currentUser.id,
+                tenantId: currentUser.tenantId,
+            },
+            {
+                action: "UPDATE",
+                entity: "USER",
+                entityId: user.id,
+            }
+        );
         return res.status(200).json(
             successResponse(user,"User updated successfully")
         );
@@ -69,13 +78,17 @@ class UserController {
         const id = req.params.id as string;
         const user = (req as any).user;
         await userService.deleteUser(id);
-        await auditLogService.createLog({
-            action: "DELETE",
-            entity: "USER",
-            entityId: id,
-            userId: user.id,
-            tenantId: user.tenantId,
-        });
+        await auditLogService.createLog(
+            {
+                userId: user.id,
+                tenantId: user.tenantId,
+            },
+            {
+                action: "DELETE",
+                entity: "USER",
+                entityId: id,
+            }
+        );
         return res.status(200).json(
             successResponse(null,"User deleted successfully")
         );

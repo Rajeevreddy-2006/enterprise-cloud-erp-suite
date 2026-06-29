@@ -242,6 +242,8 @@ export type OpportunityWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  interactionLogs?: Prisma.InteractionLogListRelationFilter
+  quotations?: Prisma.QuotationListRelationFilter
 }
 
 export type OpportunityOrderByWithRelationInput = {
@@ -255,6 +257,8 @@ export type OpportunityOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   customer?: Prisma.CustomerOrderByWithRelationInput
   tenant?: Prisma.TenantOrderByWithRelationInput
+  interactionLogs?: Prisma.InteractionLogOrderByRelationAggregateInput
+  quotations?: Prisma.QuotationOrderByRelationAggregateInput
 }
 
 export type OpportunityWhereUniqueInput = Prisma.AtLeast<{
@@ -271,6 +275,8 @@ export type OpportunityWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Opportunity"> | Date | string
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  interactionLogs?: Prisma.InteractionLogListRelationFilter
+  quotations?: Prisma.QuotationListRelationFilter
 }, "id">
 
 export type OpportunityOrderByWithAggregationInput = {
@@ -312,6 +318,8 @@ export type OpportunityCreateInput = {
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutOpportunitiesInput
   tenant: Prisma.TenantCreateNestedOneWithoutOpportunitiesInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutOpportunityInput
+  quotations?: Prisma.QuotationCreateNestedManyWithoutOpportunityInput
 }
 
 export type OpportunityUncheckedCreateInput = {
@@ -323,6 +331,8 @@ export type OpportunityUncheckedCreateInput = {
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutOpportunityInput
+  quotations?: Prisma.QuotationUncheckedCreateNestedManyWithoutOpportunityInput
 }
 
 export type OpportunityUpdateInput = {
@@ -334,6 +344,8 @@ export type OpportunityUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutOpportunitiesNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutOpportunitiesNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutOpportunityNestedInput
+  quotations?: Prisma.QuotationUpdateManyWithoutOpportunityNestedInput
 }
 
 export type OpportunityUncheckedUpdateInput = {
@@ -345,6 +357,8 @@ export type OpportunityUncheckedUpdateInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutOpportunityNestedInput
+  quotations?: Prisma.QuotationUncheckedUpdateManyWithoutOpportunityNestedInput
 }
 
 export type OpportunityCreateManyInput = {
@@ -427,6 +441,11 @@ export type OpportunityMinOrderByAggregateInput = {
 
 export type OpportunitySumOrderByAggregateInput = {
   value?: Prisma.SortOrder
+}
+
+export type OpportunityNullableScalarRelationFilter = {
+  is?: Prisma.OpportunityWhereInput | null
+  isNot?: Prisma.OpportunityWhereInput | null
 }
 
 export type OpportunityCreateNestedManyWithoutTenantInput = {
@@ -517,6 +536,38 @@ export type EnumOpportunityStatusFieldUpdateOperationsInput = {
   set?: $Enums.OpportunityStatus
 }
 
+export type OpportunityCreateNestedOneWithoutInteractionLogsInput = {
+  create?: Prisma.XOR<Prisma.OpportunityCreateWithoutInteractionLogsInput, Prisma.OpportunityUncheckedCreateWithoutInteractionLogsInput>
+  connectOrCreate?: Prisma.OpportunityCreateOrConnectWithoutInteractionLogsInput
+  connect?: Prisma.OpportunityWhereUniqueInput
+}
+
+export type OpportunityUpdateOneWithoutInteractionLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.OpportunityCreateWithoutInteractionLogsInput, Prisma.OpportunityUncheckedCreateWithoutInteractionLogsInput>
+  connectOrCreate?: Prisma.OpportunityCreateOrConnectWithoutInteractionLogsInput
+  upsert?: Prisma.OpportunityUpsertWithoutInteractionLogsInput
+  disconnect?: Prisma.OpportunityWhereInput | boolean
+  delete?: Prisma.OpportunityWhereInput | boolean
+  connect?: Prisma.OpportunityWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OpportunityUpdateToOneWithWhereWithoutInteractionLogsInput, Prisma.OpportunityUpdateWithoutInteractionLogsInput>, Prisma.OpportunityUncheckedUpdateWithoutInteractionLogsInput>
+}
+
+export type OpportunityCreateNestedOneWithoutQuotationsInput = {
+  create?: Prisma.XOR<Prisma.OpportunityCreateWithoutQuotationsInput, Prisma.OpportunityUncheckedCreateWithoutQuotationsInput>
+  connectOrCreate?: Prisma.OpportunityCreateOrConnectWithoutQuotationsInput
+  connect?: Prisma.OpportunityWhereUniqueInput
+}
+
+export type OpportunityUpdateOneWithoutQuotationsNestedInput = {
+  create?: Prisma.XOR<Prisma.OpportunityCreateWithoutQuotationsInput, Prisma.OpportunityUncheckedCreateWithoutQuotationsInput>
+  connectOrCreate?: Prisma.OpportunityCreateOrConnectWithoutQuotationsInput
+  upsert?: Prisma.OpportunityUpsertWithoutQuotationsInput
+  disconnect?: Prisma.OpportunityWhereInput | boolean
+  delete?: Prisma.OpportunityWhereInput | boolean
+  connect?: Prisma.OpportunityWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OpportunityUpdateToOneWithWhereWithoutQuotationsInput, Prisma.OpportunityUpdateWithoutQuotationsInput>, Prisma.OpportunityUncheckedUpdateWithoutQuotationsInput>
+}
+
 export type OpportunityCreateWithoutTenantInput = {
   id?: string
   title: string
@@ -525,6 +576,8 @@ export type OpportunityCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutOpportunitiesInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutOpportunityInput
+  quotations?: Prisma.QuotationCreateNestedManyWithoutOpportunityInput
 }
 
 export type OpportunityUncheckedCreateWithoutTenantInput = {
@@ -535,6 +588,8 @@ export type OpportunityUncheckedCreateWithoutTenantInput = {
   customerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutOpportunityInput
+  quotations?: Prisma.QuotationUncheckedCreateNestedManyWithoutOpportunityInput
 }
 
 export type OpportunityCreateOrConnectWithoutTenantInput = {
@@ -585,6 +640,8 @@ export type OpportunityCreateWithoutCustomerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutOpportunitiesInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutOpportunityInput
+  quotations?: Prisma.QuotationCreateNestedManyWithoutOpportunityInput
 }
 
 export type OpportunityUncheckedCreateWithoutCustomerInput = {
@@ -595,6 +652,8 @@ export type OpportunityUncheckedCreateWithoutCustomerInput = {
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutOpportunityInput
+  quotations?: Prisma.QuotationUncheckedCreateNestedManyWithoutOpportunityInput
 }
 
 export type OpportunityCreateOrConnectWithoutCustomerInput = {
@@ -623,6 +682,134 @@ export type OpportunityUpdateManyWithWhereWithoutCustomerInput = {
   data: Prisma.XOR<Prisma.OpportunityUpdateManyMutationInput, Prisma.OpportunityUncheckedUpdateManyWithoutCustomerInput>
 }
 
+export type OpportunityCreateWithoutInteractionLogsInput = {
+  id?: string
+  title: string
+  value: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.OpportunityStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  customer: Prisma.CustomerCreateNestedOneWithoutOpportunitiesInput
+  tenant: Prisma.TenantCreateNestedOneWithoutOpportunitiesInput
+  quotations?: Prisma.QuotationCreateNestedManyWithoutOpportunityInput
+}
+
+export type OpportunityUncheckedCreateWithoutInteractionLogsInput = {
+  id?: string
+  title: string
+  value: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.OpportunityStatus
+  customerId: string
+  tenantId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  quotations?: Prisma.QuotationUncheckedCreateNestedManyWithoutOpportunityInput
+}
+
+export type OpportunityCreateOrConnectWithoutInteractionLogsInput = {
+  where: Prisma.OpportunityWhereUniqueInput
+  create: Prisma.XOR<Prisma.OpportunityCreateWithoutInteractionLogsInput, Prisma.OpportunityUncheckedCreateWithoutInteractionLogsInput>
+}
+
+export type OpportunityUpsertWithoutInteractionLogsInput = {
+  update: Prisma.XOR<Prisma.OpportunityUpdateWithoutInteractionLogsInput, Prisma.OpportunityUncheckedUpdateWithoutInteractionLogsInput>
+  create: Prisma.XOR<Prisma.OpportunityCreateWithoutInteractionLogsInput, Prisma.OpportunityUncheckedCreateWithoutInteractionLogsInput>
+  where?: Prisma.OpportunityWhereInput
+}
+
+export type OpportunityUpdateToOneWithWhereWithoutInteractionLogsInput = {
+  where?: Prisma.OpportunityWhereInput
+  data: Prisma.XOR<Prisma.OpportunityUpdateWithoutInteractionLogsInput, Prisma.OpportunityUncheckedUpdateWithoutInteractionLogsInput>
+}
+
+export type OpportunityUpdateWithoutInteractionLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  value?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumOpportunityStatusFieldUpdateOperationsInput | $Enums.OpportunityStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutOpportunitiesNestedInput
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutOpportunitiesNestedInput
+  quotations?: Prisma.QuotationUpdateManyWithoutOpportunityNestedInput
+}
+
+export type OpportunityUncheckedUpdateWithoutInteractionLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  value?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumOpportunityStatusFieldUpdateOperationsInput | $Enums.OpportunityStatus
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  quotations?: Prisma.QuotationUncheckedUpdateManyWithoutOpportunityNestedInput
+}
+
+export type OpportunityCreateWithoutQuotationsInput = {
+  id?: string
+  title: string
+  value: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.OpportunityStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  customer: Prisma.CustomerCreateNestedOneWithoutOpportunitiesInput
+  tenant: Prisma.TenantCreateNestedOneWithoutOpportunitiesInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutOpportunityInput
+}
+
+export type OpportunityUncheckedCreateWithoutQuotationsInput = {
+  id?: string
+  title: string
+  value: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.OpportunityStatus
+  customerId: string
+  tenantId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutOpportunityInput
+}
+
+export type OpportunityCreateOrConnectWithoutQuotationsInput = {
+  where: Prisma.OpportunityWhereUniqueInput
+  create: Prisma.XOR<Prisma.OpportunityCreateWithoutQuotationsInput, Prisma.OpportunityUncheckedCreateWithoutQuotationsInput>
+}
+
+export type OpportunityUpsertWithoutQuotationsInput = {
+  update: Prisma.XOR<Prisma.OpportunityUpdateWithoutQuotationsInput, Prisma.OpportunityUncheckedUpdateWithoutQuotationsInput>
+  create: Prisma.XOR<Prisma.OpportunityCreateWithoutQuotationsInput, Prisma.OpportunityUncheckedCreateWithoutQuotationsInput>
+  where?: Prisma.OpportunityWhereInput
+}
+
+export type OpportunityUpdateToOneWithWhereWithoutQuotationsInput = {
+  where?: Prisma.OpportunityWhereInput
+  data: Prisma.XOR<Prisma.OpportunityUpdateWithoutQuotationsInput, Prisma.OpportunityUncheckedUpdateWithoutQuotationsInput>
+}
+
+export type OpportunityUpdateWithoutQuotationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  value?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumOpportunityStatusFieldUpdateOperationsInput | $Enums.OpportunityStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutOpportunitiesNestedInput
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutOpportunitiesNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutOpportunityNestedInput
+}
+
+export type OpportunityUncheckedUpdateWithoutQuotationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  value?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumOpportunityStatusFieldUpdateOperationsInput | $Enums.OpportunityStatus
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutOpportunityNestedInput
+}
+
 export type OpportunityCreateManyTenantInput = {
   id?: string
   title: string
@@ -641,6 +828,8 @@ export type OpportunityUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutOpportunitiesNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutOpportunityNestedInput
+  quotations?: Prisma.QuotationUpdateManyWithoutOpportunityNestedInput
 }
 
 export type OpportunityUncheckedUpdateWithoutTenantInput = {
@@ -651,6 +840,8 @@ export type OpportunityUncheckedUpdateWithoutTenantInput = {
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutOpportunityNestedInput
+  quotations?: Prisma.QuotationUncheckedUpdateManyWithoutOpportunityNestedInput
 }
 
 export type OpportunityUncheckedUpdateManyWithoutTenantInput = {
@@ -681,6 +872,8 @@ export type OpportunityUpdateWithoutCustomerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutOpportunitiesNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutOpportunityNestedInput
+  quotations?: Prisma.QuotationUpdateManyWithoutOpportunityNestedInput
 }
 
 export type OpportunityUncheckedUpdateWithoutCustomerInput = {
@@ -691,6 +884,8 @@ export type OpportunityUncheckedUpdateWithoutCustomerInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutOpportunityNestedInput
+  quotations?: Prisma.QuotationUncheckedUpdateManyWithoutOpportunityNestedInput
 }
 
 export type OpportunityUncheckedUpdateManyWithoutCustomerInput = {
@@ -704,6 +899,44 @@ export type OpportunityUncheckedUpdateManyWithoutCustomerInput = {
 }
 
 
+/**
+ * Count Type OpportunityCountOutputType
+ */
+
+export type OpportunityCountOutputType = {
+  interactionLogs: number
+  quotations: number
+}
+
+export type OpportunityCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  interactionLogs?: boolean | OpportunityCountOutputTypeCountInteractionLogsArgs
+  quotations?: boolean | OpportunityCountOutputTypeCountQuotationsArgs
+}
+
+/**
+ * OpportunityCountOutputType without action
+ */
+export type OpportunityCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OpportunityCountOutputType
+   */
+  select?: Prisma.OpportunityCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * OpportunityCountOutputType without action
+ */
+export type OpportunityCountOutputTypeCountInteractionLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InteractionLogWhereInput
+}
+
+/**
+ * OpportunityCountOutputType without action
+ */
+export type OpportunityCountOutputTypeCountQuotationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuotationWhereInput
+}
+
 
 export type OpportunitySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -716,6 +949,9 @@ export type OpportunitySelect<ExtArgs extends runtime.Types.Extensions.InternalA
   updatedAt?: boolean
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  interactionLogs?: boolean | Prisma.Opportunity$interactionLogsArgs<ExtArgs>
+  quotations?: boolean | Prisma.Opportunity$quotationsArgs<ExtArgs>
+  _count?: boolean | Prisma.OpportunityCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["opportunity"]>
 
 export type OpportunitySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -759,6 +995,9 @@ export type OpportunityOmit<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type OpportunityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  interactionLogs?: boolean | Prisma.Opportunity$interactionLogsArgs<ExtArgs>
+  quotations?: boolean | Prisma.Opportunity$quotationsArgs<ExtArgs>
+  _count?: boolean | Prisma.OpportunityCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OpportunityIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -774,6 +1013,8 @@ export type $OpportunityPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     customer: Prisma.$CustomerPayload<ExtArgs>
     tenant: Prisma.$TenantPayload<ExtArgs>
+    interactionLogs: Prisma.$InteractionLogPayload<ExtArgs>[]
+    quotations: Prisma.$QuotationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1180,6 +1421,8 @@ export interface Prisma__OpportunityClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   customer<T extends Prisma.CustomerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerDefaultArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  interactionLogs<T extends Prisma.Opportunity$interactionLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Opportunity$interactionLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InteractionLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  quotations<T extends Prisma.Opportunity$quotationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Opportunity$quotationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuotationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1615,6 +1858,54 @@ export type OpportunityDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many Opportunities to delete.
    */
   limit?: number
+}
+
+/**
+ * Opportunity.interactionLogs
+ */
+export type Opportunity$interactionLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InteractionLog
+   */
+  select?: Prisma.InteractionLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InteractionLog
+   */
+  omit?: Prisma.InteractionLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InteractionLogInclude<ExtArgs> | null
+  where?: Prisma.InteractionLogWhereInput
+  orderBy?: Prisma.InteractionLogOrderByWithRelationInput | Prisma.InteractionLogOrderByWithRelationInput[]
+  cursor?: Prisma.InteractionLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InteractionLogScalarFieldEnum | Prisma.InteractionLogScalarFieldEnum[]
+}
+
+/**
+ * Opportunity.quotations
+ */
+export type Opportunity$quotationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Quotation
+   */
+  select?: Prisma.QuotationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Quotation
+   */
+  omit?: Prisma.QuotationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuotationInclude<ExtArgs> | null
+  where?: Prisma.QuotationWhereInput
+  orderBy?: Prisma.QuotationOrderByWithRelationInput | Prisma.QuotationOrderByWithRelationInput[]
+  cursor?: Prisma.QuotationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuotationScalarFieldEnum | Prisma.QuotationScalarFieldEnum[]
 }
 
 /**

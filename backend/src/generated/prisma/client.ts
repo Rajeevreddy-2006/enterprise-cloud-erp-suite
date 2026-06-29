@@ -214,3 +214,13 @@ export type ResourceAllocation = Prisma.ResourceAllocationModel
  * 
  */
 export type TimeEntry = Prisma.TimeEntryModel
+/**
+ * Model InteractionLog
+ * 
+ */
+export type InteractionLog = Prisma.InteractionLogModel
+/**
+ * Model Quotation
+ * 
+ */
+export type Quotation = Prisma.QuotationModel

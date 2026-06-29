@@ -1,0 +1,14 @@
+import { useMutation,useQueryClient } from "@tanstack/react-query";
+import attendanceService from "@/services/attendance.service";
+
+export function useDeleteAttendance(){
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: attendanceService.deleteAttendance,
+        onSuccess(){
+            queryClient.invalidateQueries({
+                queryKey:[ "attendance" ]
+            });
+        }
+    });
+}

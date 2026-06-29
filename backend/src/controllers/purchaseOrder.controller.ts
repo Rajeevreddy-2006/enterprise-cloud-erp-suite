@@ -34,13 +34,17 @@ class PurchaseOrderController {
     async (req: Request, res: Response) => {
       const user = (req as any).user;
       const purchaseOrder = await purchaseOrderService.createPurchaseOrder({...req.body,tenantId: user.tenantId,});
-      await auditLogService.createLog({
-        action: "CREATE",
-        entity: "PURCHASE_ORDER",
-        entityId: purchaseOrder.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "CREATE",
+            entity: "PURCHASE_ORDER",
+            entityId: purchaseOrder.id,
+        }
+      );
       return res.status(201).json(
         successResponse(purchaseOrder,"Purchase order created successfully")
       );
@@ -52,13 +56,17 @@ class PurchaseOrderController {
       const id = req.params.id as string;
       const user = (req as any).user;
       const purchaseOrder = await purchaseOrderService.updatePurchaseOrder(id,req.body);
-      await auditLogService.createLog({
-        action: "UPDATE",
-        entity: "PURCHASE_ORDER",
-        entityId: purchaseOrder.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "UPDATE",
+            entity: "PURCHASE_ORDER",
+            entityId: purchaseOrder.id,
+        }
+      );
       return res.status(200).json(
         successResponse(purchaseOrder,"Purchase order updated successfully")
       );
@@ -70,13 +78,17 @@ class PurchaseOrderController {
       const id = req.params.id as string;
       const user = (req as any).user;
       await purchaseOrderService.deletePurchaseOrder(id);
-      await auditLogService.createLog({
-        action: "DELETE",
-        entity: "PURCHASE_ORDER",
-        entityId: id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "DELETE",
+            entity: "PURCHASE_ORDER",
+            entityId: id,
+        }
+      );
       return res.status(200).json(
         successResponse(null,"Purchase order deleted successfully")
       );

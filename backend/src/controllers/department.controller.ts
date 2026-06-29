@@ -34,13 +34,17 @@ class DepartmentController {
     async (req: Request, res: Response) => {
       const user = (req as any).user;
       const department = await departmentService.createDepartment({ ...req.body, tenantId: user.tenantId, });
-      await auditLogService.createLog({
-        action: "CREATE",
-        entity: "DEPARTMENT",
-        entityId: department.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "CREATE",
+            entity: "DEPARTMENT",
+            entityId: department.id,
+        }
+      );
       return res.status(201).json(
         successResponse(department,"Department created successfully")
       );
@@ -52,13 +56,17 @@ class DepartmentController {
       const id = req.params.id as string;
       const user = (req as any).user;
       const department = await departmentService.updateDepartment(id,req.body);
-      await auditLogService.createLog({
-        action: "UPDATE",
-        entity: "DEPARTMENT",
-        entityId: department.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "UPDATE",
+            entity: "DEPARTMENT",
+            entityId: department.id,
+        }
+      );
       return res.status(200).json(
         successResponse(department,"Department updated successfully")
       );
@@ -70,13 +78,17 @@ class DepartmentController {
       const id = req.params.id as string;
       const user = (req as any).user;
       await departmentService.deleteDepartment(id);
-      await auditLogService.createLog({
-        action: "DELETE",
-        entity: "DEPARTMENT",
-        entityId: id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "DELETE",
+            entity: "DEPARTMENT",
+            entityId: id,
+        }
+      );
       return res.status(200).json(
         successResponse(null,"Department deleted successfully")
       );

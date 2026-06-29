@@ -8,5 +8,7 @@ export interface CreateSalesOrderDto {
 }
 
 export interface UpdateSalesOrderDto {
+  quantity?: number;
   status?: SalesOrderStatus;
+  totalAmount?: number;
 }

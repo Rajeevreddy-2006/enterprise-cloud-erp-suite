@@ -37,6 +37,31 @@ class ProjectService {
     };
   }
 
+  async getProjectDashboard(projectId: string) {
+    const project = await projectRepository.getProjectDashboard(projectId);
+    if (!project) {
+        throw new AppError("Project not found",404);
+    }
+    const totalTasks = project.tasks.length;
+    const completedTasks = project.tasks.filter(task => task.status === "DONE").length;
+    const totalMilestones = project.milestones.length;
+    const completedMilestones = project.milestones.filter(milestone => milestone.status ==="COMPLETED").length;
+    const totalHours = project.timeEntries.reduce((sum, entry) => sum + Number(entry.hours),0);
+    const allocatedEmployees = project.resourceAllocations.length;
+    const progress = ((completedTasks /(totalTasks || 1)) + ( completedMilestones / (totalMilestones || 1))) * 50;
+    return {
+        projectId: project.id,
+        projectName: project.name,
+        totalTasks,
+        completedTasks,
+        totalMilestones,
+        completedMilestones,
+        allocatedEmployees,
+        totalHours,
+        progress,
+    };
+  }
+
   async createProject(data: CreateProjectDto) {
     return projectRepository.createProject(data);
   }

@@ -1,24 +1,55 @@
 import prisma from "../config/database";
 import { CreateAssetDto, UpdateAssetDto, } from "../types/asset.types";
-import { AssetStatus } from "../generated/prisma/enums";
+import { AssetStatus, AssetCategory } from "../generated/prisma/enums";
 
 class AssetRepository {
 
   async getAllAssets() {
     return prisma.asset.findMany({
-      include: { assignments: true, tenant: true, },
+      include: {
+        assignments: {
+          include: { employee: true, },
+        },
+        tenant: true,
+      },
     });
   }
 
   async getAssetById(id: string) {
     return prisma.asset.findUnique({
       where: { id },
-      include: { assignments: true, tenant: true, },
+      include: {
+        assignments: {
+          include: { employee: true, },
+        },
+        tenant: true,
+      },
     });
   }
 
-  async createAsset(data: CreateAssetDto) {
-    return prisma.asset.create({data,});
+  async getAssetBySerialNumber(serialNumber: string) {
+    return prisma.asset.findUnique({
+      where: { serialNumber, },
+    });
+  }
+
+  async getAssetByCode(assetCode: string) {
+    return prisma.asset.findUnique({
+      where: { assetCode, },
+    });
+  }
+
+  async createAsset(data: {
+    assetCode: string;
+    name: string;
+    serialNumber: string;
+    category: AssetCategory;
+    purchaseDate: Date;
+    purchaseCost: number;
+    currentValue: number;
+    tenantId: string;
+  }) {
+    return prisma.asset.create({ data, });
   }
 
   async updateAsset(id: string,data: UpdateAssetDto) {
@@ -36,47 +67,47 @@ class AssetRepository {
 
   async getEmployeeById(employeeId: string) {
     return prisma.employee.findUnique({
-        where: { id: employeeId },
+      where: { id: employeeId, },
     });
   }
 
   async getActiveAssignment(assetId: string) {
     return prisma.assetAssignment.findFirst({
-        where: { assetId, returnedAt: null, },
+      where: { assetId, returnedAt: null,},
     });
   }
 
   async assignAsset(assetId: string,employeeId: string,tenantId: string) {
     return prisma.assetAssignment.create({
-        data: { assetId, employeeId, tenantId,},
+      data: { assetId, employeeId, tenantId, },
     });
   }
 
   async returnAsset(assignmentId: string) {
     return prisma.assetAssignment.update({
-        where: { id: assignmentId, },
-        data: { returnedAt: new Date(), },
+      where: { id: assignmentId, },
+      data: { returnedAt: new Date(), },
     });
   }
 
   async getAssignmentById(id: string) {
     return prisma.assetAssignment.findUnique({
-        where: { id },
+      where: { id, },
     });
   }
 
-  async updateAssetStatus(id: string, status: AssetStatus) {
+  async updateAssetStatus(id: string,status: AssetStatus) {
     return prisma.asset.update({
-        where: { id },
-        data: { status },
+      where: { id, },
+      data: { status, },
     });
   }
 
   async getAssetAssignments(assetId: string) {
     return prisma.assetAssignment.findMany({
-        where: { assetId },
-        include: { employee: true, },
-        orderBy: { assignedAt: "desc", },
+      where: { assetId, },
+      include: { employee: true, },
+      orderBy: { assignedAt: "desc", },
     });
   }
 }

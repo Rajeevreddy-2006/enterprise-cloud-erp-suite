@@ -33,13 +33,17 @@ class AttendanceController {
     async (req: Request, res: Response) => {
       const user = (req as any).user;
       const attendance = await attendanceService.createAttendance({...req.body,tenantId: user.tenantId,});
-      await auditLogService.createLog({
-        action: "CREATE",
-        entity: "ATTENDANCE",
-        entityId: attendance.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "CREATE",
+            entity: "ATTENDANCE",
+            entityId: attendance.id,
+        }
+      );
       return res.status(201).json(
         successResponse(attendance,"Attendance created successfully")
       );
@@ -50,13 +54,17 @@ class AttendanceController {
     async (req: Request, res: Response) => {
       const user = (req as any).user;
       const attendance = await attendanceService.updateAttendance(req.params.id as string,req.body);
-      await auditLogService.createLog({
-        action: "UPDATE",
-        entity: "ATTENDANCE",
-        entityId: attendance.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "UPDATE",
+            entity: "ATTENDANCE",
+            entityId: attendance.id,
+        }
+      );
       return res.status(200).json(
         successResponse(attendance,"Attendance updated successfully")
       );
@@ -67,13 +75,17 @@ class AttendanceController {
     async (req: Request, res: Response) => {
       const user = (req as any).user;
       await attendanceService.deleteAttendance(req.params.id as string);
-      await auditLogService.createLog({
-        action: "DELETE",
-        entity: "ATTENDANCE",
-        entityId: req.params.id as string,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "DELETE",
+            entity: "ATTENDANCE",
+            entityId: req.params.id as string,
+        }
+      );
       return res.status(200).json(
         successResponse(null,"Attendance deleted successfully")
       );

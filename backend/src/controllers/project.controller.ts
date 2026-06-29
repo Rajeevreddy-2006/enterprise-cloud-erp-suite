@@ -32,6 +32,15 @@ class ProjectController {
     }
   );
 
+  getProjectDashboard = asyncHandler(
+    async (req: Request,res: Response) => {
+      const dashboard = await projectService.getProjectDashboard(req.params.id as string);
+      return res.status(200).json(
+          successResponse(dashboard,"Project dashboard fetched successfully")
+        );
+    }
+  );
+
   createProject = asyncHandler(
     async (req: Request,res: Response) => {
       const user = (req as any).user;

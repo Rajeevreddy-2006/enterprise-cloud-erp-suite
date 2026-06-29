@@ -14,12 +14,39 @@ class AuthController {
     }
   );
 
+  register = asyncHandler(
+    async(req,res)=>{
+      const result = await authService.register(req.body);
+      return res.status(201).json(
+        successResponse(result,"Registration successful")
+      );
+    }
+  );
+
   refreshToken = asyncHandler(
     async (req: Request,res: Response) => {
         const result = await authService.refreshAccessToken(req.body.refreshToken);
         return res.status(200).json(
             successResponse(result,"Token refreshed successfully")
         );
+    }
+  );
+
+  forgotPassword = asyncHandler(
+    async(req,res)=>{
+      const result = await authService.forgotPassword(req.body.email);
+      return res.status(200).json(
+        successResponse(result,"Reset link sent")
+      );
+    }
+  );
+
+  resetPassword = asyncHandler(
+    async(req,res)=>{
+      const result= await authService.resetPassword(req.body);
+      return res.status(200).json(
+        successResponse(result,"Password updated")
+      );
     }
   );
 

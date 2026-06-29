@@ -85,7 +85,9 @@ export const ModelName = {
   Task: 'Task',
   Milestone: 'Milestone',
   ResourceAllocation: 'ResourceAllocation',
-  TimeEntry: 'TimeEntry'
+  TimeEntry: 'TimeEntry',
+  InteractionLog: 'InteractionLog',
+  Quotation: 'Quotation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -125,6 +127,8 @@ export const UserScalarFieldEnum = {
   role: 'role',
   isActive: 'isActive',
   refreshToken: 'refreshToken',
+  resetToken: 'resetToken',
+  resetTokenExpiresAt: 'resetTokenExpiresAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -321,10 +325,13 @@ export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typ
 
 export const AssetScalarFieldEnum = {
   id: 'id',
+  assetCode: 'assetCode',
   name: 'name',
   serialNumber: 'serialNumber',
+  category: 'category',
   purchaseDate: 'purchaseDate',
   purchaseCost: 'purchaseCost',
+  currentValue: 'currentValue',
   status: 'status',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
@@ -341,6 +348,7 @@ export const AssetAssignmentScalarFieldEnum = {
   employeeId: 'employeeId',
   assignedAt: 'assignedAt',
   returnedAt: 'returnedAt',
+  remarks: 'remarks',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -426,6 +434,7 @@ export const SalesOrderScalarFieldEnum = {
   orderNumber: 'orderNumber',
   quantity: 'quantity',
   unitPrice: 'unitPrice',
+  totalAmount: 'totalAmount',
   status: 'status',
   customerId: 'customerId',
   inventoryItemId: 'inventoryItemId',
@@ -606,6 +615,40 @@ export const TimeEntryScalarFieldEnum = {
 } as const
 
 export type TimeEntryScalarFieldEnum = (typeof TimeEntryScalarFieldEnum)[keyof typeof TimeEntryScalarFieldEnum]
+
+
+export const InteractionLogScalarFieldEnum = {
+  id: 'id',
+  interactionType: 'interactionType',
+  subject: 'subject',
+  notes: 'notes',
+  interactionDate: 'interactionDate',
+  customerId: 'customerId',
+  leadId: 'leadId',
+  opportunityId: 'opportunityId',
+  employeeId: 'employeeId',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type InteractionLogScalarFieldEnum = (typeof InteractionLogScalarFieldEnum)[keyof typeof InteractionLogScalarFieldEnum]
+
+
+export const QuotationScalarFieldEnum = {
+  id: 'id',
+  quotationNumber: 'quotationNumber',
+  customerId: 'customerId',
+  opportunityId: 'opportunityId',
+  amount: 'amount',
+  status: 'status',
+  validUntil: 'validUntil',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type QuotationScalarFieldEnum = (typeof QuotationScalarFieldEnum)[keyof typeof QuotationScalarFieldEnum]
 
 
 export const SortOrder = {

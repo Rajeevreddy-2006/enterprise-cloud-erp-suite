@@ -38,6 +38,8 @@ import taskRoutes from "./task.routes";
 import milestoneRoutes from "./milestone.routes";
 import resourceAllocationRoutes from "./resourceAllocation.routes";
 import timeEntryRoutes from "./timeEntry.routes";
+import interactionLogRoutes from "./interactionLog.routes";
+import quotationRoutes from "./quotation.routes";
 
 const router = Router();
 
@@ -80,5 +82,7 @@ router.use("/tasks",taskRoutes);
 router.use("/milestones",milestoneRoutes);
 router.use("/resource-allocations",resourceAllocationRoutes);
 router.use("/time-entries",timeEntryRoutes);
+router.use("/interaction-logs",interactionLogRoutes);
+router.use("/quotations",quotationRoutes);
 
 export default router;

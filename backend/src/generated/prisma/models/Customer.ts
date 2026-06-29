@@ -210,6 +210,8 @@ export type CustomerWhereInput = {
   leads?: Prisma.LeadListRelationFilter
   opportunities?: Prisma.OpportunityListRelationFilter
   salesOrders?: Prisma.SalesOrderListRelationFilter
+  interactionLogs?: Prisma.InteractionLogListRelationFilter
+  quotations?: Prisma.QuotationListRelationFilter
 }
 
 export type CustomerOrderByWithRelationInput = {
@@ -225,6 +227,8 @@ export type CustomerOrderByWithRelationInput = {
   leads?: Prisma.LeadOrderByRelationAggregateInput
   opportunities?: Prisma.OpportunityOrderByRelationAggregateInput
   salesOrders?: Prisma.SalesOrderOrderByRelationAggregateInput
+  interactionLogs?: Prisma.InteractionLogOrderByRelationAggregateInput
+  quotations?: Prisma.QuotationOrderByRelationAggregateInput
 }
 
 export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -243,6 +247,8 @@ export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   leads?: Prisma.LeadListRelationFilter
   opportunities?: Prisma.OpportunityListRelationFilter
   salesOrders?: Prisma.SalesOrderListRelationFilter
+  interactionLogs?: Prisma.InteractionLogListRelationFilter
+  quotations?: Prisma.QuotationListRelationFilter
 }, "id">
 
 export type CustomerOrderByWithAggregationInput = {
@@ -285,6 +291,8 @@ export type CustomerCreateInput = {
   leads?: Prisma.LeadCreateNestedManyWithoutCustomerInput
   opportunities?: Prisma.OpportunityCreateNestedManyWithoutCustomerInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCustomerInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutCustomerInput
+  quotations?: Prisma.QuotationCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateInput = {
@@ -299,6 +307,8 @@ export type CustomerUncheckedCreateInput = {
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCustomerInput
   opportunities?: Prisma.OpportunityUncheckedCreateNestedManyWithoutCustomerInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCustomerInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutCustomerInput
+  quotations?: Prisma.QuotationUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUpdateInput = {
@@ -313,6 +323,8 @@ export type CustomerUpdateInput = {
   leads?: Prisma.LeadUpdateManyWithoutCustomerNestedInput
   opportunities?: Prisma.OpportunityUpdateManyWithoutCustomerNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutCustomerNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutCustomerNestedInput
+  quotations?: Prisma.QuotationUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateInput = {
@@ -327,6 +339,8 @@ export type CustomerUncheckedUpdateInput = {
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCustomerNestedInput
   opportunities?: Prisma.OpportunityUncheckedUpdateManyWithoutCustomerNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCustomerNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutCustomerNestedInput
+  quotations?: Prisma.QuotationUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateManyInput = {
@@ -493,6 +507,34 @@ export type CustomerUpdateOneRequiredWithoutSalesOrdersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutSalesOrdersInput, Prisma.CustomerUpdateWithoutSalesOrdersInput>, Prisma.CustomerUncheckedUpdateWithoutSalesOrdersInput>
 }
 
+export type CustomerCreateNestedOneWithoutInteractionLogsInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutInteractionLogsInput, Prisma.CustomerUncheckedCreateWithoutInteractionLogsInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutInteractionLogsInput
+  connect?: Prisma.CustomerWhereUniqueInput
+}
+
+export type CustomerUpdateOneRequiredWithoutInteractionLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutInteractionLogsInput, Prisma.CustomerUncheckedCreateWithoutInteractionLogsInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutInteractionLogsInput
+  upsert?: Prisma.CustomerUpsertWithoutInteractionLogsInput
+  connect?: Prisma.CustomerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutInteractionLogsInput, Prisma.CustomerUpdateWithoutInteractionLogsInput>, Prisma.CustomerUncheckedUpdateWithoutInteractionLogsInput>
+}
+
+export type CustomerCreateNestedOneWithoutQuotationsInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutQuotationsInput, Prisma.CustomerUncheckedCreateWithoutQuotationsInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutQuotationsInput
+  connect?: Prisma.CustomerWhereUniqueInput
+}
+
+export type CustomerUpdateOneRequiredWithoutQuotationsNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutQuotationsInput, Prisma.CustomerUncheckedCreateWithoutQuotationsInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutQuotationsInput
+  upsert?: Prisma.CustomerUpsertWithoutQuotationsInput
+  connect?: Prisma.CustomerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutQuotationsInput, Prisma.CustomerUpdateWithoutQuotationsInput>, Prisma.CustomerUncheckedUpdateWithoutQuotationsInput>
+}
+
 export type CustomerCreateWithoutTenantInput = {
   id?: string
   name: string
@@ -504,6 +546,8 @@ export type CustomerCreateWithoutTenantInput = {
   leads?: Prisma.LeadCreateNestedManyWithoutCustomerInput
   opportunities?: Prisma.OpportunityCreateNestedManyWithoutCustomerInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCustomerInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutCustomerInput
+  quotations?: Prisma.QuotationCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutTenantInput = {
@@ -517,6 +561,8 @@ export type CustomerUncheckedCreateWithoutTenantInput = {
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCustomerInput
   opportunities?: Prisma.OpportunityUncheckedCreateNestedManyWithoutCustomerInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCustomerInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutCustomerInput
+  quotations?: Prisma.QuotationUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutTenantInput = {
@@ -570,6 +616,8 @@ export type CustomerCreateWithoutLeadsInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutCustomersInput
   opportunities?: Prisma.OpportunityCreateNestedManyWithoutCustomerInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCustomerInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutCustomerInput
+  quotations?: Prisma.QuotationCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutLeadsInput = {
@@ -583,6 +631,8 @@ export type CustomerUncheckedCreateWithoutLeadsInput = {
   updatedAt?: Date | string
   opportunities?: Prisma.OpportunityUncheckedCreateNestedManyWithoutCustomerInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCustomerInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutCustomerInput
+  quotations?: Prisma.QuotationUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutLeadsInput = {
@@ -612,6 +662,8 @@ export type CustomerUpdateWithoutLeadsInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCustomersNestedInput
   opportunities?: Prisma.OpportunityUpdateManyWithoutCustomerNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutCustomerNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutCustomerNestedInput
+  quotations?: Prisma.QuotationUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutLeadsInput = {
@@ -625,6 +677,8 @@ export type CustomerUncheckedUpdateWithoutLeadsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   opportunities?: Prisma.OpportunityUncheckedUpdateManyWithoutCustomerNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCustomerNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutCustomerNestedInput
+  quotations?: Prisma.QuotationUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutOpportunitiesInput = {
@@ -638,6 +692,8 @@ export type CustomerCreateWithoutOpportunitiesInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutCustomersInput
   leads?: Prisma.LeadCreateNestedManyWithoutCustomerInput
   salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCustomerInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutCustomerInput
+  quotations?: Prisma.QuotationCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutOpportunitiesInput = {
@@ -651,6 +707,8 @@ export type CustomerUncheckedCreateWithoutOpportunitiesInput = {
   updatedAt?: Date | string
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCustomerInput
   salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCustomerInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutCustomerInput
+  quotations?: Prisma.QuotationUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutOpportunitiesInput = {
@@ -680,6 +738,8 @@ export type CustomerUpdateWithoutOpportunitiesInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCustomersNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCustomerNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutCustomerNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutCustomerNestedInput
+  quotations?: Prisma.QuotationUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutOpportunitiesInput = {
@@ -693,6 +753,8 @@ export type CustomerUncheckedUpdateWithoutOpportunitiesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCustomerNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCustomerNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutCustomerNestedInput
+  quotations?: Prisma.QuotationUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutSalesOrdersInput = {
@@ -706,6 +768,8 @@ export type CustomerCreateWithoutSalesOrdersInput = {
   tenant: Prisma.TenantCreateNestedOneWithoutCustomersInput
   leads?: Prisma.LeadCreateNestedManyWithoutCustomerInput
   opportunities?: Prisma.OpportunityCreateNestedManyWithoutCustomerInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutCustomerInput
+  quotations?: Prisma.QuotationCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutSalesOrdersInput = {
@@ -719,6 +783,8 @@ export type CustomerUncheckedCreateWithoutSalesOrdersInput = {
   updatedAt?: Date | string
   leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCustomerInput
   opportunities?: Prisma.OpportunityUncheckedCreateNestedManyWithoutCustomerInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutCustomerInput
+  quotations?: Prisma.QuotationUncheckedCreateNestedManyWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutSalesOrdersInput = {
@@ -748,6 +814,8 @@ export type CustomerUpdateWithoutSalesOrdersInput = {
   tenant?: Prisma.TenantUpdateOneRequiredWithoutCustomersNestedInput
   leads?: Prisma.LeadUpdateManyWithoutCustomerNestedInput
   opportunities?: Prisma.OpportunityUpdateManyWithoutCustomerNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutCustomerNestedInput
+  quotations?: Prisma.QuotationUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutSalesOrdersInput = {
@@ -761,6 +829,160 @@ export type CustomerUncheckedUpdateWithoutSalesOrdersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCustomerNestedInput
   opportunities?: Prisma.OpportunityUncheckedUpdateManyWithoutCustomerNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutCustomerNestedInput
+  quotations?: Prisma.QuotationUncheckedUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerCreateWithoutInteractionLogsInput = {
+  id?: string
+  name: string
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutCustomersInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCustomerInput
+  opportunities?: Prisma.OpportunityCreateNestedManyWithoutCustomerInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCustomerInput
+  quotations?: Prisma.QuotationCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerUncheckedCreateWithoutInteractionLogsInput = {
+  id?: string
+  name: string
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  tenantId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCustomerInput
+  opportunities?: Prisma.OpportunityUncheckedCreateNestedManyWithoutCustomerInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCustomerInput
+  quotations?: Prisma.QuotationUncheckedCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerCreateOrConnectWithoutInteractionLogsInput = {
+  where: Prisma.CustomerWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutInteractionLogsInput, Prisma.CustomerUncheckedCreateWithoutInteractionLogsInput>
+}
+
+export type CustomerUpsertWithoutInteractionLogsInput = {
+  update: Prisma.XOR<Prisma.CustomerUpdateWithoutInteractionLogsInput, Prisma.CustomerUncheckedUpdateWithoutInteractionLogsInput>
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutInteractionLogsInput, Prisma.CustomerUncheckedCreateWithoutInteractionLogsInput>
+  where?: Prisma.CustomerWhereInput
+}
+
+export type CustomerUpdateToOneWithWhereWithoutInteractionLogsInput = {
+  where?: Prisma.CustomerWhereInput
+  data: Prisma.XOR<Prisma.CustomerUpdateWithoutInteractionLogsInput, Prisma.CustomerUncheckedUpdateWithoutInteractionLogsInput>
+}
+
+export type CustomerUpdateWithoutInteractionLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCustomersNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCustomerNestedInput
+  opportunities?: Prisma.OpportunityUpdateManyWithoutCustomerNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutCustomerNestedInput
+  quotations?: Prisma.QuotationUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerUncheckedUpdateWithoutInteractionLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCustomerNestedInput
+  opportunities?: Prisma.OpportunityUncheckedUpdateManyWithoutCustomerNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCustomerNestedInput
+  quotations?: Prisma.QuotationUncheckedUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerCreateWithoutQuotationsInput = {
+  id?: string
+  name: string
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutCustomersInput
+  leads?: Prisma.LeadCreateNestedManyWithoutCustomerInput
+  opportunities?: Prisma.OpportunityCreateNestedManyWithoutCustomerInput
+  salesOrders?: Prisma.SalesOrderCreateNestedManyWithoutCustomerInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerUncheckedCreateWithoutQuotationsInput = {
+  id?: string
+  name: string
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  tenantId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  leads?: Prisma.LeadUncheckedCreateNestedManyWithoutCustomerInput
+  opportunities?: Prisma.OpportunityUncheckedCreateNestedManyWithoutCustomerInput
+  salesOrders?: Prisma.SalesOrderUncheckedCreateNestedManyWithoutCustomerInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerCreateOrConnectWithoutQuotationsInput = {
+  where: Prisma.CustomerWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutQuotationsInput, Prisma.CustomerUncheckedCreateWithoutQuotationsInput>
+}
+
+export type CustomerUpsertWithoutQuotationsInput = {
+  update: Prisma.XOR<Prisma.CustomerUpdateWithoutQuotationsInput, Prisma.CustomerUncheckedUpdateWithoutQuotationsInput>
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutQuotationsInput, Prisma.CustomerUncheckedCreateWithoutQuotationsInput>
+  where?: Prisma.CustomerWhereInput
+}
+
+export type CustomerUpdateToOneWithWhereWithoutQuotationsInput = {
+  where?: Prisma.CustomerWhereInput
+  data: Prisma.XOR<Prisma.CustomerUpdateWithoutQuotationsInput, Prisma.CustomerUncheckedUpdateWithoutQuotationsInput>
+}
+
+export type CustomerUpdateWithoutQuotationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutCustomersNestedInput
+  leads?: Prisma.LeadUpdateManyWithoutCustomerNestedInput
+  opportunities?: Prisma.OpportunityUpdateManyWithoutCustomerNestedInput
+  salesOrders?: Prisma.SalesOrderUpdateManyWithoutCustomerNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerUncheckedUpdateWithoutQuotationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  leads?: Prisma.LeadUncheckedUpdateManyWithoutCustomerNestedInput
+  opportunities?: Prisma.OpportunityUncheckedUpdateManyWithoutCustomerNestedInput
+  salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCustomerNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerCreateManyTenantInput = {
@@ -784,6 +1006,8 @@ export type CustomerUpdateWithoutTenantInput = {
   leads?: Prisma.LeadUpdateManyWithoutCustomerNestedInput
   opportunities?: Prisma.OpportunityUpdateManyWithoutCustomerNestedInput
   salesOrders?: Prisma.SalesOrderUpdateManyWithoutCustomerNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutCustomerNestedInput
+  quotations?: Prisma.QuotationUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutTenantInput = {
@@ -797,6 +1021,8 @@ export type CustomerUncheckedUpdateWithoutTenantInput = {
   leads?: Prisma.LeadUncheckedUpdateManyWithoutCustomerNestedInput
   opportunities?: Prisma.OpportunityUncheckedUpdateManyWithoutCustomerNestedInput
   salesOrders?: Prisma.SalesOrderUncheckedUpdateManyWithoutCustomerNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutCustomerNestedInput
+  quotations?: Prisma.QuotationUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateManyWithoutTenantInput = {
@@ -818,12 +1044,16 @@ export type CustomerCountOutputType = {
   leads: number
   opportunities: number
   salesOrders: number
+  interactionLogs: number
+  quotations: number
 }
 
 export type CustomerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   leads?: boolean | CustomerCountOutputTypeCountLeadsArgs
   opportunities?: boolean | CustomerCountOutputTypeCountOpportunitiesArgs
   salesOrders?: boolean | CustomerCountOutputTypeCountSalesOrdersArgs
+  interactionLogs?: boolean | CustomerCountOutputTypeCountInteractionLogsArgs
+  quotations?: boolean | CustomerCountOutputTypeCountQuotationsArgs
 }
 
 /**
@@ -857,6 +1087,20 @@ export type CustomerCountOutputTypeCountSalesOrdersArgs<ExtArgs extends runtime.
   where?: Prisma.SalesOrderWhereInput
 }
 
+/**
+ * CustomerCountOutputType without action
+ */
+export type CustomerCountOutputTypeCountInteractionLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InteractionLogWhereInput
+}
+
+/**
+ * CustomerCountOutputType without action
+ */
+export type CustomerCountOutputTypeCountQuotationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuotationWhereInput
+}
+
 
 export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -871,6 +1115,8 @@ export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   leads?: boolean | Prisma.Customer$leadsArgs<ExtArgs>
   opportunities?: boolean | Prisma.Customer$opportunitiesArgs<ExtArgs>
   salesOrders?: boolean | Prisma.Customer$salesOrdersArgs<ExtArgs>
+  interactionLogs?: boolean | Prisma.Customer$interactionLogsArgs<ExtArgs>
+  quotations?: boolean | Prisma.Customer$quotationsArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customer"]>
 
@@ -915,6 +1161,8 @@ export type CustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   leads?: boolean | Prisma.Customer$leadsArgs<ExtArgs>
   opportunities?: boolean | Prisma.Customer$opportunitiesArgs<ExtArgs>
   salesOrders?: boolean | Prisma.Customer$salesOrdersArgs<ExtArgs>
+  interactionLogs?: boolean | Prisma.Customer$interactionLogsArgs<ExtArgs>
+  quotations?: boolean | Prisma.Customer$quotationsArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CustomerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -931,6 +1179,8 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     leads: Prisma.$LeadPayload<ExtArgs>[]
     opportunities: Prisma.$OpportunityPayload<ExtArgs>[]
     salesOrders: Prisma.$SalesOrderPayload<ExtArgs>[]
+    interactionLogs: Prisma.$InteractionLogPayload<ExtArgs>[]
+    quotations: Prisma.$QuotationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1339,6 +1589,8 @@ export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends runtime
   leads<T extends Prisma.Customer$leadsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$leadsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LeadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   opportunities<T extends Prisma.Customer$opportunitiesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$opportunitiesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OpportunityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   salesOrders<T extends Prisma.Customer$salesOrdersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$salesOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalesOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  interactionLogs<T extends Prisma.Customer$interactionLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$interactionLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InteractionLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  quotations<T extends Prisma.Customer$quotationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$quotationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuotationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1846,6 +2098,54 @@ export type Customer$salesOrdersArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.SalesOrderScalarFieldEnum | Prisma.SalesOrderScalarFieldEnum[]
+}
+
+/**
+ * Customer.interactionLogs
+ */
+export type Customer$interactionLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InteractionLog
+   */
+  select?: Prisma.InteractionLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InteractionLog
+   */
+  omit?: Prisma.InteractionLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InteractionLogInclude<ExtArgs> | null
+  where?: Prisma.InteractionLogWhereInput
+  orderBy?: Prisma.InteractionLogOrderByWithRelationInput | Prisma.InteractionLogOrderByWithRelationInput[]
+  cursor?: Prisma.InteractionLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InteractionLogScalarFieldEnum | Prisma.InteractionLogScalarFieldEnum[]
+}
+
+/**
+ * Customer.quotations
+ */
+export type Customer$quotationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Quotation
+   */
+  select?: Prisma.QuotationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Quotation
+   */
+  omit?: Prisma.QuotationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuotationInclude<ExtArgs> | null
+  where?: Prisma.QuotationWhereInput
+  orderBy?: Prisma.QuotationOrderByWithRelationInput | Prisma.QuotationOrderByWithRelationInput[]
+  cursor?: Prisma.QuotationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuotationScalarFieldEnum | Prisma.QuotationScalarFieldEnum[]
 }
 
 /**

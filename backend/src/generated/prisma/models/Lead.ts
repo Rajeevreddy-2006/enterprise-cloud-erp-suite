@@ -200,6 +200,7 @@ export type LeadWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Lead"> | Date | string
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  interactionLogs?: Prisma.InteractionLogListRelationFilter
 }
 
 export type LeadOrderByWithRelationInput = {
@@ -212,6 +213,7 @@ export type LeadOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   customer?: Prisma.CustomerOrderByWithRelationInput
   tenant?: Prisma.TenantOrderByWithRelationInput
+  interactionLogs?: Prisma.InteractionLogOrderByRelationAggregateInput
 }
 
 export type LeadWhereUniqueInput = Prisma.AtLeast<{
@@ -227,6 +229,7 @@ export type LeadWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Lead"> | Date | string
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  interactionLogs?: Prisma.InteractionLogListRelationFilter
 }, "id">
 
 export type LeadOrderByWithAggregationInput = {
@@ -263,6 +266,7 @@ export type LeadCreateInput = {
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutLeadsInput
   tenant: Prisma.TenantCreateNestedOneWithoutLeadsInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutLeadInput
 }
 
 export type LeadUncheckedCreateInput = {
@@ -273,6 +277,7 @@ export type LeadUncheckedCreateInput = {
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutLeadInput
 }
 
 export type LeadUpdateInput = {
@@ -283,6 +288,7 @@ export type LeadUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutLeadsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutLeadsNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutLeadNestedInput
 }
 
 export type LeadUncheckedUpdateInput = {
@@ -293,6 +299,7 @@ export type LeadUncheckedUpdateInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutLeadNestedInput
 }
 
 export type LeadCreateManyInput = {
@@ -361,6 +368,11 @@ export type LeadMinOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type LeadNullableScalarRelationFilter = {
+  is?: Prisma.LeadWhereInput | null
+  isNot?: Prisma.LeadWhereInput | null
 }
 
 export type LeadCreateNestedManyWithoutTenantInput = {
@@ -451,6 +463,22 @@ export type EnumLeadStatusFieldUpdateOperationsInput = {
   set?: $Enums.LeadStatus
 }
 
+export type LeadCreateNestedOneWithoutInteractionLogsInput = {
+  create?: Prisma.XOR<Prisma.LeadCreateWithoutInteractionLogsInput, Prisma.LeadUncheckedCreateWithoutInteractionLogsInput>
+  connectOrCreate?: Prisma.LeadCreateOrConnectWithoutInteractionLogsInput
+  connect?: Prisma.LeadWhereUniqueInput
+}
+
+export type LeadUpdateOneWithoutInteractionLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.LeadCreateWithoutInteractionLogsInput, Prisma.LeadUncheckedCreateWithoutInteractionLogsInput>
+  connectOrCreate?: Prisma.LeadCreateOrConnectWithoutInteractionLogsInput
+  upsert?: Prisma.LeadUpsertWithoutInteractionLogsInput
+  disconnect?: Prisma.LeadWhereInput | boolean
+  delete?: Prisma.LeadWhereInput | boolean
+  connect?: Prisma.LeadWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LeadUpdateToOneWithWhereWithoutInteractionLogsInput, Prisma.LeadUpdateWithoutInteractionLogsInput>, Prisma.LeadUncheckedUpdateWithoutInteractionLogsInput>
+}
+
 export type LeadCreateWithoutTenantInput = {
   id?: string
   title: string
@@ -458,6 +486,7 @@ export type LeadCreateWithoutTenantInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutLeadsInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutLeadInput
 }
 
 export type LeadUncheckedCreateWithoutTenantInput = {
@@ -467,6 +496,7 @@ export type LeadUncheckedCreateWithoutTenantInput = {
   customerId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutLeadInput
 }
 
 export type LeadCreateOrConnectWithoutTenantInput = {
@@ -515,6 +545,7 @@ export type LeadCreateWithoutCustomerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutLeadsInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutLeadInput
 }
 
 export type LeadUncheckedCreateWithoutCustomerInput = {
@@ -524,6 +555,7 @@ export type LeadUncheckedCreateWithoutCustomerInput = {
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutLeadInput
 }
 
 export type LeadCreateOrConnectWithoutCustomerInput = {
@@ -552,6 +584,62 @@ export type LeadUpdateManyWithWhereWithoutCustomerInput = {
   data: Prisma.XOR<Prisma.LeadUpdateManyMutationInput, Prisma.LeadUncheckedUpdateManyWithoutCustomerInput>
 }
 
+export type LeadCreateWithoutInteractionLogsInput = {
+  id?: string
+  title: string
+  status?: $Enums.LeadStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  customer: Prisma.CustomerCreateNestedOneWithoutLeadsInput
+  tenant: Prisma.TenantCreateNestedOneWithoutLeadsInput
+}
+
+export type LeadUncheckedCreateWithoutInteractionLogsInput = {
+  id?: string
+  title: string
+  status?: $Enums.LeadStatus
+  customerId: string
+  tenantId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type LeadCreateOrConnectWithoutInteractionLogsInput = {
+  where: Prisma.LeadWhereUniqueInput
+  create: Prisma.XOR<Prisma.LeadCreateWithoutInteractionLogsInput, Prisma.LeadUncheckedCreateWithoutInteractionLogsInput>
+}
+
+export type LeadUpsertWithoutInteractionLogsInput = {
+  update: Prisma.XOR<Prisma.LeadUpdateWithoutInteractionLogsInput, Prisma.LeadUncheckedUpdateWithoutInteractionLogsInput>
+  create: Prisma.XOR<Prisma.LeadCreateWithoutInteractionLogsInput, Prisma.LeadUncheckedCreateWithoutInteractionLogsInput>
+  where?: Prisma.LeadWhereInput
+}
+
+export type LeadUpdateToOneWithWhereWithoutInteractionLogsInput = {
+  where?: Prisma.LeadWhereInput
+  data: Prisma.XOR<Prisma.LeadUpdateWithoutInteractionLogsInput, Prisma.LeadUncheckedUpdateWithoutInteractionLogsInput>
+}
+
+export type LeadUpdateWithoutInteractionLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutLeadsNestedInput
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutLeadsNestedInput
+}
+
+export type LeadUncheckedUpdateWithoutInteractionLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumLeadStatusFieldUpdateOperationsInput | $Enums.LeadStatus
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type LeadCreateManyTenantInput = {
   id?: string
   title: string
@@ -568,6 +656,7 @@ export type LeadUpdateWithoutTenantInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutLeadsNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutLeadNestedInput
 }
 
 export type LeadUncheckedUpdateWithoutTenantInput = {
@@ -577,6 +666,7 @@ export type LeadUncheckedUpdateWithoutTenantInput = {
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutLeadNestedInput
 }
 
 export type LeadUncheckedUpdateManyWithoutTenantInput = {
@@ -604,6 +694,7 @@ export type LeadUpdateWithoutCustomerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutLeadsNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutLeadNestedInput
 }
 
 export type LeadUncheckedUpdateWithoutCustomerInput = {
@@ -613,6 +704,7 @@ export type LeadUncheckedUpdateWithoutCustomerInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutLeadNestedInput
 }
 
 export type LeadUncheckedUpdateManyWithoutCustomerInput = {
@@ -625,6 +717,35 @@ export type LeadUncheckedUpdateManyWithoutCustomerInput = {
 }
 
 
+/**
+ * Count Type LeadCountOutputType
+ */
+
+export type LeadCountOutputType = {
+  interactionLogs: number
+}
+
+export type LeadCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  interactionLogs?: boolean | LeadCountOutputTypeCountInteractionLogsArgs
+}
+
+/**
+ * LeadCountOutputType without action
+ */
+export type LeadCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LeadCountOutputType
+   */
+  select?: Prisma.LeadCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * LeadCountOutputType without action
+ */
+export type LeadCountOutputTypeCountInteractionLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InteractionLogWhereInput
+}
+
 
 export type LeadSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -636,6 +757,8 @@ export type LeadSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  interactionLogs?: boolean | Prisma.Lead$interactionLogsArgs<ExtArgs>
+  _count?: boolean | Prisma.LeadCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["lead"]>
 
 export type LeadSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -676,6 +799,8 @@ export type LeadOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type LeadInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  interactionLogs?: boolean | Prisma.Lead$interactionLogsArgs<ExtArgs>
+  _count?: boolean | Prisma.LeadCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type LeadIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -691,6 +816,7 @@ export type $LeadPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     customer: Prisma.$CustomerPayload<ExtArgs>
     tenant: Prisma.$TenantPayload<ExtArgs>
+    interactionLogs: Prisma.$InteractionLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1096,6 +1222,7 @@ export interface Prisma__LeadClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   customer<T extends Prisma.CustomerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerDefaultArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  interactionLogs<T extends Prisma.Lead$interactionLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Lead$interactionLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InteractionLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1530,6 +1657,30 @@ export type LeadDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Leads to delete.
    */
   limit?: number
+}
+
+/**
+ * Lead.interactionLogs
+ */
+export type Lead$interactionLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InteractionLog
+   */
+  select?: Prisma.InteractionLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InteractionLog
+   */
+  omit?: Prisma.InteractionLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InteractionLogInclude<ExtArgs> | null
+  where?: Prisma.InteractionLogWhereInput
+  orderBy?: Prisma.InteractionLogOrderByWithRelationInput | Prisma.InteractionLogOrderByWithRelationInput[]
+  cursor?: Prisma.InteractionLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InteractionLogScalarFieldEnum | Prisma.InteractionLogScalarFieldEnum[]
 }
 
 /**

@@ -34,13 +34,17 @@ class InventoryController {
     async (req: Request, res: Response) => {
       const user = (req as any).user;
       const inventoryItem = await inventoryService.createInventoryItem({...req.body,tenantId: user.tenantId,});
-      await auditLogService.createLog({
-        action: "CREATE",
-        entity: "INVENTORY_ITEM",
-        entityId: inventoryItem.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "CREATE",
+            entity: "INVENTORY_ITEM",
+            entityId: inventoryItem.id,
+        }
+      );
       return res.status(201).json(
         successResponse(inventoryItem,"Inventory item created successfully")
       );
@@ -52,13 +56,17 @@ class InventoryController {
       const id = req.params.id as string;
       const user = (req as any).user;
       const inventoryItem = await inventoryService.updateInventoryItem(id,req.body);
-      await auditLogService.createLog({
-        action: "UPDATE",
-        entity: "INVENTORY_ITEM",
-        entityId: inventoryItem.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "UPDATE",
+            entity: "INVENTORY_ITEM",
+            entityId: inventoryItem.id,
+        }
+      );
       return res.status(200).json(
         successResponse(inventoryItem,"Inventory item updated successfully")
       );
@@ -70,13 +78,17 @@ class InventoryController {
       const id = req.params.id as string;
       const user = (req as any).user;
       await inventoryService.deleteInventoryItem(id);
-      await auditLogService.createLog({
-        action: "DELETE",
-        entity: "INVENTORY_ITEM",
-        entityId: id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "DELETE",
+            entity: "INVENTORY_ITEM",
+            entityId: id,
+        }
+      );
       return res.status(200).json(
         successResponse(null,"Inventory item deleted successfully")
       );

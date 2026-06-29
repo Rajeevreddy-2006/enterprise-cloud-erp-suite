@@ -1,8 +1,9 @@
-import { AssetStatus } from "../generated/prisma/enums";
+import { AssetCategory, AssetStatus, } from "../generated/prisma/enums";
 
 export interface CreateAssetDto {
   name: string;
   serialNumber: string;
+  category: AssetCategory;
   purchaseDate: Date;
   purchaseCost: number;
   tenantId: string;
@@ -10,7 +11,9 @@ export interface CreateAssetDto {
 
 export interface UpdateAssetDto {
   name?: string;
+  category?: AssetCategory;
   purchaseCost?: number;
+  currentValue?: number;
   status?: AssetStatus;
 }
 

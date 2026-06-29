@@ -34,13 +34,17 @@ class TransactionController {
     async (req: Request, res: Response) => {
       const user = (req as any).user;
       const transaction = await transactionService.createTransaction({...req.body,tenantId: user.tenantId,});
-      await auditLogService.createLog({
-        action: "CREATE",
-        entity: "TRANSACTION",
-        entityId: transaction.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "CREATE",
+            entity: "TRANSACTION",
+            entityId: transaction.id,
+        }
+      );
       return res.status(201).json(
         successResponse(transaction,"Transaction created successfully")
       );
@@ -52,13 +56,17 @@ class TransactionController {
       const id = req.params.id as string;
       const user = (req as any).user;
       const transaction = await transactionService.updateTransaction(id,req.body);
-      await auditLogService.createLog({
-        action: "UPDATE",
-        entity: "TRANSACTION",
-        entityId: transaction.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "UPDATE",
+            entity: "TRANSACTION",
+            entityId: transaction.id,
+        }
+      );
       return res.status(200).json(
         successResponse(transaction,"Transaction updated successfully")
       );
@@ -70,13 +78,17 @@ class TransactionController {
       const id = req.params.id as string;
       const user = (req as any).user;
       await transactionService.deleteTransaction(id);
-      await auditLogService.createLog({
-        action: "DELETE",
-        entity: "TRANSACTION",
-        entityId: id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "DELETE",
+            entity: "TRANSACTION",
+            entityId: id,
+        }
+      );
       return res.status(200).json(
         successResponse(null,"Transaction deleted successfully")
       );

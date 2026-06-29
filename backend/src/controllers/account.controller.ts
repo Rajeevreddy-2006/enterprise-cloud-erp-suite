@@ -35,13 +35,17 @@ class AccountController {
     async (req: Request, res: Response) => {
       const user = (req as any).user;
       const account =await accountService.createAccount({...req.body,tenantId: user.tenantId,});
-      await auditLogService.createLog({
-        action: "CREATE",
-        entity: "ACCOUNT",
-        entityId: account.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "CREATE",
+            entity: "ACCOUNT",
+            entityId: account.id,
+        }
+      );
       return res.status(201).json(
         successResponse(account,"Account created successfully")
       );
@@ -53,13 +57,17 @@ class AccountController {
       const id = req.params.id as string;
       const user = (req as any).user;
       const account = await accountService.updateAccount(id,req.body);
-      await auditLogService.createLog({
-        action: "UPDATE",
-        entity: "ACCOUNT",
-        entityId: account.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "UPDATE",
+            entity: "ACCOUNT",
+            entityId: account.id,
+        }
+      );
       return res.status(200).json(
         successResponse(account,"Account updated successfully")
       );
@@ -71,13 +79,17 @@ class AccountController {
       const id = req.params.id as string;
       const user = (req as any).user;
       await accountService.deleteAccount(id);
-      await auditLogService.createLog({
-        action: "DELETE",
-        entity: "ACCOUNT",
-        entityId: id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "DELETE",
+            entity: "ACCOUNT",
+            entityId: id,
+        }
+      );
       return res.status(200).json(
         successResponse(null,"Account deleted successfully")
       );

@@ -34,13 +34,17 @@ class EmployeeController {
     async (req: Request, res: Response) => {
       const user = (req as any).user;
       const employee = await employeeService.createEmployee({ ...req.body, tenantId: user.tenantId, });
-      await auditLogService.createLog({
-        action: "CREATE",
-        entity: "EMPLOYEE",
-        entityId: employee.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "CREATE",
+            entity: "EMPLOYEE",
+            entityId: employee.id,
+        }
+      );
       return res.status(201).json(
         successResponse(employee,"Employee created successfully")
       );
@@ -52,13 +56,17 @@ class EmployeeController {
       const id = req.params.id as string;
       const user = (req as any).user;
       const employee = await employeeService.updateEmployee(id,req.body);
-      await auditLogService.createLog({
-        action: "UPDATE",
-        entity: "EMPLOYEE",
-        entityId: employee.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "UPDATE",
+            entity: "EMPLOYEE",
+            entityId: employee.id,
+        }
+      );
       return res.status(200).json(
         successResponse(employee,"Employee updated successfully")
       );
@@ -70,13 +78,17 @@ class EmployeeController {
       const id = req.params.id as string;
       const user = (req as any).user;
       await employeeService.deleteEmployee(id);
-      await auditLogService.createLog({
-        action: "DELETE",
-        entity: "EMPLOYEE",
-        entityId: id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "DELETE",
+            entity: "EMPLOYEE",
+            entityId: id,
+        }
+      );
       return res.status(200).json(
         successResponse(null,"Employee deleted successfully")
       );

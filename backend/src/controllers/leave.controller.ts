@@ -34,13 +34,17 @@ class LeaveController {
     async (req: Request, res: Response) => {
       const user = (req as any).user;
       const leave = await leaveService.createLeave({...req.body,tenantId: user.tenantId,});
-      await auditLogService.createLog({
-        action: "CREATE",
-        entity: "LEAVE",
-        entityId: leave.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "CREATE",
+            entity: "LEAVE",
+            entityId: leave.id,
+        }
+      );
       return res.status(201).json(
         successResponse(leave,"Leave created successfully")
       );
@@ -52,13 +56,17 @@ class LeaveController {
       const id = req.params.id as string;
       const user = (req as any).user;
       const leave = await leaveService.updateLeave(id,req.body);
-      await auditLogService.createLog({
-        action: "UPDATE",
-        entity: "LEAVE",
-        entityId: leave.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "UPDATE",
+            entity: "LEAVE",
+            entityId: leave.id,
+        }
+      );
       return res.status(200).json(
         successResponse(leave,"Leave updated successfully")
       );
@@ -70,13 +78,17 @@ class LeaveController {
       const id = req.params.id as string;
       const user = (req as any).user;
       await leaveService.deleteLeave(id);
-      await auditLogService.createLog({
-        action: "DELETE",
-        entity: "LEAVE",
-        entityId: req.params.id as string,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "DELETE",
+            entity: "LEAVE",
+            entityId: id,
+        }
+      );
       return res.status(200).json(
         successResponse(null,"Leave deleted successfully")
       );
@@ -88,13 +100,17 @@ class LeaveController {
       const id = req.params.id as string;
       const user = (req as any).user;
       const leave = await leaveService.approveLeave(id);
-      await auditLogService.createLog({
-        action: "APPROVE",
-        entity: "LEAVE",
-        entityId: leave.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "APPROVE",
+            entity: "LEAVE",
+            entityId: leave.id,
+        }
+      );
       return res.status(200).json(
         successResponse(leave,"Leave approved successfully")
       );
@@ -106,13 +122,17 @@ class LeaveController {
       const id = req.params.id as string;
       const user = (req as any).user;
       const leave = await leaveService.rejectLeave(id);
-      await auditLogService.createLog({
-        action: "REJECT",
-        entity: "LEAVE",
-        entityId: leave.id,
-        userId: user.id,
-        tenantId: user.tenantId,
-      });
+      await auditLogService.createLog(
+        {
+            userId: user.id,
+            tenantId: user.tenantId,
+        },
+        {
+            action: "REJECT",
+            entity: "LEAVE",
+            entityId: leave.id,
+        }
+      );
       return res.status(200).json(
         successResponse(leave,"Leave rejected successfully")
       );

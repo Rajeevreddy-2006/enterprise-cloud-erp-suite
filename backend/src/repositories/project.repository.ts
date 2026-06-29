@@ -24,6 +24,20 @@ class ProjectRepository {
         return project;
     }
 
+    async getProjectDashboard(projectId: string) {
+        return prisma.project.findUnique({
+            where: { id: projectId, },
+            include: {
+                tasks: true,
+                milestones: true,
+                timeEntries: true,
+                resourceAllocations: {
+                    include: { employee: true, },
+                },
+            },
+        });
+    }
+
     async createProject(data: CreateProjectDto) {
         return prisma.project.create({ data, });
     }

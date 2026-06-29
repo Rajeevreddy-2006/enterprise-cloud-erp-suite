@@ -5,18 +5,32 @@ class SalesOrderRepository {
 
   async getAllSalesOrders() {
     return prisma.salesOrder.findMany({
-      include: { customer: true, inventoryItem: true, tenant: true,},
+      include: { customer: true, inventoryItem: true, invoice: true, tenant: true, },
     });
   }
 
   async getSalesOrderById(id: string) {
     return prisma.salesOrder.findUnique({
       where: { id },
-      include: { customer: true, inventoryItem: true, tenant: true, },
+      include: { customer: true, inventoryItem: true, invoice: true, tenant: true, },
     });
   }
 
-  async createSalesOrder(data: any) {
+  async getSalesOrderByNumber(orderNumber: string) {
+    return prisma.salesOrder.findUnique({
+      where: { orderNumber, },
+    });
+  }
+
+  async createSalesOrder(data: {
+    orderNumber: string;
+    customerId: string;
+    inventoryItemId: string;
+    quantity: number;
+    unitPrice: number;
+    totalAmount: number;
+    tenantId: string;
+  }) {
     return prisma.salesOrder.create({ data, });
   }
 

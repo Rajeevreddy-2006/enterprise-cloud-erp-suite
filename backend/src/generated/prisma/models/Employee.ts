@@ -226,6 +226,7 @@ export type EmployeeWhereInput = {
   tasks?: Prisma.TaskListRelationFilter
   resourceAllocations?: Prisma.ResourceAllocationListRelationFilter
   timeEntries?: Prisma.TimeEntryListRelationFilter
+  interactionLogs?: Prisma.InteractionLogListRelationFilter
 }
 
 export type EmployeeOrderByWithRelationInput = {
@@ -250,6 +251,7 @@ export type EmployeeOrderByWithRelationInput = {
   tasks?: Prisma.TaskOrderByRelationAggregateInput
   resourceAllocations?: Prisma.ResourceAllocationOrderByRelationAggregateInput
   timeEntries?: Prisma.TimeEntryOrderByRelationAggregateInput
+  interactionLogs?: Prisma.InteractionLogOrderByRelationAggregateInput
 }
 
 export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
@@ -277,6 +279,7 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   tasks?: Prisma.TaskListRelationFilter
   resourceAllocations?: Prisma.ResourceAllocationListRelationFilter
   timeEntries?: Prisma.TimeEntryListRelationFilter
+  interactionLogs?: Prisma.InteractionLogListRelationFilter
 }, "id" | "email" | "userId">
 
 export type EmployeeOrderByWithAggregationInput = {
@@ -328,6 +331,7 @@ export type EmployeeCreateInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateInput = {
@@ -349,6 +353,7 @@ export type EmployeeUncheckedCreateInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUpdateInput = {
@@ -370,6 +375,7 @@ export type EmployeeUpdateInput = {
   tasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateInput = {
@@ -391,6 +397,7 @@ export type EmployeeUncheckedUpdateInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateManyInput = {
@@ -726,6 +733,22 @@ export type EmployeeUpdateOneRequiredWithoutTimeEntriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutTimeEntriesInput, Prisma.EmployeeUpdateWithoutTimeEntriesInput>, Prisma.EmployeeUncheckedUpdateWithoutTimeEntriesInput>
 }
 
+export type EmployeeCreateNestedOneWithoutInteractionLogsInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutInteractionLogsInput, Prisma.EmployeeUncheckedCreateWithoutInteractionLogsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutInteractionLogsInput
+  connect?: Prisma.EmployeeWhereUniqueInput
+}
+
+export type EmployeeUpdateOneWithoutInteractionLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.EmployeeCreateWithoutInteractionLogsInput, Prisma.EmployeeUncheckedCreateWithoutInteractionLogsInput>
+  connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutInteractionLogsInput
+  upsert?: Prisma.EmployeeUpsertWithoutInteractionLogsInput
+  disconnect?: Prisma.EmployeeWhereInput | boolean
+  delete?: Prisma.EmployeeWhereInput | boolean
+  connect?: Prisma.EmployeeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EmployeeUpdateToOneWithWhereWithoutInteractionLogsInput, Prisma.EmployeeUpdateWithoutInteractionLogsInput>, Prisma.EmployeeUncheckedUpdateWithoutInteractionLogsInput>
+}
+
 export type EmployeeCreateWithoutTenantInput = {
   id?: string
   firstName: string
@@ -744,6 +767,7 @@ export type EmployeeCreateWithoutTenantInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutTenantInput = {
@@ -764,6 +788,7 @@ export type EmployeeUncheckedCreateWithoutTenantInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutTenantInput = {
@@ -825,6 +850,7 @@ export type EmployeeCreateWithoutUserInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutUserInput = {
@@ -845,6 +871,7 @@ export type EmployeeUncheckedCreateWithoutUserInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutUserInput = {
@@ -881,6 +908,7 @@ export type EmployeeUpdateWithoutUserInput = {
   tasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutUserInput = {
@@ -901,6 +929,7 @@ export type EmployeeUncheckedUpdateWithoutUserInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutDepartmentInput = {
@@ -921,6 +950,7 @@ export type EmployeeCreateWithoutDepartmentInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutDepartmentInput = {
@@ -941,6 +971,7 @@ export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutDepartmentInput = {
@@ -987,6 +1018,7 @@ export type EmployeeCreateWithoutAttendancesInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutAttendancesInput = {
@@ -1007,6 +1039,7 @@ export type EmployeeUncheckedCreateWithoutAttendancesInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutAttendancesInput = {
@@ -1043,6 +1076,7 @@ export type EmployeeUpdateWithoutAttendancesInput = {
   tasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutAttendancesInput = {
@@ -1063,6 +1097,7 @@ export type EmployeeUncheckedUpdateWithoutAttendancesInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutLeavesInput = {
@@ -1083,6 +1118,7 @@ export type EmployeeCreateWithoutLeavesInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutLeavesInput = {
@@ -1103,6 +1139,7 @@ export type EmployeeUncheckedCreateWithoutLeavesInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutLeavesInput = {
@@ -1139,6 +1176,7 @@ export type EmployeeUpdateWithoutLeavesInput = {
   tasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutLeavesInput = {
@@ -1159,6 +1197,7 @@ export type EmployeeUncheckedUpdateWithoutLeavesInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutSalaryStructureInput = {
@@ -1179,6 +1218,7 @@ export type EmployeeCreateWithoutSalaryStructureInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutSalaryStructureInput = {
@@ -1199,6 +1239,7 @@ export type EmployeeUncheckedCreateWithoutSalaryStructureInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutSalaryStructureInput = {
@@ -1235,6 +1276,7 @@ export type EmployeeUpdateWithoutSalaryStructureInput = {
   tasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutSalaryStructureInput = {
@@ -1255,6 +1297,7 @@ export type EmployeeUncheckedUpdateWithoutSalaryStructureInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutPayrollsInput = {
@@ -1275,6 +1318,7 @@ export type EmployeeCreateWithoutPayrollsInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutPayrollsInput = {
@@ -1295,6 +1339,7 @@ export type EmployeeUncheckedCreateWithoutPayrollsInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutPayrollsInput = {
@@ -1331,6 +1376,7 @@ export type EmployeeUpdateWithoutPayrollsInput = {
   tasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutPayrollsInput = {
@@ -1351,6 +1397,7 @@ export type EmployeeUncheckedUpdateWithoutPayrollsInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutAssetAssignmentsInput = {
@@ -1371,6 +1418,7 @@ export type EmployeeCreateWithoutAssetAssignmentsInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutAssetAssignmentsInput = {
@@ -1391,6 +1439,7 @@ export type EmployeeUncheckedCreateWithoutAssetAssignmentsInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutAssetAssignmentsInput = {
@@ -1427,6 +1476,7 @@ export type EmployeeUpdateWithoutAssetAssignmentsInput = {
   tasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutAssetAssignmentsInput = {
@@ -1447,6 +1497,7 @@ export type EmployeeUncheckedUpdateWithoutAssetAssignmentsInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutExpensesInput = {
@@ -1467,6 +1518,7 @@ export type EmployeeCreateWithoutExpensesInput = {
   tasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutExpensesInput = {
@@ -1487,6 +1539,7 @@ export type EmployeeUncheckedCreateWithoutExpensesInput = {
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutExpensesInput = {
@@ -1523,6 +1576,7 @@ export type EmployeeUpdateWithoutExpensesInput = {
   tasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutExpensesInput = {
@@ -1543,6 +1597,7 @@ export type EmployeeUncheckedUpdateWithoutExpensesInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutTasksInput = {
@@ -1563,6 +1618,7 @@ export type EmployeeCreateWithoutTasksInput = {
   expenses?: Prisma.ExpenseCreateNestedManyWithoutEmployeeInput
   resourceAllocations?: Prisma.ResourceAllocationCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutTasksInput = {
@@ -1583,6 +1639,7 @@ export type EmployeeUncheckedCreateWithoutTasksInput = {
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutEmployeeInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedCreateNestedManyWithoutEmployeeInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutTasksInput = {
@@ -1619,6 +1676,7 @@ export type EmployeeUpdateWithoutTasksInput = {
   expenses?: Prisma.ExpenseUpdateManyWithoutEmployeeNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTasksInput = {
@@ -1639,6 +1697,7 @@ export type EmployeeUncheckedUpdateWithoutTasksInput = {
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutEmployeeNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutResourceAllocationsInput = {
@@ -1659,6 +1718,7 @@ export type EmployeeCreateWithoutResourceAllocationsInput = {
   expenses?: Prisma.ExpenseCreateNestedManyWithoutEmployeeInput
   tasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutResourceAllocationsInput = {
@@ -1679,6 +1739,7 @@ export type EmployeeUncheckedCreateWithoutResourceAllocationsInput = {
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutEmployeeInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutResourceAllocationsInput = {
@@ -1715,6 +1776,7 @@ export type EmployeeUpdateWithoutResourceAllocationsInput = {
   expenses?: Prisma.ExpenseUpdateManyWithoutEmployeeNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutResourceAllocationsInput = {
@@ -1735,6 +1797,7 @@ export type EmployeeUncheckedUpdateWithoutResourceAllocationsInput = {
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutEmployeeNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateWithoutTimeEntriesInput = {
@@ -1755,6 +1818,7 @@ export type EmployeeCreateWithoutTimeEntriesInput = {
   expenses?: Prisma.ExpenseCreateNestedManyWithoutEmployeeInput
   tasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
@@ -1775,6 +1839,7 @@ export type EmployeeUncheckedCreateWithoutTimeEntriesInput = {
   expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutEmployeeInput
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  interactionLogs?: Prisma.InteractionLogUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type EmployeeCreateOrConnectWithoutTimeEntriesInput = {
@@ -1811,6 +1876,7 @@ export type EmployeeUpdateWithoutTimeEntriesInput = {
   expenses?: Prisma.ExpenseUpdateManyWithoutEmployeeNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
@@ -1831,6 +1897,107 @@ export type EmployeeUncheckedUpdateWithoutTimeEntriesInput = {
   expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutEmployeeNestedInput
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeCreateWithoutInteractionLogsInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user?: Prisma.UserCreateNestedOneWithoutEmployeeInput
+  department: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
+  tenant: Prisma.TenantCreateNestedOneWithoutEmployeesInput
+  salaryStructure?: Prisma.SalaryStructureCreateNestedOneWithoutEmployeeInput
+  payrolls?: Prisma.PayrollCreateNestedManyWithoutEmployeeInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutEmployeeInput
+  leaves?: Prisma.LeaveCreateNestedManyWithoutEmployeeInput
+  assetAssignments?: Prisma.AssetAssignmentCreateNestedManyWithoutEmployeeInput
+  expenses?: Prisma.ExpenseCreateNestedManyWithoutEmployeeInput
+  tasks?: Prisma.TaskCreateNestedManyWithoutAssignedToInput
+  resourceAllocations?: Prisma.ResourceAllocationCreateNestedManyWithoutEmployeeInput
+  timeEntries?: Prisma.TimeEntryCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeUncheckedCreateWithoutInteractionLogsInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  email: string
+  userId?: string | null
+  departmentId: string
+  tenantId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  salaryStructure?: Prisma.SalaryStructureUncheckedCreateNestedOneWithoutEmployeeInput
+  payrolls?: Prisma.PayrollUncheckedCreateNestedManyWithoutEmployeeInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutEmployeeInput
+  leaves?: Prisma.LeaveUncheckedCreateNestedManyWithoutEmployeeInput
+  assetAssignments?: Prisma.AssetAssignmentUncheckedCreateNestedManyWithoutEmployeeInput
+  expenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutEmployeeInput
+  tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssignedToInput
+  resourceAllocations?: Prisma.ResourceAllocationUncheckedCreateNestedManyWithoutEmployeeInput
+  timeEntries?: Prisma.TimeEntryUncheckedCreateNestedManyWithoutEmployeeInput
+}
+
+export type EmployeeCreateOrConnectWithoutInteractionLogsInput = {
+  where: Prisma.EmployeeWhereUniqueInput
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutInteractionLogsInput, Prisma.EmployeeUncheckedCreateWithoutInteractionLogsInput>
+}
+
+export type EmployeeUpsertWithoutInteractionLogsInput = {
+  update: Prisma.XOR<Prisma.EmployeeUpdateWithoutInteractionLogsInput, Prisma.EmployeeUncheckedUpdateWithoutInteractionLogsInput>
+  create: Prisma.XOR<Prisma.EmployeeCreateWithoutInteractionLogsInput, Prisma.EmployeeUncheckedCreateWithoutInteractionLogsInput>
+  where?: Prisma.EmployeeWhereInput
+}
+
+export type EmployeeUpdateToOneWithWhereWithoutInteractionLogsInput = {
+  where?: Prisma.EmployeeWhereInput
+  data: Prisma.XOR<Prisma.EmployeeUpdateWithoutInteractionLogsInput, Prisma.EmployeeUncheckedUpdateWithoutInteractionLogsInput>
+}
+
+export type EmployeeUpdateWithoutInteractionLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneWithoutEmployeeNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutEmployeesNestedInput
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutEmployeesNestedInput
+  salaryStructure?: Prisma.SalaryStructureUpdateOneWithoutEmployeeNestedInput
+  payrolls?: Prisma.PayrollUpdateManyWithoutEmployeeNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutEmployeeNestedInput
+  leaves?: Prisma.LeaveUpdateManyWithoutEmployeeNestedInput
+  assetAssignments?: Prisma.AssetAssignmentUpdateManyWithoutEmployeeNestedInput
+  expenses?: Prisma.ExpenseUpdateManyWithoutEmployeeNestedInput
+  tasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
+  resourceAllocations?: Prisma.ResourceAllocationUpdateManyWithoutEmployeeNestedInput
+  timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+}
+
+export type EmployeeUncheckedUpdateWithoutInteractionLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  salaryStructure?: Prisma.SalaryStructureUncheckedUpdateOneWithoutEmployeeNestedInput
+  payrolls?: Prisma.PayrollUncheckedUpdateManyWithoutEmployeeNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutEmployeeNestedInput
+  leaves?: Prisma.LeaveUncheckedUpdateManyWithoutEmployeeNestedInput
+  assetAssignments?: Prisma.AssetAssignmentUncheckedUpdateManyWithoutEmployeeNestedInput
+  expenses?: Prisma.ExpenseUncheckedUpdateManyWithoutEmployeeNestedInput
+  tasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
+  resourceAllocations?: Prisma.ResourceAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
+  timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeCreateManyTenantInput = {
@@ -1862,6 +2029,7 @@ export type EmployeeUpdateWithoutTenantInput = {
   tasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutTenantInput = {
@@ -1882,6 +2050,7 @@ export type EmployeeUncheckedUpdateWithoutTenantInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutTenantInput = {
@@ -1924,6 +2093,7 @@ export type EmployeeUpdateWithoutDepartmentInput = {
   tasks?: Prisma.TaskUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
@@ -1944,6 +2114,7 @@ export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutAssignedToNestedInput
   resourceAllocations?: Prisma.ResourceAllocationUncheckedUpdateManyWithoutEmployeeNestedInput
   timeEntries?: Prisma.TimeEntryUncheckedUpdateManyWithoutEmployeeNestedInput
+  interactionLogs?: Prisma.InteractionLogUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type EmployeeUncheckedUpdateManyWithoutDepartmentInput = {
@@ -1971,6 +2142,7 @@ export type EmployeeCountOutputType = {
   tasks: number
   resourceAllocations: number
   timeEntries: number
+  interactionLogs: number
 }
 
 export type EmployeeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1982,6 +2154,7 @@ export type EmployeeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   tasks?: boolean | EmployeeCountOutputTypeCountTasksArgs
   resourceAllocations?: boolean | EmployeeCountOutputTypeCountResourceAllocationsArgs
   timeEntries?: boolean | EmployeeCountOutputTypeCountTimeEntriesArgs
+  interactionLogs?: boolean | EmployeeCountOutputTypeCountInteractionLogsArgs
 }
 
 /**
@@ -2050,6 +2223,13 @@ export type EmployeeCountOutputTypeCountTimeEntriesArgs<ExtArgs extends runtime.
   where?: Prisma.TimeEntryWhereInput
 }
 
+/**
+ * EmployeeCountOutputType without action
+ */
+export type EmployeeCountOutputTypeCountInteractionLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InteractionLogWhereInput
+}
+
 
 export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2073,6 +2253,7 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   tasks?: boolean | Prisma.Employee$tasksArgs<ExtArgs>
   resourceAllocations?: boolean | Prisma.Employee$resourceAllocationsArgs<ExtArgs>
   timeEntries?: boolean | Prisma.Employee$timeEntriesArgs<ExtArgs>
+  interactionLogs?: boolean | Prisma.Employee$interactionLogsArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["employee"]>
 
@@ -2132,6 +2313,7 @@ export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   tasks?: boolean | Prisma.Employee$tasksArgs<ExtArgs>
   resourceAllocations?: boolean | Prisma.Employee$resourceAllocationsArgs<ExtArgs>
   timeEntries?: boolean | Prisma.Employee$timeEntriesArgs<ExtArgs>
+  interactionLogs?: boolean | Prisma.Employee$interactionLogsArgs<ExtArgs>
   _count?: boolean | Prisma.EmployeeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2160,6 +2342,7 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     tasks: Prisma.$TaskPayload<ExtArgs>[]
     resourceAllocations: Prisma.$ResourceAllocationPayload<ExtArgs>[]
     timeEntries: Prisma.$TimeEntryPayload<ExtArgs>[]
+    interactionLogs: Prisma.$InteractionLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2577,6 +2760,7 @@ export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends runtime
   tasks<T extends Prisma.Employee$tasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   resourceAllocations<T extends Prisma.Employee$resourceAllocationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$resourceAllocationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResourceAllocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   timeEntries<T extends Prisma.Employee$timeEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$timeEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TimeEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  interactionLogs<T extends Prisma.Employee$interactionLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Employee$interactionLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InteractionLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3243,6 +3427,30 @@ export type Employee$timeEntriesArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.TimeEntryScalarFieldEnum | Prisma.TimeEntryScalarFieldEnum[]
+}
+
+/**
+ * Employee.interactionLogs
+ */
+export type Employee$interactionLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InteractionLog
+   */
+  select?: Prisma.InteractionLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InteractionLog
+   */
+  omit?: Prisma.InteractionLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InteractionLogInclude<ExtArgs> | null
+  where?: Prisma.InteractionLogWhereInput
+  orderBy?: Prisma.InteractionLogOrderByWithRelationInput | Prisma.InteractionLogOrderByWithRelationInput[]
+  cursor?: Prisma.InteractionLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InteractionLogScalarFieldEnum | Prisma.InteractionLogScalarFieldEnum[]
 }
 
 /**
