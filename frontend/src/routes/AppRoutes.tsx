@@ -125,7 +125,6 @@ import DashboardPage from "@/pages/dashboard/DashboardPage";
 import EmployeePage from "@/pages/employees/EmployeePage";
 import DepartmentPage from "@/pages/departments/DepartmentPage";
 import AttendancePage from "@/pages/attendance/AttendancePage";
-import LeavePage from "@/pages/leave/LeavePage";
 import SalaryStructurePage from "@/pages/salary/SalaryStructurePage";
 import PayrollPage from "@/pages/payroll/PayrollPage";
 import AccountsPage from "@/pages/accounts/AccountsPage";
@@ -245,10 +244,10 @@ function AppRoutes() {
                     element={<ProtectedRoute><AttendancePage /></ProtectedRoute>}
                 />
 
-                <Route
+                {/* <Route
                     path="/leave"
                     element={<ProtectedRoute><LeavePage /></ProtectedRoute>}
-                />
+                /> */}
 
                 <Route
                     path="/leave-approvals"
