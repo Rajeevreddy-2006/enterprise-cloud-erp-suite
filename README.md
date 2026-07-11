@@ -659,61 +659,293 @@ AMDOX ERP
 ```
 
 ---
+# 🚀 Installation Guide
 
-# 🚀 Installation
-
-## Clone Repository
+## 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/amdox-erp.git
+git clone https://github.com/Rajeevreddy-2006/enterprise-cloud-erp-suite.git
+cd enterprise-cloud-erp-suite
 ```
 
-## Backend
+---
+
+# 📦 Backend Setup
+
+Navigate to the backend folder:
 
 ```bash
 cd backend
+```
+
+Install dependencies:
+
+```bash
 npm install
 ```
 
-Create a `.env` file:
+---
+
+## Create `.env`
+
+Create a `.env` file inside the **backend** directory.
 
 ```env
-DATABASE_URL=
-JWT_SECRET=
-JWT_REFRESH_SECRET=
-SMTP_HOST=
-SMTP_PORT=
-SMTP_USER=
-SMTP_PASS=
-FRONTEND_URL=
+# ==========================================
+# Server
+# ==========================================
 PORT=5000
+NODE_ENV=development
+
+# ==========================================
+# Database
+# ==========================================
+DATABASE_URL=your_postgresql_database_url
+
+# ==========================================
+# JWT
+# ==========================================
+JWT_SECRET=your_jwt_secret
+JWT_REFRESH_SECRET=your_refresh_secret
+JWT_EXPIRES_IN=15m
+JWT_REFRESH_EXPIRES_IN=7d
+
+# ==========================================
+# Frontend
+# ==========================================
+FRONTEND_URL=http://localhost:5173
+
+# ==========================================
+# Email Configuration
+# ==========================================
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASSWORD=your_gmail_app_password
+
+# ==========================================
+# Cloudinary
+# ==========================================
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 ```
 
-Run:
+---
+
+## Prisma Setup
+
+Generate Prisma Client
+
+```bash
+npx prisma generate
+```
+
+Run migrations
 
 ```bash
 npx prisma migrate dev
-npx prisma generate
+```
+
+(Optional) Seed the database
+
+```bash
+npx prisma db seed
+```
+
+---
+
+## Start Backend
+
+Development
+
+```bash
 npm run dev
 ```
 
-## Frontend
+Production
 
 ```bash
-cd frontend
+npm run build
+npm start
+```
+
+Backend runs at
+
+```
+http://localhost:5000
+```
+
+Swagger Documentation
+
+```
+http://localhost:5000/api-docs
+```
+
+---
+
+# 💻 Frontend Setup
+
+Navigate to the frontend folder
+
+```bash
+cd ../frontend
+```
+
+Install dependencies
+
+```bash
 npm install
 ```
 
-Create a `.env` file:
+---
+
+## Create `.env`
+
+Create a `.env` file inside the **frontend** directory.
 
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
 
-Run:
+---
+
+## Start Frontend
 
 ```bash
 npm run dev
+```
+
+Frontend runs at
+
+```
+http://localhost:5173
+```
+
+---
+
+# 🛠 Tech Stack
+
+### Frontend
+
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- Shadcn UI
+- React Hook Form
+- TanStack Query
+- Axios
+- Recharts
+
+### Backend
+
+- Node.js
+- Express.js
+- TypeScript
+- Prisma ORM
+- PostgreSQL
+- JWT Authentication
+- Role-Based Access Control (RBAC)
+- Nodemailer
+- Socket.IO
+- Swagger API Documentation
+
+---
+
+# 📂 Project Structure
+
+```
+enterprise-cloud-erp-suite
+│
+├── backend
+│   ├── prisma
+│   ├── src
+│   ├── package.json
+│   └── tsconfig.json
+│
+├── frontend
+│   ├── src
+│   ├── public
+│   ├── package.json
+│   └── vite.config.ts
+│
+└── README.md
+```
+
+---
+
+# 🌐 Deployment
+
+## Frontend
+
+Update `.env`
+
+```env
+VITE_API_URL=https://your-backend-url.onrender.com/api
+```
+
+Deploy to
+
+- Render
+- Vercel
+- Netlify
+
+---
+
+## Backend
+
+Deploy to
+
+- Render
+
+Required Environment Variables
+
+```env
+DATABASE_URL
+JWT_SECRET
+JWT_REFRESH_SECRET
+JWT_EXPIRES_IN
+JWT_REFRESH_EXPIRES_IN
+
+FRONTEND_URL
+
+EMAIL_HOST
+EMAIL_PORT
+EMAIL_USER
+EMAIL_PASSWORD
+
+CLOUDINARY_CLOUD_NAME
+CLOUDINARY_API_KEY
+CLOUDINARY_API_SECRET
+```
+
+Run Command
+
+```bash
+npx prisma migrate deploy && npm start
+```
+
+---
+
+# ✅ Default URLs
+
+Frontend
+
+```
+http://localhost:5173
+```
+
+Backend
+
+```
+http://localhost:5000
+```
+
+Swagger
+
+```
+http://localhost:5000/api-docs
 ```
 
 ---
