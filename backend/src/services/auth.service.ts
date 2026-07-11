@@ -128,12 +128,17 @@ class AuthService {
         isVerified:false
     });
     const link = `${process.env.FRONTEND_URL}/accept-invite/${token}`;
-    await emailService
-    .sendInvitation(
-        data.email,
-        data.name,
-        link
+    console.log("User created");
+
+    console.log("Sending email...");
+
+    await emailService.sendInvitation(
+      data.email,
+      data.name,
+      link
     );
+
+    console.log("Email sent");
     return{
         success:true
     };
