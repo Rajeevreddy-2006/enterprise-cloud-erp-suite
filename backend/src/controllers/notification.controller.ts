@@ -10,8 +10,41 @@ class NotificationController {
     async (req: Request, res: Response) => {
       const user = (req as any).user;
       const notifications = await notificationService.getAllNotifications(user.tenantId,user.role);
+      //console.log(notifications);
       return res.status(200).json(
         successResponse(notifications,"Notifications fetched successfully")
+      );
+    }
+  );
+
+  markAsRead = asyncHandler(
+    async (req, res) => {
+      const user = (req as any).user;
+      const notification =
+        await notificationService.markAsRead(
+          req.params.id as string,
+          user.tenantId
+        );
+      return res.status(200).json(
+        successResponse(
+          notification,
+          "Notification marked as read"
+        )
+      );
+    }
+  );
+
+  markAllAsRead = asyncHandler(
+    async (req, res) => {
+      const user = (req as any).user;
+      await notificationService.markAllAsRead(
+        user.tenantId
+      );
+      return res.status(200).json(
+        successResponse(
+          null,
+          "All notifications marked as read"
+        )
       );
     }
   );

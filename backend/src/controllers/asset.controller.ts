@@ -4,77 +4,341 @@ import { successResponse } from "../utils/apiResponse";
 import { asyncHandler } from "../utils/asyncHandler";
 
 class AssetController {
+
     getAllAssets = asyncHandler(
-        async (req: Request,res: Response) => {
-        const assets = await assetService.getAllAssets();
-        return res.status(200).json(
-            successResponse(assets,"Assets fetched successfully")
-        );
+
+        async (
+
+            req: Request,
+
+            res: Response
+
+        ) => {
+
+            const assets =
+
+                await assetService
+
+                    .getAllAssets();
+
+            return res.status(200).json(
+
+                successResponse(
+
+                    assets,
+
+                    "Assets fetched successfully"
+
+                )
+
+            );
+
         }
+
     );
 
     getAssetById = asyncHandler(
-        async (req: Request,res: Response) => {
-        const asset = await assetService.getAssetById(req.params.id as string);
-        return res.status(200).json(
-            successResponse(asset,"Asset fetched successfully")
-        );
+
+        async (
+
+            req: Request,
+
+            res: Response
+
+        ) => {
+
+            const asset =
+
+                await assetService
+
+                    .getAssetById(
+
+                        req.params.id as string
+
+                    );
+
+            return res.status(200).json(
+
+                successResponse(
+
+                    asset,
+
+                    "Asset fetched successfully"
+
+                )
+
+            );
+
         }
+
     );
 
+    // createAsset = asyncHandler(
+
+    //     async (
+
+    //         req: Request,
+
+    //         res: Response
+
+    //     ) => {
+
+    //         const asset =
+
+    //             await assetService
+
+    //                 .createAsset(
+
+    //                     req.body
+
+    //                 );
+
+    //         return res.status(201).json(
+
+    //             successResponse(
+
+    //                 asset,
+
+    //                 "Asset created successfully"
+
+    //             )
+
+    //         );
+
+    //     }
+
+    // );
     createAsset = asyncHandler(
-        async (req: Request,res: Response) => {
-        const asset = await assetService.createAsset(req.body);
+    async (req, res) => {
+
+        console.log(req.body);
+
+        const user=(req as any).user;
+
+        const asset = await assetService.createAsset({...req.body,tenantId: user!.tenantId,});
+
         return res.status(201).json(
-            successResponse(asset,"Asset created successfully")
+            successResponse(asset, "Asset created")
         );
-        }
-    );
+    }
+);
 
     updateAsset = asyncHandler(
-        async (req: Request,res: Response) => {
-        const asset = await assetService.updateAsset(req.params.id as string,req.body);
-        return res.status(200).json(
-            successResponse(asset,"Asset updated successfully")
-        );
+
+        async (
+
+            req: Request,
+
+            res: Response
+
+        ) => {
+
+            const asset =
+
+                await assetService
+
+                    .updateAsset(
+
+                        req.params.id as string,
+
+                        req.body
+
+                    );
+
+            return res.status(200).json(
+
+                successResponse(
+
+                    asset,
+
+                    "Asset updated successfully"
+
+                )
+
+            );
+
         }
+
     );
 
     deleteAsset = asyncHandler(
-        async (req: Request,res: Response) => {
-        await assetService.deleteAsset(req.params.id as string);
-        return res.status(200).json(
-            successResponse(null,"Asset deleted successfully")
-        );
+
+        async (
+
+            req: Request,
+
+            res: Response
+
+        ) => {
+
+            await assetService
+
+                .deleteAsset(
+
+                    req.params.id as string
+
+                );
+
+            return res.status(200).json(
+
+                successResponse(
+
+                    null,
+
+                    "Asset deleted successfully"
+
+                )
+
+            );
+
         }
+
     );
 
     assignAsset = asyncHandler(
-        async (req: Request,res: Response) => {
-        const assignment = await assetService.assignAsset(req.body);
-        return res.status(201).json(
-            successResponse(assignment,"Asset assigned successfully")
-        );
+
+        async (
+
+            req: Request,
+
+            res: Response
+
+        ) => {
+
+            const assignment =
+
+                await assetService
+
+                    .assignAsset(
+
+                        req.body
+
+                    );
+
+            return res.status(201).json(
+
+                successResponse(
+
+                    assignment,
+
+                    "Asset assigned successfully"
+
+                )
+
+            );
+
         }
+
     );
 
     returnAsset = asyncHandler(
-        async (req: Request,res: Response) => {
-        const assignment = await assetService.returnAsset(req.body);
-        return res.status(200).json(
-            successResponse(assignment,"Asset returned successfully")
-        );
+
+        async (
+
+            req: Request,
+
+            res: Response
+
+        ) => {
+
+            const assignment =
+
+                await assetService
+
+                    .returnAsset(
+
+                        req.body
+
+                    );
+
+            return res.status(200).json(
+
+                successResponse(
+
+                    assignment,
+
+                    "Asset returned successfully"
+
+                )
+
+            );
+
         }
+
     );
 
     getAssetHistory = asyncHandler(
-        async (req: Request,res: Response) => {
-        const history = await assetService.getAssetHistory(req.params.id as string);
-        return res.status(200).json(
-            successResponse(history,"Asset history fetched successfully")
-        );
+
+        async (
+
+            req: Request,
+
+            res: Response
+
+        ) => {
+
+            const history =
+
+                await assetService
+
+                    .getAssetHistory(
+
+                        req.params.id as string
+
+                    );
+
+            return res.status(200).json(
+
+                successResponse(
+
+                    history,
+
+                    "Asset history fetched successfully"
+
+                )
+
+            );
+
         }
+
     );
+
+    getEmployeeAssets = asyncHandler(
+
+        async (
+
+            req: Request,
+
+            res: Response
+
+        ) => {
+
+            const assets =
+
+                await assetService
+
+                    .getEmployeeAssets(
+
+                        req.params.id as string
+
+                    );
+
+            return res.status(200).json(
+
+                successResponse(
+
+                    assets,
+
+                    "Employee assets fetched successfully"
+
+                )
+
+            );
+
+        }
+
+    );
+
 }
 
 export default new AssetController();

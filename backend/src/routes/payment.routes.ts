@@ -11,12 +11,22 @@ router.use(authenticate);
 
 router.get("/",paymentController.getAllPayments);
 
+router.patch(
+    "/:id/complete",
+    paymentController.completePayment
+);
+
+router.patch(
+    "/:id/fail",
+    paymentController.failPayment
+);
+
 router.get("/:id",paymentController.getPaymentById);
 
-router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),validate(createPaymentSchema),paymentController.createPayment);
+router.post("/",validate(createPaymentSchema),paymentController.createPayment);
 
-router.patch("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),paymentController.updatePayment);
+router.patch("/:id",paymentController.updatePayment);
 
-router.delete("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),paymentController.deletePayment);
+router.delete("/:id",paymentController.deletePayment);
 
 export default router;

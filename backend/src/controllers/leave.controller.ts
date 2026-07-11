@@ -17,6 +17,58 @@ class LeaveController {
     }
   );
 
+  employeeLeaves = asyncHandler(
+    async (req, res) => {
+      const result = await leaveService.employeeLeaves(req.params.id as string);
+      return res.json(
+        successResponse(result)
+      );
+    }
+  );
+
+  leaveBalance = asyncHandler(
+    async (req, res) => {
+      const result = await leaveService.leaveBalance(req.params.id as string);
+      return res.json(
+        successResponse(result)
+      );
+    }
+  );
+
+  approveLeave = asyncHandler(
+    async (req, res) => {
+      const user = (req as any).user;
+      const result =
+        await leaveService
+          .approveLeave(
+            req.params.id as string ,user
+          );
+      return res.status(200).json(
+        successResponse(
+          result,
+          "Leave approved"
+        )
+      );
+    }
+  );
+
+  rejectLeave = asyncHandler(
+    async (req, res) => {
+      const user = (req as any).user;
+      const result =
+        await leaveService
+          .rejectLeave(
+            req.params.id as string,user
+          );
+      return res.status(200).json(
+        successResponse(
+          result,
+          "Leave rejected"
+        )
+      );
+    }
+  );
+
   getLeaveById = asyncHandler(
     async (req: Request, res: Response) => {
       const id = req.params.id as string;
@@ -95,49 +147,49 @@ class LeaveController {
     }
   );
 
-  approveLeave = asyncHandler(
-    async (req: Request, res: Response) => {
-      const id = req.params.id as string;
-      const user = (req as any).user;
-      const leave = await leaveService.approveLeave(id);
-      await auditLogService.createLog(
-        {
-            userId: user.id,
-            tenantId: user.tenantId,
-        },
-        {
-            action: "APPROVE",
-            entity: "LEAVE",
-            entityId: leave.id,
-        }
-      );
-      return res.status(200).json(
-        successResponse(leave,"Leave approved successfully")
-      );
-    }
-  );
+  // approveLeave = asyncHandler(
+  //   async (req: Request, res: Response) => {
+  //     const id = req.params.id as string;
+  //     const user = (req as any).user;
+  //     const leave = await leaveService.approveLeave(id);
+  //     await auditLogService.createLog(
+  //       {
+  //           userId: user.id,
+  //           tenantId: user.tenantId,
+  //       },
+  //       {
+  //           action: "APPROVE",
+  //           entity: "LEAVE",
+  //           entityId: leave.id,
+  //       }
+  //     );
+  //     return res.status(200).json(
+  //       successResponse(leave,"Leave approved successfully")
+  //     );
+  //   }
+  // );
 
-  rejectLeave = asyncHandler(
-    async (req: Request, res: Response) => {
-      const id = req.params.id as string;
-      const user = (req as any).user;
-      const leave = await leaveService.rejectLeave(id);
-      await auditLogService.createLog(
-        {
-            userId: user.id,
-            tenantId: user.tenantId,
-        },
-        {
-            action: "REJECT",
-            entity: "LEAVE",
-            entityId: leave.id,
-        }
-      );
-      return res.status(200).json(
-        successResponse(leave,"Leave rejected successfully")
-      );
-    }
-  );
+  // rejectLeave = asyncHandler(
+  //   async (req: Request, res: Response) => {
+  //     const id = req.params.id as string;
+  //     const user = (req as any).user;
+  //     const leave = await leaveService.rejectLeave(id);
+  //     await auditLogService.createLog(
+  //       {
+  //           userId: user.id,
+  //           tenantId: user.tenantId,
+  //       },
+  //       {
+  //           action: "REJECT",
+  //           entity: "LEAVE",
+  //           entityId: leave.id,
+  //       }
+  //     );
+  //     return res.status(200).json(
+  //       successResponse(leave,"Leave rejected successfully")
+  //     );
+  //   }
+  //);
 
 }
 

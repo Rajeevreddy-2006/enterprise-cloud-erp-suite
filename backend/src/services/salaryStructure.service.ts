@@ -1,5 +1,5 @@
 import salaryStructureRepository from "../repositories/salaryStructure.repository";
-import { CreateSalaryStructureDto, UpdateSalaryStructureDto, } from "../types/salaryStructure.types";
+import { CreateSalaryStructureDto, UpdateSalaryStructureDto, SalaryStructureDbDto } from "../types/salaryStructure.types";
 import { RoleType } from "../generated/prisma/enums";
 import AppError from "../utils/AppError";
 
@@ -13,7 +13,7 @@ class SalaryStructureService {
     return salaryStructureRepository.getSalaryStructureById(id);
   }
 
-  async createSalaryStructure(data: CreateSalaryStructureDto) {
+  async createSalaryStructure(data: SalaryStructureDbDto) {
     const employee = await salaryStructureRepository.getEmployeeById(data.employeeId);
     if (!employee) {
       throw new AppError("Employee not found",404);

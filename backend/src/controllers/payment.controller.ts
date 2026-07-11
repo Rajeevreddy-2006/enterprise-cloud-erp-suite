@@ -14,6 +14,36 @@ class PaymentController {
     }
   );
 
+  completePayment = asyncHandler(
+    async (req: Request, res: Response) => {
+      const payment =
+        await paymentService.completePayment(
+          req.params.id as string
+        );
+      return res.status(200).json(
+        successResponse(
+          payment,
+          "Payment completed successfully"
+        )
+      );
+    }
+  );
+
+  failPayment = asyncHandler(
+    async (req: Request, res: Response) => {
+      const payment =
+        await paymentService.failPayment(
+          req.params.id as string
+        );
+      return res.status(200).json(
+        successResponse(
+          payment,
+          "Payment marked as failed"
+        )
+      );
+    }
+  );
+
   getPaymentById = asyncHandler(
     async (req: Request, res: Response) => {
       const payment = await paymentService.getPaymentById(req.params.id as string);
@@ -25,19 +55,44 @@ class PaymentController {
 
   createPayment = asyncHandler(
     async (req: Request, res: Response) => {
-      const payment = await paymentService.createPayment(req.body);
-      return res.status(201).json(
-        successResponse(payment,"Payment created successfully")
-      );
+        const user = (req as any).user;
+        const paymentNumber =
+            `PAY-${Date.now()}`;
+        const payment =
+            await paymentService.createPayment({
+                ...req.body,
+                paymentNumber,
+                tenantId: user.tenantId,
+                status: "PENDING",
+                paymentDate: new Date(req.body.paymentDate)
+            });
+        return res.status(201).json(
+            successResponse(
+                payment,
+                "Payment created successfully"
+            )
+        );
     }
   );
 
   updatePayment = asyncHandler(
     async (req: Request, res: Response) => {
-      const payment = await paymentService.updatePayment(req.params.id as string,req.body);
-      return res.status(200).json(
-        successResponse(payment,"Payment updated successfully")
-      );
+        const payment =
+            await paymentService.updatePayment(
+                req.params.id as string,
+                {
+                    ...req.body,
+                    ...(req.body.paymentDate && {
+                        paymentDate: new Date(req.body.paymentDate)
+                    })
+                }
+            );
+        return res.status(200).json(
+            successResponse(
+                payment,
+                "Payment updated successfully"
+            )
+        );
     }
   );
 

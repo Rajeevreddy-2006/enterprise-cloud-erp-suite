@@ -1,57 +1,528 @@
-import type { Payroll } from "@/types/payroll.types";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Pencil, Trash2 } from "lucide-react";
-const colors={
-    PENDING: "bg-yellow-500/20 text-yellow-400",
-    PROCESSED: "bg-blue-500/20 text-blue-400",
-    PAID: "bg-green-500/20 text-green-400"
-};
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow
+} from "@/components/ui/table";
 
-interface Props{
-    payrolls:Payroll[];
-    onEdit:(payroll:Payroll)=>void;
-    onDelete:(id:string)=>void;
+import {
+    Button
+} from "@/components/ui/button";
+
+import {
+    Badge
+} from "@/components/ui/badge";
+
+import payrollService
+    from "@/services/payroll.service";
+
+interface Props {
+
+    payrolls: any[];
+
+    showActions?: boolean;
+
+    showDelete?: boolean;
+
+    canDelete?: boolean;
+
+    onPay?: (
+        id: string
+    ) => void;
+
+    onDelete?: (
+        id: string
+    ) => void;
+
 }
 
-function PayrollTable({payrolls,onEdit,onDelete }:Props){
-    return(
+const monthNames = [
+
+    "January",
+
+    "February",
+
+    "March",
+
+    "April",
+
+    "May",
+
+    "June",
+
+    "July",
+
+    "August",
+
+    "September",
+
+    "October",
+
+    "November",
+
+    "December"
+
+];
+
+function PayrollTable({
+
+    payrolls,
+
+    showActions = false,
+
+    showDelete = false,
+
+    canDelete = false,
+
+    onPay,
+
+    onDelete
+
+}: Props) {
+
+    return (
+
         <Table>
-        <TableHeader>
-            <TableRow>
-                <TableHead> Employee </TableHead>
-                <TableHead> Month </TableHead>
-                <TableHead> Year </TableHead>
-                <TableHead> Gross </TableHead>
-                <TableHead> Deductions </TableHead>
-                <TableHead> Net </TableHead>
-                <TableHead> Status </TableHead>
-                <TableHead> Actions </TableHead>
-            </TableRow>
-        </TableHeader>
-        <TableBody>
-        {
-            payrolls.map((payroll)=>(
-            <TableRow key={payroll.id}>
-                <TableCell> { payroll.employee?.firstName }{" "}{ payroll.employee?.lastName } </TableCell>
-                <TableCell> { payroll.month } </TableCell>
-                <TableCell> { payroll.year } </TableCell>
-                <TableCell> ₹{ payroll.grossSalary } </TableCell>
-                <TableCell> ₹{ payroll.deductions } </TableCell>
-                <TableCell> ₹{ payroll.netSalary } </TableCell>
-                <TableCell> <span className={`px-2 py-1 rounded-full text-xs ${colors[payroll.status]}` }> { payroll.status } </span> </TableCell>
-                <TableCell>
-                    <div className="flex gap-2">
-                        <Button size="icon" variant="ghost" onClick={()=>onEdit(payroll)}> <Pencil size={16}/> </Button>
-                        <Button size="icon" variant="ghost" onClick={()=>onDelete(payroll.id)}> <Trash2 size={16}/> </Button>
-                    </div>
-                </TableCell>
-            </TableRow>
-            ))
-            }
-        </TableBody>
+
+            <TableHeader>
+
+                <TableRow>
+
+                    <TableHead>
+
+                        Profile
+
+                    </TableHead>
+
+                    <TableHead>
+
+                        Month
+
+                    </TableHead>
+
+                    <TableHead>
+
+                        Year
+
+                    </TableHead>
+
+                    <TableHead>
+
+                        Gross Salary
+
+                    </TableHead>
+
+                    <TableHead>
+
+                        Deductions
+
+                    </TableHead>
+
+                    <TableHead>
+
+                        Net Salary
+
+                    </TableHead>
+
+                    <TableHead>
+
+                        Status
+
+                    </TableHead>
+
+                    <TableHead>
+
+                        Payslip
+
+                    </TableHead>
+
+                    {
+
+                        (showActions ||
+
+                            (showDelete && canDelete))
+
+                        &&
+
+                        (
+
+                            <TableHead>
+
+                                Actions
+
+                            </TableHead>
+
+                        )
+
+                    }
+
+                </TableRow>
+
+            </TableHeader>
+
+            <TableBody>
+
+                {
+
+                    payrolls.length === 0
+
+                        ?
+
+                        (
+
+                            <TableRow>
+
+                                <TableCell
+
+                                    colSpan={
+
+                                        (showActions ||
+
+                                            (showDelete && canDelete))
+
+                                            ?
+
+                                            9
+
+                                            :
+
+                                            8
+
+                                    }
+
+                                    className="text-center py-10"
+
+                                >
+
+                                    No Payroll Generated
+
+                                </TableCell>
+
+                            </TableRow>
+
+                        )
+
+                        :
+
+                        (
+
+                            payrolls.map(
+
+                                (payroll: any) => (
+
+                                    <TableRow
+
+                                        key={payroll.id}
+
+                                    >
+
+                                        <TableCell>
+
+                                            <Button
+
+                                                size="sm"
+
+                                                variant="outline"
+
+                                                onClick={() => {
+
+                                                    window.open(
+
+                                                        `/employees/${payroll.employeeId}`,
+
+                                                        "_blank"
+
+                                                    );
+
+                                                }}
+
+                                            >
+
+                                                Profile
+
+                                            </Button>
+
+                                        </TableCell>
+
+                                        <TableCell>
+
+                                            {
+
+                                                monthNames[
+
+                                                payroll.month - 1
+
+                                                ]
+
+                                            }
+
+                                        </TableCell>
+
+                                        <TableCell>
+
+                                            {
+
+                                                payroll.year
+
+                                            }
+
+                                        </TableCell>
+
+                                        <TableCell>
+
+                                            ₹{
+
+                                                Number(
+
+                                                    payroll.grossSalary
+
+                                                )
+
+                                                    .toLocaleString()
+
+                                            }
+
+                                        </TableCell>
+
+                                        <TableCell>
+
+                                            ₹{
+
+                                                Number(
+
+                                                    payroll.deductions
+
+                                                )
+
+                                                    .toLocaleString()
+
+                                            }
+
+                                        </TableCell>
+
+                                        <TableCell>
+
+                                            ₹{
+
+                                                Number(
+
+                                                    payroll.netSalary
+
+                                                )
+
+                                                    .toLocaleString()
+
+                                            }
+
+                                        </TableCell>
+
+                                        <TableCell>
+
+                                            <Badge
+
+                                                variant={
+
+                                                    payroll.status === "PAID"
+
+                                                        ?
+
+                                                        "default"
+
+                                                        :
+
+                                                        payroll.status === "PENDING"
+
+                                                            ?
+
+                                                            "secondary"
+
+                                                            :
+
+                                                            "outline"
+
+                                                }
+
+                                            >
+
+                                                {
+
+                                                    payroll.status
+
+                                                }
+
+                                            </Badge>
+
+                                        </TableCell>
+
+                                        <TableCell>
+
+                                            {
+
+                                                payroll.status === "PAID"
+
+                                                    ?
+
+                                                    (
+
+                                                        <Button
+
+                                                            size="sm"
+
+                                                            onClick={() => {
+
+                                                                payrollService
+
+                                                                    .downloadPayslip(
+
+                                                                        payroll.id
+
+                                                                    );
+
+                                                            }}
+
+                                                        >
+
+                                                            Download
+
+                                                        </Button>
+
+                                                    )
+
+                                                    :
+
+                                                    (
+
+                                                        <span>
+
+                                                            —
+
+                                                        </span>
+
+                                                    )
+
+                                            }
+
+                                        </TableCell>
+
+                                        {
+
+                                            (showActions ||
+
+                                                (showDelete && canDelete))
+
+                                            &&
+
+                                            (
+
+                                                <TableCell>
+
+                                                    <div
+
+                                                        className="
+
+flex
+
+gap-2
+
+"
+
+                                                    >
+
+                                                        {
+
+                                                            showActions
+
+                                                            &&
+
+                                                            payroll.status === "PENDING"
+
+                                                            &&
+
+                                                            (
+
+                                                                <Button
+
+                                                                    size="sm"
+
+                                                                    onClick={() => {
+
+                                                                        onPay?.(
+
+                                                                            payroll.id
+
+                                                                        );
+
+                                                                    }}
+
+                                                                >
+
+                                                                    Approve Payment
+
+                                                                </Button>
+
+                                                            )
+
+                                                        }
+
+                                                        {
+                                                            (showDelete
+                                                            &&
+                                                            canDelete)?
+                                                            // &&
+                                                            (
+                                                                payroll.status === "PAID"
+
+                                                                    ?
+
+                                                                    <span
+                                                                        className="text-xs text-muted-foreground"
+                                                                    >
+                                                                        Locked
+                                                                    </span>
+
+                                                                    :
+
+                                                                    <Button
+                                                                        size="sm"
+                                                                        variant="destructive"
+                                                                        onClick={() =>
+                                                                            onDelete?.(
+                                                                                payroll.id
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        Delete
+                                                                    </Button>
+                                                            )
+                                                            : <span className="ml-4">--</span>
+                                                        }
+
+                                                    </div>
+
+                                                </TableCell>
+
+                                            )
+
+                                        }
+
+                                    </TableRow>
+
+                                )
+
+                            )
+
+                        )
+
+                }
+
+            </TableBody>
+
         </Table>
+
     );
+
 }
 
 export default PayrollTable;

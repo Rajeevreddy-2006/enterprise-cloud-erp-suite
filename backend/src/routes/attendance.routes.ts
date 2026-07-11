@@ -9,6 +9,10 @@ const router = Router();
 
 router.use(authenticate);
 
+router.get("/employee/:id",attendanceController.employeeAttendance);
+
+router.get("/employee/:id/summary",attendanceController.employeeAttendanceSummary);
+
 router.get("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),attendanceController.getAllAttendances);
 
 router.get("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),attendanceController.getAttendanceById);

@@ -1,14 +1,15 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+    useMutation
+} from "@tanstack/react-query";
 import payrollService from "@/services/payroll.service";
 
-export function useDeletePayroll(){
-    const queryClient = useQueryClient();
+export function useDeletePayroll() {
     return useMutation({
-        mutationFn: payrollService.deletePayroll,
-        onSuccess(){
-            queryClient.invalidateQueries({
-                queryKey:[ "payrolls" ]
-            });
-        }
+        mutationFn: (
+            id: string
+        ) =>
+            payrollService.deletePayroll(
+                id
+            )
     });
 }

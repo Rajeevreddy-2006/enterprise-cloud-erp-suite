@@ -5,7 +5,7 @@ export interface CreateTransactionDto {
   amount: number;
   type: TransactionType;
   accountId: string;
-  tenantId: string;
+  tenantId?: string;
 }
 
 export interface UpdateTransactionDto {

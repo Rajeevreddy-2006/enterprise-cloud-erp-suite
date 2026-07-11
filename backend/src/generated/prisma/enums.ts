@@ -10,10 +10,16 @@
 */
 
 export const RoleType = {
-  SUPER_ADMIN: 'SUPER_ADMIN',
   TENANT_ADMIN: 'TENANT_ADMIN',
+  SUPER_ADMIN: 'SUPER_ADMIN',
   HR: 'HR',
+  MANAGER: 'MANAGER',
+  FINANCE_MANAGER: 'FINANCE_MANAGER',
   ACCOUNTANT: 'ACCOUNTANT',
+  PROCUREMENT_MANAGER: 'PROCUREMENT_MANAGER',
+  INVENTORY_MANAGER: 'INVENTORY_MANAGER',
+  SALES_MANAGER: 'SALES_MANAGER',
+  SALES_EXECUTIVE: 'SALES_EXECUTIVE',
   EMPLOYEE: 'EMPLOYEE'
 } as const
 
@@ -31,24 +37,6 @@ export const AccountType = {
 export type AccountType = (typeof AccountType)[keyof typeof AccountType]
 
 
-export const PurchaseOrderStatus = {
-  PENDING: 'PENDING',
-  APPROVED: 'APPROVED',
-  RECEIVED: 'RECEIVED',
-  CANCELLED: 'CANCELLED'
-} as const
-
-export type PurchaseOrderStatus = (typeof PurchaseOrderStatus)[keyof typeof PurchaseOrderStatus]
-
-
-export const TransactionType = {
-  DEBIT: 'DEBIT',
-  CREDIT: 'CREDIT'
-} as const
-
-export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
-
-
 export const PayrollStatus = {
   PENDING: 'PENDING',
   PROCESSED: 'PROCESSED',
@@ -56,35 +44,6 @@ export const PayrollStatus = {
 } as const
 
 export type PayrollStatus = (typeof PayrollStatus)[keyof typeof PayrollStatus]
-
-
-export const AttendanceStatus = {
-  PRESENT: 'PRESENT',
-  ABSENT: 'ABSENT',
-  HALF_DAY: 'HALF_DAY',
-  LEAVE: 'LEAVE'
-} as const
-
-export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof AttendanceStatus]
-
-
-export const LeaveStatus = {
-  PENDING: 'PENDING',
-  APPROVED: 'APPROVED',
-  REJECTED: 'REJECTED'
-} as const
-
-export type LeaveStatus = (typeof LeaveStatus)[keyof typeof LeaveStatus]
-
-
-export const LeaveType = {
-  SICK: 'SICK',
-  CASUAL: 'CASUAL',
-  EARNED: 'EARNED',
-  UNPAID: 'UNPAID'
-} as const
-
-export type LeaveType = (typeof LeaveType)[keyof typeof LeaveType]
 
 
 export const PurchaseRequestStatus = {
@@ -115,35 +74,6 @@ export const OpportunityStatus = {
 export type OpportunityStatus = (typeof OpportunityStatus)[keyof typeof OpportunityStatus]
 
 
-export const SalesOrderStatus = {
-  PENDING: 'PENDING',
-  CONFIRMED: 'CONFIRMED',
-  COMPLETED: 'COMPLETED',
-  CANCELLED: 'CANCELLED'
-} as const
-
-export type SalesOrderStatus = (typeof SalesOrderStatus)[keyof typeof SalesOrderStatus]
-
-
-export const InvoiceStatus = {
-  DRAFT: 'DRAFT',
-  SENT: 'SENT',
-  PAID: 'PAID',
-  OVERDUE: 'OVERDUE'
-} as const
-
-export type InvoiceStatus = (typeof InvoiceStatus)[keyof typeof InvoiceStatus]
-
-
-export const PaymentStatus = {
-  PENDING: 'PENDING',
-  COMPLETED: 'COMPLETED',
-  FAILED: 'FAILED'
-} as const
-
-export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
-
-
 export const ExpenseStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
@@ -161,6 +91,53 @@ export const ApprovalStatus = {
 } as const
 
 export type ApprovalStatus = (typeof ApprovalStatus)[keyof typeof ApprovalStatus]
+
+
+export const AttendanceStatus = {
+  PRESENT: 'PRESENT',
+  ABSENT: 'ABSENT',
+  HALF_DAY: 'HALF_DAY',
+  LEAVE: 'LEAVE'
+} as const
+
+export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof AttendanceStatus]
+
+
+export const LeaveType = {
+  SICK: 'SICK',
+  CASUAL: 'CASUAL',
+  EARNED: 'EARNED',
+  UNPAID: 'UNPAID'
+} as const
+
+export type LeaveType = (typeof LeaveType)[keyof typeof LeaveType]
+
+
+export const LeaveStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type LeaveStatus = (typeof LeaveStatus)[keyof typeof LeaveStatus]
+
+
+export const TransactionType = {
+  DEBIT: 'DEBIT',
+  CREDIT: 'CREDIT'
+} as const
+
+export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
+
+
+export const PurchaseOrderStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  RECEIVED: 'RECEIVED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PurchaseOrderStatus = (typeof PurchaseOrderStatus)[keyof typeof PurchaseOrderStatus]
 
 
 export const AssetStatus = {
@@ -187,15 +164,59 @@ export const AssetCategory = {
 export type AssetCategory = (typeof AssetCategory)[keyof typeof AssetCategory]
 
 
+export const CustomerInvitationStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type CustomerInvitationStatus = (typeof CustomerInvitationStatus)[keyof typeof CustomerInvitationStatus]
+
+
+export const SalesOrderStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type SalesOrderStatus = (typeof SalesOrderStatus)[keyof typeof SalesOrderStatus]
+
+
+export const InvoiceStatus = {
+  DRAFT: 'DRAFT',
+  SENT: 'SENT',
+  PAID: 'PAID',
+  FAILED: 'FAILED',
+  OVERDUE: 'OVERDUE'
+} as const
+
+export type InvoiceStatus = (typeof InvoiceStatus)[keyof typeof InvoiceStatus]
+
+
+export const PaymentStatus = {
+  PENDING: 'PENDING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
 export const DocumentCategory = {
   EMPLOYEE: 'EMPLOYEE',
   PAYSLIP: 'PAYSLIP',
+  CONTRACT: 'CONTRACT',
+  AADHAR: 'AADHAR',
+  PAN: 'PAN',
+  PASSPORT: 'PASSPORT',
+  RESUME: 'RESUME',
+  CERTIFICATE: 'CERTIFICATE',
   INVOICE: 'INVOICE',
   PURCHASE_ORDER: 'PURCHASE_ORDER',
   EXPENSE: 'EXPENSE',
   ASSET: 'ASSET',
   SUPPLIER: 'SUPPLIER',
-  CONTRACT: 'CONTRACT',
   OTHER: 'OTHER'
 } as const
 

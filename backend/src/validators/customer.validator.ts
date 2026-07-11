@@ -5,5 +5,5 @@ export const createCustomerSchema = z.object({
   email: z.email().optional(),
   phone: z.string().optional(),
   address: z.string().optional(),
-  tenantId: z.string(),
+  tenantId: z.string().optional(),
 });

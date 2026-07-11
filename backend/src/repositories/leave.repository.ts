@@ -5,7 +5,7 @@ import { RoleType } from "../generated/prisma/enums";
 class LeaveRepository {
 
   async getAllLeaves(tenantId: string,role: RoleType) {
-    if (role === "SUPER_ADMIN") {
+    if (role === "TENANT_ADMIN") {
       return prisma.leave.findMany({
         include: { employee: true, tenant: true, },
         orderBy: { createdAt: "desc", },
@@ -18,10 +18,93 @@ class LeaveRepository {
     });
   }
 
+  async getEmployeeLeaves(employeeId: string) {
+    return prisma.leave.findMany({
+      where: { employeeId },
+      include:{
+        employee:{
+            include:{
+              user:true
+            }
+        }
+      },
+      orderBy: { startDate: "desc" }
+    });
+  }
+
+  async leaveBalance(employeeId: string) {
+    const approved = await prisma.leave.findMany({
+        where: {
+          employeeId,
+          status: "APPROVED"
+        }
+      });
+    return {
+      casual:
+        approved.filter(
+          x =>
+            x.leaveType === "CASUAL"
+        ).length,
+      sick:
+        approved.filter(
+          x =>
+            x.leaveType === "SICK"
+        ).length,
+      earned:
+        approved.filter(
+          x =>
+            x.leaveType === "EARNED"
+        ).length,
+      unpaid:
+        approved.filter(
+          x =>
+            x.leaveType === "UNPAID"
+        ).length
+    };
+  }
+
+  async approveLeave(id: string) {
+    return prisma.leave.update({
+      where: { id },
+      include:{
+        employee:{
+            include:{
+              user:true
+            }
+        }
+      },
+      data: {
+        status: "APPROVED"
+      }
+    });
+  }
+
+  async rejectLeave(id: string) {
+    return prisma.leave.update({
+      where: { id },
+      include:{
+        employee:{
+            include:{
+              user:true
+            }
+        }
+      },
+      data: {
+        status: "REJECTED"
+      }
+    });
+  }
+
   async getLeaveById(id: string) {
     return prisma.leave.findUnique({
       where: { id },
-      include: { employee: true, tenant: true, },
+      include:{
+        employee:{
+            include:{
+              user:true
+            }
+        },tenant: true,
+      },
     });
   }
 

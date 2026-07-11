@@ -11,6 +11,24 @@ router.use(authenticate);
 
 router.get("/",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),notificationController.getAllNotifications);
 
+router.patch(
+    "/:id/read",
+    authorize([
+        "SUPER_ADMIN",
+        "TENANT_ADMIN",
+    ]),
+    notificationController.markAsRead
+);
+
+router.patch(
+    "/read-all",
+    authorize([
+        "SUPER_ADMIN",
+        "TENANT_ADMIN",
+    ]),
+    notificationController.markAllAsRead
+);
+
 router.get("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),notificationController.getNotificationById);
 
 router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),validate(createNotificationSchema),notificationController.createNotification);

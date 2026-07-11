@@ -404,6 +404,7 @@ export const ModelName = {
   Supplier: 'Supplier',
   PurchaseRequest: 'PurchaseRequest',
   Customer: 'Customer',
+  CustomerInvitation: 'CustomerInvitation',
   Lead: 'Lead',
   Opportunity: 'Opportunity',
   SalesOrder: 'SalesOrder',
@@ -436,7 +437,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "tenant" | "user" | "department" | "employee" | "attendance" | "leave" | "salaryStructure" | "payroll" | "account" | "transaction" | "journalEntry" | "inventoryItem" | "purchaseOrder" | "notification" | "auditLog" | "asset" | "assetAssignment" | "supplier" | "purchaseRequest" | "customer" | "lead" | "opportunity" | "salesOrder" | "invoice" | "payment" | "expense" | "approvalRequest" | "document" | "goodsReceiptNote" | "stockMovement" | "project" | "task" | "milestone" | "resourceAllocation" | "timeEntry" | "interactionLog" | "quotation"
+    modelProps: "tenant" | "user" | "department" | "employee" | "attendance" | "leave" | "salaryStructure" | "payroll" | "account" | "transaction" | "journalEntry" | "inventoryItem" | "purchaseOrder" | "notification" | "auditLog" | "asset" | "assetAssignment" | "supplier" | "purchaseRequest" | "customer" | "customerInvitation" | "lead" | "opportunity" | "salesOrder" | "invoice" | "payment" | "expense" | "approvalRequest" | "document" | "goodsReceiptNote" | "stockMovement" | "project" | "task" | "milestone" | "resourceAllocation" | "timeEntry" | "interactionLog" | "quotation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1920,6 +1921,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CustomerInvitation: {
+      payload: Prisma.$CustomerInvitationPayload<ExtArgs>
+      fields: Prisma.CustomerInvitationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CustomerInvitationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerInvitationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CustomerInvitationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerInvitationPayload>
+        }
+        findFirst: {
+          args: Prisma.CustomerInvitationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerInvitationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CustomerInvitationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerInvitationPayload>
+        }
+        findMany: {
+          args: Prisma.CustomerInvitationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerInvitationPayload>[]
+        }
+        create: {
+          args: Prisma.CustomerInvitationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerInvitationPayload>
+        }
+        createMany: {
+          args: Prisma.CustomerInvitationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CustomerInvitationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerInvitationPayload>[]
+        }
+        delete: {
+          args: Prisma.CustomerInvitationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerInvitationPayload>
+        }
+        update: {
+          args: Prisma.CustomerInvitationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerInvitationPayload>
+        }
+        deleteMany: {
+          args: Prisma.CustomerInvitationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CustomerInvitationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CustomerInvitationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerInvitationPayload>[]
+        }
+        upsert: {
+          args: Prisma.CustomerInvitationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerInvitationPayload>
+        }
+        aggregate: {
+          args: Prisma.CustomerInvitationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCustomerInvitation>
+        }
+        groupBy: {
+          args: Prisma.CustomerInvitationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerInvitationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CustomerInvitationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerInvitationCountAggregateOutputType> | number
+        }
+      }
+    }
     Lead: {
       payload: Prisma.$LeadPayload<ExtArgs>
       fields: Prisma.LeadFieldRefs
@@ -3240,6 +3315,11 @@ export const UserScalarFieldEnum = {
   refreshToken: 'refreshToken',
   resetToken: 'resetToken',
   resetTokenExpiresAt: 'resetTokenExpiresAt',
+  inviteToken: 'inviteToken',
+  inviteExpiresAt: 'inviteExpiresAt',
+  isVerified: 'isVerified',
+  designation: 'designation',
+  phone: 'phone',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -3250,6 +3330,7 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const DepartmentScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -3444,6 +3525,7 @@ export const AssetScalarFieldEnum = {
   purchaseCost: 'purchaseCost',
   currentValue: 'currentValue',
   status: 'status',
+  supplierId: 'supplierId',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -3513,6 +3595,20 @@ export const CustomerScalarFieldEnum = {
 export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
 
 
+export const CustomerInvitationScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  token: 'token',
+  status: 'status',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt',
+  acceptedAt: 'acceptedAt'
+} as const
+
+export type CustomerInvitationScalarFieldEnum = (typeof CustomerInvitationScalarFieldEnum)[keyof typeof CustomerInvitationScalarFieldEnum]
+
+
 export const LeadScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -3563,6 +3659,11 @@ export const InvoiceScalarFieldEnum = {
   amount: 'amount',
   dueDate: 'dueDate',
   status: 'status',
+  paymentToken: 'paymentToken',
+  sentAt: 'sentAt',
+  paidAt: 'paidAt',
+  paymentDate: 'paymentDate',
+  declinedAt: 'declinedAt',
   salesOrderId: 'salesOrderId',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
@@ -3624,6 +3725,7 @@ export const DocumentScalarFieldEnum = {
   name: 'name',
   fileUrl: 'fileUrl',
   category: 'category',
+  employeeId: 'employeeId',
   tenantId: 'tenantId',
   uploadedById: 'uploadedById',
   createdAt: 'createdAt'
@@ -3752,8 +3854,13 @@ export const QuotationScalarFieldEnum = {
   customerId: 'customerId',
   opportunityId: 'opportunityId',
   amount: 'amount',
+  requestedQuantity: 'requestedQuantity',
   status: 'status',
   validUntil: 'validUntil',
+  approvalToken: 'approvalToken',
+  approvedAt: 'approvedAt',
+  rejectedAt: 'rejectedAt',
+  sentAt: 'sentAt',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -4006,6 +4113,20 @@ export type EnumPurchaseRequestStatusFieldRefInput<$PrismaModel> = FieldRefInput
  * Reference to a field of type 'PurchaseRequestStatus[]'
  */
 export type ListEnumPurchaseRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PurchaseRequestStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerInvitationStatus'
+ */
+export type EnumCustomerInvitationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerInvitationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerInvitationStatus[]'
+ */
+export type ListEnumCustomerInvitationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerInvitationStatus[]'>
     
 
 
@@ -4362,6 +4483,7 @@ export type GlobalOmitConfig = {
   supplier?: Prisma.SupplierOmit
   purchaseRequest?: Prisma.PurchaseRequestOmit
   customer?: Prisma.CustomerOmit
+  customerInvitation?: Prisma.CustomerInvitationOmit
   lead?: Prisma.LeadOmit
   opportunity?: Prisma.OpportunityOmit
   salesOrder?: Prisma.SalesOrderOmit

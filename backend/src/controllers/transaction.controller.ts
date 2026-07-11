@@ -33,42 +33,32 @@ class TransactionController {
   createTransaction = asyncHandler(
     async (req: Request, res: Response) => {
       const user = (req as any).user;
-      const transaction = await transactionService.createTransaction({...req.body,tenantId: user.tenantId,});
-      await auditLogService.createLog(
-        {
-            userId: user.id,
-            tenantId: user.tenantId,
-        },
-        {
-            action: "CREATE",
-            entity: "TRANSACTION",
-            entityId: transaction.id,
-        }
-      );
+      const transaction =
+        await transactionService.createTransaction({
+          ...req.body,
+          tenantId: user.tenantId
+        });
       return res.status(201).json(
-        successResponse(transaction,"Transaction created successfully")
+        successResponse(
+          transaction,
+          "Transaction created successfully"
+        )
       );
     }
   );
 
   updateTransaction = asyncHandler(
     async (req: Request, res: Response) => {
-      const id = req.params.id as string;
-      const user = (req as any).user;
-      const transaction = await transactionService.updateTransaction(id,req.body);
-      await auditLogService.createLog(
-        {
-            userId: user.id,
-            tenantId: user.tenantId,
-        },
-        {
-            action: "UPDATE",
-            entity: "TRANSACTION",
-            entityId: transaction.id,
-        }
-      );
+      const transaction =
+        await transactionService.updateTransaction(
+          req.params.id as string,
+          req.body
+        );
       return res.status(200).json(
-        successResponse(transaction,"Transaction updated successfully")
+        successResponse(
+          transaction,
+          "Transaction updated successfully"
+        )
       );
     }
   );

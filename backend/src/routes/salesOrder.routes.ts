@@ -11,12 +11,28 @@ router.use(authenticate);
 
 router.get("/", salesOrderController.getAllSalesOrders);
 
+router.patch(
+    "/:id/confirm",
+    salesOrderController.confirmSalesOrder
+);
+
+router.patch(
+    "/:id/complete",
+    salesOrderController.completeSalesOrder
+);
+
+router.patch(
+    "/:id/cancel",
+    salesOrderController.cancelSalesOrder
+);
+
 router.get("/:id", salesOrderController.getSalesOrderById);
 
-router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),validate(createSalesOrderSchema),salesOrderController.createSalesOrder);
+router.post("/",validate(createSalesOrderSchema),salesOrderController.createSalesOrder);
 
-router.patch("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),salesOrderController.updateSalesOrder);
+router.patch("/:id",salesOrderController.updateSalesOrder);
 
-router.delete("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),salesOrderController.deleteSalesOrder);
+router.delete("/:id",salesOrderController.deleteSalesOrder);
 
 export default router;
+//authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),

@@ -9,14 +9,14 @@ const router = Router();
 
 router.use(authenticate);
 
-router.get("/", authorize(["SUPER_ADMIN"]), tenantController.getAllTenants);
+router.get("/", tenantController.getAllTenants);
 
-router.get("/:id", authorize(["SUPER_ADMIN"]), tenantController.getTenantById);
+router.get("/:id", tenantController.getTenantById);
 
-router.post("/", authorize(["SUPER_ADMIN"]), validate(createTenantSchema), tenantController.createTenant);
+router.post("/", validate(createTenantSchema), tenantController.createTenant);
 
-router.put("/:id", authorize(["SUPER_ADMIN"]), validate(updateTenantSchema), tenantController.updateTenant);
+router.put("/:id", validate(updateTenantSchema), tenantController.updateTenant);
 
-router.delete("/:id", authorize(["SUPER_ADMIN"]), tenantController.deleteTenant);
+router.delete("/:id", tenantController.deleteTenant);
 
 export default router;

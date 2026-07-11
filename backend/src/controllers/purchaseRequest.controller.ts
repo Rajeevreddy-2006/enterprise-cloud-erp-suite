@@ -34,9 +34,23 @@ class PurchaseRequestController {
 
   createRequest = asyncHandler(
     async (req: Request, res: Response) => {
-      const request = await purchaseRequestService.createRequest(req.body);
+
+      const user = (req as any).user;
+
+      const data = {
+        ...req.body,
+        requestedById: user.id,
+        tenantId: user.tenantId,
+      };
+
+      const request =
+        await purchaseRequestService.createRequest(data);
+
       return res.status(201).json(
-        successResponse(request,"Purchase request created successfully")
+        successResponse(
+          request,
+          "Purchase request created successfully"
+        )
       );
     }
   );

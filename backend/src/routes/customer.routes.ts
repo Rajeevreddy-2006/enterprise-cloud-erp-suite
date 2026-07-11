@@ -13,10 +13,10 @@ router.get("/",customerController.getAllCustomers);
 
 router.get("/:id",customerController.getCustomerById);
 
-router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),validate(createCustomerSchema),customerController.createCustomer);
+router.post("/",validate(createCustomerSchema),customerController.createCustomer);
 
-router.patch("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),customerController.updateCustomer);
+router.patch("/:id",customerController.updateCustomer);
 
-router.delete("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),customerController.deleteCustomer);
+router.delete("/:id",customerController.deleteCustomer);
 
 export default router;

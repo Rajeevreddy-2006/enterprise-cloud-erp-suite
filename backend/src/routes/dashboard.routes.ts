@@ -7,7 +7,7 @@ const router = Router();
 
 router.use(authenticate);
 
-router.get("/summary",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT","HR",]),dashboardController.getSummary);
+router.get("/summary",dashboardController.getSummary);
 
 router.get("/payroll-trend",dashboardController.getPayrollTrend);
 

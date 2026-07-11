@@ -17,6 +17,24 @@ class AttendanceController {
     }
   );
 
+  employeeAttendance = asyncHandler(
+    async (req, res) => {
+      const result = await attendanceService.employeeAttendance(req.params.id as string);
+      return res.status(200).json(
+        successResponse(result)
+      );
+    }
+  );
+
+  employeeAttendanceSummary = asyncHandler(
+    async (req, res) => {
+      const result = await attendanceService.employeeAttendanceSummary(req.params.id as string);
+      return res.status(200).json(
+        successResponse(result)
+      );
+    }
+  );
+
   getAttendanceById = asyncHandler(
     async (req: Request, res: Response) => {
       const attendance = await attendanceService.getAttendanceById(req.params.id as string);

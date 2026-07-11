@@ -118,6 +118,11 @@ export type PurchaseRequest = Prisma.PurchaseRequestModel
  */
 export type Customer = Prisma.CustomerModel
 /**
+ * Model CustomerInvitation
+ * 
+ */
+export type CustomerInvitation = Prisma.CustomerInvitationModel
+/**
  * Model Lead
  * 
  */

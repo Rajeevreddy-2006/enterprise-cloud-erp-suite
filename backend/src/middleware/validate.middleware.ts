@@ -6,6 +6,7 @@ export const validate =
   (req: Request, res: Response, next: NextFunction) => {
     const result = schema.safeParse(req.body);
     if (!result.success) {
+      console.log(result.error);
       return res.status(400).json({ success: false, errors: result.error.issues, });
     }
     next();

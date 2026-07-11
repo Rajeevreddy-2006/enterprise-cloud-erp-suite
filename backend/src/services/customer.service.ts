@@ -5,8 +5,8 @@ import { CreateCustomerDto, UpdateCustomerDto, } from "../types/customer.types";
 
 class CustomerService {
 
-  async getAllCustomers() {
-    return customerRepository.getAllCustomers();
+  async getAllCustomers(tenantId: string) {
+    return customerRepository.getAllCustomers(tenantId);
   }
 
   async getCustomerById(id: string) {
@@ -19,11 +19,11 @@ class CustomerService {
 
   async createCustomer(data: CreateCustomerDto) {
     const customer = await customerRepository.createCustomer(data);
-    await notificationService.createNotification({
-      title: "Customer Created",
-      message: customer.name,
-      tenantId: customer.tenantId,
-    });
+    // await notificationService.createNotification({
+    //   title: "Customer Created",
+    //   message: customer.name,
+    //   tenantId: customer.tenantId,
+    // });
     return customer;
   }
 

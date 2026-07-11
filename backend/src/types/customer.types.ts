@@ -3,7 +3,7 @@ export interface CreateCustomerDto {
   email?: string;
   phone?: string;
   address?: string;
-  tenantId: string;
+  tenantId?: string;
 }
 
 export interface UpdateCustomerDto {

@@ -6,14 +6,35 @@ import { RoleType } from "../generated/prisma/enums";
 class EmployeeRepository {
 
   async getAllEmployees(tenantId: string,role: RoleType) {
-    if (role === "SUPER_ADMIN") {
+    if (role === "TENANT_ADMIN") {
       return prisma.employee.findMany({
-        include: { department: true, tenant: true, },
+        include:{
+            user:true,
+            department:true,
+            tenant:true,
+            salaryStructure:true
+        },
       });
     }
     return prisma.employee.findMany({
       where: { tenantId, },
-      include: { department: true, tenant: true, },
+      include:{
+            user:true,
+            department:true,
+            tenant:true,
+            salaryStructure:true
+      },
+    });
+  }
+
+  async getEmployeeProfile(id:string){
+    return prisma.employee.findUnique({
+      where: { id },
+      include: {
+        department: true,
+        user: true,
+        salaryStructure: true
+      }
     });
   }
 
@@ -24,17 +45,27 @@ class EmployeeRepository {
     });
   }
 
-  async createEmployee(data: CreateEmployeeDto) {
+  async createEmployee(data:any){
     return prisma.employee.create({
         data,
-        include: { department: true, tenant: true, user: true, },
+        include:{
+          user:true,
+          department:true,
+          tenant:true,
+          salaryStructure:true
+        }
     });
   }
 
   async getEmployeeById(id: string) {
     return prisma.employee.findUnique({
         where: { id },
-        include: { department: true, tenant: true, },
+        include:{
+          user:true,
+          department:true,
+          tenant:true,
+          salaryStructure:true
+        }
     });
   }
 
@@ -42,7 +73,12 @@ class EmployeeRepository {
     return prisma.employee.update({
         where: { id },
         data,
-        include: { department: true, tenant: true, },
+        include:{
+          user:true,
+          department:true,
+          tenant:true,
+          salaryStructure:true
+        }
     });
   }
 

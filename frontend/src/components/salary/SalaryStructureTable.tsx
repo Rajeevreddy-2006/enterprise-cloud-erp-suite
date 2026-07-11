@@ -12,11 +12,26 @@ import { Pencil,Trash2 } from "lucide-react";
 
 interface Props {
     salaryStructures: SalaryStructure[];
+    currentUser: any;
     onEdit: (salary: SalaryStructure) => void;
     onDelete: (id: string) => void;
 }
 
-function SalaryStructureTable({ salaryStructures,onEdit,onDelete }: Props) {
+function SalaryStructureTable({ salaryStructures,currentUser,onEdit,onDelete }: Props) {
+    const canManageSalary = (employee: any) => {
+        if (!employee?.user?.isVerified)
+            return false;
+        if (currentUser?.role === "SUPER_ADMIN")
+            return true;
+        if (currentUser?.role === "HR") {
+            return (
+                employee.user.role !== "HR"
+                &&
+                employee.user.role !== "SUPER_ADMIN"
+            );
+        }
+        return false;
+    };
     return (
         <Table>
             <TableHeader>
@@ -46,12 +61,34 @@ function SalaryStructureTable({ salaryStructures,onEdit,onDelete }: Props) {
                                 <TableCell> ₹{(Number(salary.basicSalary) + Number(salary.hra) + Number(salary.bonus))*
                                             (1 - (Number(salary.pfPercentage) + Number(salary.taxPercentage))/100)}
                                 </TableCell>
-                                <TableCell>
-                                    <div className="flex gap-2">
-                                        <Button size="icon" variant="ghost" onClick={() => onEdit(salary)}> <Pencil size={16}/> </Button>
-                                        <Button size="icon" variant="ghost" onClick={() => onDelete(salary.id)}> <Trash2 size={16}/> </Button>
-                                    </div>
-                                </TableCell>
+                            <TableCell>
+                                {
+                                    canManageSalary(salary.employee) ? (
+                                        <div className="flex gap-2">
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => onEdit(salary)}
+                                            >
+                                                <Pencil className="h-4 w-4" />
+                                            </Button>
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => onDelete(salary.id)}
+                                            >
+                                                <Trash2
+                                                    className="h-4 w-4 text-red-500"
+                                                />
+                                            </Button>
+                                        </div>
+                                    ) : (
+                                        <span className="text-slate-500">
+                                            —
+                                        </span>
+                                    )
+                                }
+                            </TableCell>
                             </TableRow>
                         )
                     )

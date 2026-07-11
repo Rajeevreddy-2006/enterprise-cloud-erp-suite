@@ -33,18 +33,7 @@ class PurchaseOrderController {
   createPurchaseOrder = asyncHandler(
     async (req: Request, res: Response) => {
       const user = (req as any).user;
-      const purchaseOrder = await purchaseOrderService.createPurchaseOrder({...req.body,tenantId: user.tenantId,});
-      await auditLogService.createLog(
-        {
-            userId: user.id,
-            tenantId: user.tenantId,
-        },
-        {
-            action: "CREATE",
-            entity: "PURCHASE_ORDER",
-            entityId: purchaseOrder.id,
-        }
-      );
+      const purchaseOrder = await purchaseOrderService.createPurchaseOrder({...req.body,tenantId: user.tenantId,orderNumber: `PO-${Date.now()}`});
       return res.status(201).json(
         successResponse(purchaseOrder,"Purchase order created successfully")
       );

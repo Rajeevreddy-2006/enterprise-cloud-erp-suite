@@ -13,16 +13,30 @@ export interface RegisterDto {
 
 export interface User {
     id:string;
+    name:string;
     email:string;
     role:string;
     tenantId:string;
+    createdAt?:string;
+    companyName?:string;
+    companySlug?: string;
+    tenant?:{
+        id:string;
+        name:string;
+        slug:string;
+    };
+}
+
+export interface LoginPayload {
+    accessToken:string;
+    refreshToken:string;
+    user:User;
 }
 
 export interface LoginResponse {
     success:boolean;
-    accessToken:string;
-    refreshToken:string;
-    user:User;
+    message:string;
+    data:LoginPayload;
 }
 
 export interface RegisterResponse{
@@ -34,8 +48,24 @@ export interface ForgotPasswordDto{
     email:string;
 }
 
-
 export interface ResetPasswordDto{
+    token:string;
+    password:string;
+}
+
+export interface ChangePasswordDto{
+    currentPassword:string;
+    newPassword:string;
+}
+
+export interface InviteUserDto{
+    name:string;
+    email:string;
+    designation:string;
+    role:string;
+}
+
+export interface AcceptInviteDto{
     token:string;
     password:string;
 }

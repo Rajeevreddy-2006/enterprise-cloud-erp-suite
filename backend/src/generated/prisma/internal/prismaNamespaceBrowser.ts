@@ -71,6 +71,7 @@ export const ModelName = {
   Supplier: 'Supplier',
   PurchaseRequest: 'PurchaseRequest',
   Customer: 'Customer',
+  CustomerInvitation: 'CustomerInvitation',
   Lead: 'Lead',
   Opportunity: 'Opportunity',
   SalesOrder: 'SalesOrder',
@@ -129,6 +130,11 @@ export const UserScalarFieldEnum = {
   refreshToken: 'refreshToken',
   resetToken: 'resetToken',
   resetTokenExpiresAt: 'resetTokenExpiresAt',
+  inviteToken: 'inviteToken',
+  inviteExpiresAt: 'inviteExpiresAt',
+  isVerified: 'isVerified',
+  designation: 'designation',
+  phone: 'phone',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -139,6 +145,7 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const DepartmentScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -333,6 +340,7 @@ export const AssetScalarFieldEnum = {
   purchaseCost: 'purchaseCost',
   currentValue: 'currentValue',
   status: 'status',
+  supplierId: 'supplierId',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -402,6 +410,20 @@ export const CustomerScalarFieldEnum = {
 export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
 
 
+export const CustomerInvitationScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  token: 'token',
+  status: 'status',
+  tenantId: 'tenantId',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt',
+  acceptedAt: 'acceptedAt'
+} as const
+
+export type CustomerInvitationScalarFieldEnum = (typeof CustomerInvitationScalarFieldEnum)[keyof typeof CustomerInvitationScalarFieldEnum]
+
+
 export const LeadScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -452,6 +474,11 @@ export const InvoiceScalarFieldEnum = {
   amount: 'amount',
   dueDate: 'dueDate',
   status: 'status',
+  paymentToken: 'paymentToken',
+  sentAt: 'sentAt',
+  paidAt: 'paidAt',
+  paymentDate: 'paymentDate',
+  declinedAt: 'declinedAt',
   salesOrderId: 'salesOrderId',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
@@ -513,6 +540,7 @@ export const DocumentScalarFieldEnum = {
   name: 'name',
   fileUrl: 'fileUrl',
   category: 'category',
+  employeeId: 'employeeId',
   tenantId: 'tenantId',
   uploadedById: 'uploadedById',
   createdAt: 'createdAt'
@@ -641,8 +669,13 @@ export const QuotationScalarFieldEnum = {
   customerId: 'customerId',
   opportunityId: 'opportunityId',
   amount: 'amount',
+  requestedQuantity: 'requestedQuantity',
   status: 'status',
   validUntil: 'validUntil',
+  approvalToken: 'approvalToken',
+  approvedAt: 'approvedAt',
+  rejectedAt: 'rejectedAt',
+  sentAt: 'sentAt',
   tenantId: 'tenantId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

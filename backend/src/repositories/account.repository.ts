@@ -5,7 +5,7 @@ import { RoleType } from "../generated/prisma/enums";
 class AccountRepository {
 
   async getAllAccounts(tenantId: string, role: RoleType) {
-    if (role === "SUPER_ADMIN") {
+    if (role === "TENANT_ADMIN") {
       return prisma.account.findMany({
         include: { tenant: true, },
       });

@@ -9,6 +9,20 @@ class DocumentRepository {
     });
   }
 
+  async employeeDocuments(employeeId: string) {
+    return prisma.document.findMany({
+      where: {
+        employeeId
+      },
+      include: {
+        uploadedBy: true
+      },
+      orderBy: {
+        createdAt: "desc"
+      }
+    });
+  }
+
   async getDocumentById(id: string) {
     return prisma.document.findUnique({
       where: { id },

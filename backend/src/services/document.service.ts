@@ -16,6 +16,34 @@ class DocumentService {
     return document;
   }
 
+  async employeeDocuments(employeeId:string){
+    return documentRepository.employeeDocuments(employeeId);
+  }
+
+//   async createDocument(
+
+//     dto:CreateDocumentDto,
+
+//     tenantId:string,
+
+//     userId:string
+
+// ){
+
+//     return documentRepository
+
+//         .createDocument({
+
+//             ...dto,
+
+//             tenantId,
+
+//             uploadedById:userId
+
+//         });
+
+// }
+
   async createDocument(data: CreateDocumentDto) {
     return documentRepository.createDocument(data);
   }

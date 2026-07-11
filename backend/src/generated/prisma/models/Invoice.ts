@@ -40,6 +40,11 @@ export type InvoiceMinAggregateOutputType = {
   amount: runtime.Decimal | null
   dueDate: Date | null
   status: $Enums.InvoiceStatus | null
+  paymentToken: string | null
+  sentAt: Date | null
+  paidAt: Date | null
+  paymentDate: Date | null
+  declinedAt: Date | null
   salesOrderId: string | null
   tenantId: string | null
   createdAt: Date | null
@@ -52,6 +57,11 @@ export type InvoiceMaxAggregateOutputType = {
   amount: runtime.Decimal | null
   dueDate: Date | null
   status: $Enums.InvoiceStatus | null
+  paymentToken: string | null
+  sentAt: Date | null
+  paidAt: Date | null
+  paymentDate: Date | null
+  declinedAt: Date | null
   salesOrderId: string | null
   tenantId: string | null
   createdAt: Date | null
@@ -64,6 +74,11 @@ export type InvoiceCountAggregateOutputType = {
   amount: number
   dueDate: number
   status: number
+  paymentToken: number
+  sentAt: number
+  paidAt: number
+  paymentDate: number
+  declinedAt: number
   salesOrderId: number
   tenantId: number
   createdAt: number
@@ -86,6 +101,11 @@ export type InvoiceMinAggregateInputType = {
   amount?: true
   dueDate?: true
   status?: true
+  paymentToken?: true
+  sentAt?: true
+  paidAt?: true
+  paymentDate?: true
+  declinedAt?: true
   salesOrderId?: true
   tenantId?: true
   createdAt?: true
@@ -98,6 +118,11 @@ export type InvoiceMaxAggregateInputType = {
   amount?: true
   dueDate?: true
   status?: true
+  paymentToken?: true
+  sentAt?: true
+  paidAt?: true
+  paymentDate?: true
+  declinedAt?: true
   salesOrderId?: true
   tenantId?: true
   createdAt?: true
@@ -110,6 +135,11 @@ export type InvoiceCountAggregateInputType = {
   amount?: true
   dueDate?: true
   status?: true
+  paymentToken?: true
+  sentAt?: true
+  paidAt?: true
+  paymentDate?: true
+  declinedAt?: true
   salesOrderId?: true
   tenantId?: true
   createdAt?: true
@@ -209,6 +239,11 @@ export type InvoiceGroupByOutputType = {
   amount: runtime.Decimal
   dueDate: Date
   status: $Enums.InvoiceStatus
+  paymentToken: string | null
+  sentAt: Date | null
+  paidAt: Date | null
+  paymentDate: Date | null
+  declinedAt: Date | null
   salesOrderId: string
   tenantId: string
   createdAt: Date
@@ -244,6 +279,11 @@ export type InvoiceWhereInput = {
   amount?: Prisma.DecimalFilter<"Invoice"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   status?: Prisma.EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+  paymentToken?: Prisma.StringNullableFilter<"Invoice"> | string | null
+  sentAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
+  paidAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
+  paymentDate?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
+  declinedAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
   salesOrderId?: Prisma.StringFilter<"Invoice"> | string
   tenantId?: Prisma.StringFilter<"Invoice"> | string
   createdAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
@@ -259,6 +299,11 @@ export type InvoiceOrderByWithRelationInput = {
   amount?: Prisma.SortOrder
   dueDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paymentToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  declinedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   salesOrderId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -271,6 +316,7 @@ export type InvoiceOrderByWithRelationInput = {
 export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   invoiceNumber?: string
+  paymentToken?: string
   salesOrderId?: string
   AND?: Prisma.InvoiceWhereInput | Prisma.InvoiceWhereInput[]
   OR?: Prisma.InvoiceWhereInput[]
@@ -278,13 +324,17 @@ export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
   amount?: Prisma.DecimalFilter<"Invoice"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   status?: Prisma.EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+  sentAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
+  paidAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
+  paymentDate?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
+  declinedAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
   tenantId?: Prisma.StringFilter<"Invoice"> | string
   createdAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   salesOrder?: Prisma.XOR<Prisma.SalesOrderScalarRelationFilter, Prisma.SalesOrderWhereInput>
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   payments?: Prisma.PaymentListRelationFilter
-}, "id" | "invoiceNumber" | "salesOrderId">
+}, "id" | "invoiceNumber" | "paymentToken" | "salesOrderId">
 
 export type InvoiceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -292,6 +342,11 @@ export type InvoiceOrderByWithAggregationInput = {
   amount?: Prisma.SortOrder
   dueDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paymentToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  declinedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   salesOrderId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -312,6 +367,11 @@ export type InvoiceScalarWhereWithAggregatesInput = {
   amount?: Prisma.DecimalWithAggregatesFilter<"Invoice"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeWithAggregatesFilter<"Invoice"> | Date | string
   status?: Prisma.EnumInvoiceStatusWithAggregatesFilter<"Invoice"> | $Enums.InvoiceStatus
+  paymentToken?: Prisma.StringNullableWithAggregatesFilter<"Invoice"> | string | null
+  sentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Invoice"> | Date | string | null
+  paidAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Invoice"> | Date | string | null
+  paymentDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Invoice"> | Date | string | null
+  declinedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Invoice"> | Date | string | null
   salesOrderId?: Prisma.StringWithAggregatesFilter<"Invoice"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"Invoice"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Invoice"> | Date | string
@@ -324,6 +384,11 @@ export type InvoiceCreateInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate: Date | string
   status?: $Enums.InvoiceStatus
+  paymentToken?: string | null
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  paymentDate?: Date | string | null
+  declinedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   salesOrder: Prisma.SalesOrderCreateNestedOneWithoutInvoiceInput
@@ -337,6 +402,11 @@ export type InvoiceUncheckedCreateInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate: Date | string
   status?: $Enums.InvoiceStatus
+  paymentToken?: string | null
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  paymentDate?: Date | string | null
+  declinedAt?: Date | string | null
   salesOrderId: string
   tenantId: string
   createdAt?: Date | string
@@ -350,6 +420,11 @@ export type InvoiceUpdateInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  paymentToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salesOrder?: Prisma.SalesOrderUpdateOneRequiredWithoutInvoiceNestedInput
@@ -363,6 +438,11 @@ export type InvoiceUncheckedUpdateInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  paymentToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   salesOrderId?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -376,6 +456,11 @@ export type InvoiceCreateManyInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate: Date | string
   status?: $Enums.InvoiceStatus
+  paymentToken?: string | null
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  paymentDate?: Date | string | null
+  declinedAt?: Date | string | null
   salesOrderId: string
   tenantId: string
   createdAt?: Date | string
@@ -388,6 +473,11 @@ export type InvoiceUpdateManyMutationInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  paymentToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -398,6 +488,11 @@ export type InvoiceUncheckedUpdateManyInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  paymentToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   salesOrderId?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -425,6 +520,11 @@ export type InvoiceCountOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   dueDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paymentToken?: Prisma.SortOrder
+  sentAt?: Prisma.SortOrder
+  paidAt?: Prisma.SortOrder
+  paymentDate?: Prisma.SortOrder
+  declinedAt?: Prisma.SortOrder
   salesOrderId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -441,6 +541,11 @@ export type InvoiceMaxOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   dueDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paymentToken?: Prisma.SortOrder
+  sentAt?: Prisma.SortOrder
+  paidAt?: Prisma.SortOrder
+  paymentDate?: Prisma.SortOrder
+  declinedAt?: Prisma.SortOrder
   salesOrderId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -453,6 +558,11 @@ export type InvoiceMinOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   dueDate?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  paymentToken?: Prisma.SortOrder
+  sentAt?: Prisma.SortOrder
+  paidAt?: Prisma.SortOrder
+  paymentDate?: Prisma.SortOrder
+  declinedAt?: Prisma.SortOrder
   salesOrderId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -566,6 +676,11 @@ export type InvoiceCreateWithoutTenantInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate: Date | string
   status?: $Enums.InvoiceStatus
+  paymentToken?: string | null
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  paymentDate?: Date | string | null
+  declinedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   salesOrder: Prisma.SalesOrderCreateNestedOneWithoutInvoiceInput
@@ -578,6 +693,11 @@ export type InvoiceUncheckedCreateWithoutTenantInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate: Date | string
   status?: $Enums.InvoiceStatus
+  paymentToken?: string | null
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  paymentDate?: Date | string | null
+  declinedAt?: Date | string | null
   salesOrderId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -619,6 +739,11 @@ export type InvoiceScalarWhereInput = {
   amount?: Prisma.DecimalFilter<"Invoice"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   status?: Prisma.EnumInvoiceStatusFilter<"Invoice"> | $Enums.InvoiceStatus
+  paymentToken?: Prisma.StringNullableFilter<"Invoice"> | string | null
+  sentAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
+  paidAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
+  paymentDate?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
+  declinedAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
   salesOrderId?: Prisma.StringFilter<"Invoice"> | string
   tenantId?: Prisma.StringFilter<"Invoice"> | string
   createdAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
@@ -631,6 +756,11 @@ export type InvoiceCreateWithoutSalesOrderInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate: Date | string
   status?: $Enums.InvoiceStatus
+  paymentToken?: string | null
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  paymentDate?: Date | string | null
+  declinedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutInvoicesInput
@@ -643,6 +773,11 @@ export type InvoiceUncheckedCreateWithoutSalesOrderInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate: Date | string
   status?: $Enums.InvoiceStatus
+  paymentToken?: string | null
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  paymentDate?: Date | string | null
+  declinedAt?: Date | string | null
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -671,6 +806,11 @@ export type InvoiceUpdateWithoutSalesOrderInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  paymentToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutInvoicesNestedInput
@@ -683,6 +823,11 @@ export type InvoiceUncheckedUpdateWithoutSalesOrderInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  paymentToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -695,6 +840,11 @@ export type InvoiceCreateWithoutPaymentsInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate: Date | string
   status?: $Enums.InvoiceStatus
+  paymentToken?: string | null
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  paymentDate?: Date | string | null
+  declinedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   salesOrder: Prisma.SalesOrderCreateNestedOneWithoutInvoiceInput
@@ -707,6 +857,11 @@ export type InvoiceUncheckedCreateWithoutPaymentsInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate: Date | string
   status?: $Enums.InvoiceStatus
+  paymentToken?: string | null
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  paymentDate?: Date | string | null
+  declinedAt?: Date | string | null
   salesOrderId: string
   tenantId: string
   createdAt?: Date | string
@@ -735,6 +890,11 @@ export type InvoiceUpdateWithoutPaymentsInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  paymentToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salesOrder?: Prisma.SalesOrderUpdateOneRequiredWithoutInvoiceNestedInput
@@ -747,6 +907,11 @@ export type InvoiceUncheckedUpdateWithoutPaymentsInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  paymentToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   salesOrderId?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -759,6 +924,11 @@ export type InvoiceCreateManyTenantInput = {
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate: Date | string
   status?: $Enums.InvoiceStatus
+  paymentToken?: string | null
+  sentAt?: Date | string | null
+  paidAt?: Date | string | null
+  paymentDate?: Date | string | null
+  declinedAt?: Date | string | null
   salesOrderId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -770,6 +940,11 @@ export type InvoiceUpdateWithoutTenantInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  paymentToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   salesOrder?: Prisma.SalesOrderUpdateOneRequiredWithoutInvoiceNestedInput
@@ -782,6 +957,11 @@ export type InvoiceUncheckedUpdateWithoutTenantInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  paymentToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   salesOrderId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -794,6 +974,11 @@ export type InvoiceUncheckedUpdateManyWithoutTenantInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  paymentToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   salesOrderId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -836,6 +1021,11 @@ export type InvoiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   amount?: boolean
   dueDate?: boolean
   status?: boolean
+  paymentToken?: boolean
+  sentAt?: boolean
+  paidAt?: boolean
+  paymentDate?: boolean
+  declinedAt?: boolean
   salesOrderId?: boolean
   tenantId?: boolean
   createdAt?: boolean
@@ -852,6 +1042,11 @@ export type InvoiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   amount?: boolean
   dueDate?: boolean
   status?: boolean
+  paymentToken?: boolean
+  sentAt?: boolean
+  paidAt?: boolean
+  paymentDate?: boolean
+  declinedAt?: boolean
   salesOrderId?: boolean
   tenantId?: boolean
   createdAt?: boolean
@@ -866,6 +1061,11 @@ export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   amount?: boolean
   dueDate?: boolean
   status?: boolean
+  paymentToken?: boolean
+  sentAt?: boolean
+  paidAt?: boolean
+  paymentDate?: boolean
+  declinedAt?: boolean
   salesOrderId?: boolean
   tenantId?: boolean
   createdAt?: boolean
@@ -880,13 +1080,18 @@ export type InvoiceSelectScalar = {
   amount?: boolean
   dueDate?: boolean
   status?: boolean
+  paymentToken?: boolean
+  sentAt?: boolean
+  paidAt?: boolean
+  paymentDate?: boolean
+  declinedAt?: boolean
   salesOrderId?: boolean
   tenantId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type InvoiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "invoiceNumber" | "amount" | "dueDate" | "status" | "salesOrderId" | "tenantId" | "createdAt" | "updatedAt", ExtArgs["result"]["invoice"]>
+export type InvoiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "invoiceNumber" | "amount" | "dueDate" | "status" | "paymentToken" | "sentAt" | "paidAt" | "paymentDate" | "declinedAt" | "salesOrderId" | "tenantId" | "createdAt" | "updatedAt", ExtArgs["result"]["invoice"]>
 export type InvoiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   salesOrder?: boolean | Prisma.SalesOrderDefaultArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -915,6 +1120,11 @@ export type $InvoicePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     amount: runtime.Decimal
     dueDate: Date
     status: $Enums.InvoiceStatus
+    paymentToken: string | null
+    sentAt: Date | null
+    paidAt: Date | null
+    paymentDate: Date | null
+    declinedAt: Date | null
     salesOrderId: string
     tenantId: string
     createdAt: Date
@@ -1350,6 +1560,11 @@ export interface InvoiceFieldRefs {
   readonly amount: Prisma.FieldRef<"Invoice", 'Decimal'>
   readonly dueDate: Prisma.FieldRef<"Invoice", 'DateTime'>
   readonly status: Prisma.FieldRef<"Invoice", 'InvoiceStatus'>
+  readonly paymentToken: Prisma.FieldRef<"Invoice", 'String'>
+  readonly sentAt: Prisma.FieldRef<"Invoice", 'DateTime'>
+  readonly paidAt: Prisma.FieldRef<"Invoice", 'DateTime'>
+  readonly paymentDate: Prisma.FieldRef<"Invoice", 'DateTime'>
+  readonly declinedAt: Prisma.FieldRef<"Invoice", 'DateTime'>
   readonly salesOrderId: Prisma.FieldRef<"Invoice", 'String'>
   readonly tenantId: Prisma.FieldRef<"Invoice", 'String'>
   readonly createdAt: Prisma.FieldRef<"Invoice", 'DateTime'>

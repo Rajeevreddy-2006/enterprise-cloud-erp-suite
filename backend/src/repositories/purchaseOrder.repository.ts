@@ -6,7 +6,7 @@ import { Prisma } from "../generated/prisma/client";
 class PurchaseOrderRepository {
 
   async getAllPurchaseOrders(tenantId: string,role: RoleType) {
-    if (role === "SUPER_ADMIN") {
+    if (role === "TENANT_ADMIN") {
       return prisma.purchaseOrder.findMany({
         include: { tenant: true, inventoryItem: true, },
         orderBy: { createdAt: "desc", },

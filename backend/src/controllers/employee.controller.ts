@@ -17,6 +17,15 @@ class EmployeeController {
     }
   );
 
+  profile = asyncHandler(
+    async (req, res) => {
+      const result = await employeeService.employeeProfile(req.params.id as string);
+      return res.json(
+        successResponse(result)
+      );
+    }
+  );
+
   getEmployeeById = asyncHandler(
     async ( req: Request, res: Response ) => {
       const id = req.params.id as string;

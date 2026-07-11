@@ -17,7 +17,7 @@ class AuditLogRepository {
   }
 
   async getAllLogs(tenantId: string,role: RoleType) {
-    if (role === "SUPER_ADMIN") {
+    if (role === "TENANT_ADMIN") {
       return prisma.auditLog.findMany({
         include: { user: true, tenant: true, },
         orderBy: { createdAt: "desc", },

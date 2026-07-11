@@ -35,6 +35,11 @@ export type UserMinAggregateOutputType = {
   refreshToken: string | null
   resetToken: string | null
   resetTokenExpiresAt: Date | null
+  inviteToken: string | null
+  inviteExpiresAt: Date | null
+  isVerified: boolean | null
+  designation: string | null
+  phone: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -50,6 +55,11 @@ export type UserMaxAggregateOutputType = {
   refreshToken: string | null
   resetToken: string | null
   resetTokenExpiresAt: Date | null
+  inviteToken: string | null
+  inviteExpiresAt: Date | null
+  isVerified: boolean | null
+  designation: string | null
+  phone: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -65,6 +75,11 @@ export type UserCountAggregateOutputType = {
   refreshToken: number
   resetToken: number
   resetTokenExpiresAt: number
+  inviteToken: number
+  inviteExpiresAt: number
+  isVerified: number
+  designation: number
+  phone: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -82,6 +97,11 @@ export type UserMinAggregateInputType = {
   refreshToken?: true
   resetToken?: true
   resetTokenExpiresAt?: true
+  inviteToken?: true
+  inviteExpiresAt?: true
+  isVerified?: true
+  designation?: true
+  phone?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -97,6 +117,11 @@ export type UserMaxAggregateInputType = {
   refreshToken?: true
   resetToken?: true
   resetTokenExpiresAt?: true
+  inviteToken?: true
+  inviteExpiresAt?: true
+  isVerified?: true
+  designation?: true
+  phone?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -112,6 +137,11 @@ export type UserCountAggregateInputType = {
   refreshToken?: true
   resetToken?: true
   resetTokenExpiresAt?: true
+  inviteToken?: true
+  inviteExpiresAt?: true
+  isVerified?: true
+  designation?: true
+  phone?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -193,13 +223,18 @@ export type UserGroupByOutputType = {
   id: string
   name: string
   email: string
-  password: string
+  password: string | null
   tenantId: string
   role: $Enums.RoleType
   isActive: boolean
   refreshToken: string | null
   resetToken: string | null
   resetTokenExpiresAt: Date | null
+  inviteToken: string | null
+  inviteExpiresAt: Date | null
+  isVerified: boolean
+  designation: string | null
+  phone: string | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -229,19 +264,24 @@ export type UserWhereInput = {
   id?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
   tenantId?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleTypeFilter<"User"> | $Enums.RoleType
   isActive?: Prisma.BoolFilter<"User"> | boolean
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
   resetToken?: Prisma.StringNullableFilter<"User"> | string | null
   resetTokenExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  inviteToken?: Prisma.StringNullableFilter<"User"> | string | null
+  inviteExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  isVerified?: Prisma.BoolFilter<"User"> | boolean
+  designation?: Prisma.StringNullableFilter<"User"> | string | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  employee?: Prisma.XOR<Prisma.EmployeeNullableScalarRelationFilter, Prisma.EmployeeWhereInput> | null
   requestedApprovals?: Prisma.ApprovalRequestListRelationFilter
   approvedApprovals?: Prisma.ApprovalRequestListRelationFilter
-  employee?: Prisma.XOR<Prisma.EmployeeNullableScalarRelationFilter, Prisma.EmployeeWhereInput> | null
   auditLogs?: Prisma.AuditLogListRelationFilter
   documents?: Prisma.DocumentListRelationFilter
   purchaseRequests?: Prisma.PurchaseRequestListRelationFilter
@@ -251,19 +291,24 @@ export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
   resetToken?: Prisma.SortOrderInput | Prisma.SortOrder
   resetTokenExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  inviteToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  inviteExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  designation?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
+  employee?: Prisma.EmployeeOrderByWithRelationInput
   requestedApprovals?: Prisma.ApprovalRequestOrderByRelationAggregateInput
   approvedApprovals?: Prisma.ApprovalRequestOrderByRelationAggregateInput
-  employee?: Prisma.EmployeeOrderByWithRelationInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
   documents?: Prisma.DocumentOrderByRelationAggregateInput
   purchaseRequests?: Prisma.PurchaseRequestOrderByRelationAggregateInput
@@ -276,19 +321,24 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
   tenantId?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleTypeFilter<"User"> | $Enums.RoleType
   isActive?: Prisma.BoolFilter<"User"> | boolean
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
   resetToken?: Prisma.StringNullableFilter<"User"> | string | null
   resetTokenExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  inviteToken?: Prisma.StringNullableFilter<"User"> | string | null
+  inviteExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  isVerified?: Prisma.BoolFilter<"User"> | boolean
+  designation?: Prisma.StringNullableFilter<"User"> | string | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  employee?: Prisma.XOR<Prisma.EmployeeNullableScalarRelationFilter, Prisma.EmployeeWhereInput> | null
   requestedApprovals?: Prisma.ApprovalRequestListRelationFilter
   approvedApprovals?: Prisma.ApprovalRequestListRelationFilter
-  employee?: Prisma.XOR<Prisma.EmployeeNullableScalarRelationFilter, Prisma.EmployeeWhereInput> | null
   auditLogs?: Prisma.AuditLogListRelationFilter
   documents?: Prisma.DocumentListRelationFilter
   purchaseRequests?: Prisma.PurchaseRequestListRelationFilter
@@ -298,13 +348,18 @@ export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
   resetToken?: Prisma.SortOrderInput | Prisma.SortOrder
   resetTokenExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  inviteToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  inviteExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  designation?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -319,13 +374,18 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
-  password?: Prisma.StringWithAggregatesFilter<"User"> | string
+  password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   tenantId?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleTypeWithAggregatesFilter<"User"> | $Enums.RoleType
   isActive?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   refreshToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   resetToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   resetTokenExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  inviteToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  inviteExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  designation?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -334,18 +394,23 @@ export type UserCreateInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
   requestedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutRequestedByInput
   approvedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutApprovedByInput
-  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
   purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequestedByInput
@@ -355,18 +420,23 @@ export type UserUncheckedCreateInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   tenantId: string
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
   requestedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutRequestedByInput
   approvedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutApprovedByInput
-  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
   purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequestedByInput
@@ -376,18 +446,23 @@ export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
   requestedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutRequestedByNestedInput
   approvedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutApprovedByNestedInput
-  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
   purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequestedByNestedInput
@@ -397,18 +472,23 @@ export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
   requestedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   approvedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutApprovedByNestedInput
-  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
   purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequestedByNestedInput
@@ -418,13 +498,18 @@ export type UserCreateManyInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   tenantId: string
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -433,12 +518,17 @@ export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -447,13 +537,18 @@ export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -479,6 +574,11 @@ export type UserCountOrderByAggregateInput = {
   refreshToken?: Prisma.SortOrder
   resetToken?: Prisma.SortOrder
   resetTokenExpiresAt?: Prisma.SortOrder
+  inviteToken?: Prisma.SortOrder
+  inviteExpiresAt?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  designation?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -494,6 +594,11 @@ export type UserMaxOrderByAggregateInput = {
   refreshToken?: Prisma.SortOrder
   resetToken?: Prisma.SortOrder
   resetTokenExpiresAt?: Prisma.SortOrder
+  inviteToken?: Prisma.SortOrder
+  inviteExpiresAt?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  designation?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -509,6 +614,11 @@ export type UserMinOrderByAggregateInput = {
   refreshToken?: Prisma.SortOrder
   resetToken?: Prisma.SortOrder
   resetTokenExpiresAt?: Prisma.SortOrder
+  inviteToken?: Prisma.SortOrder
+  inviteExpiresAt?: Prisma.SortOrder
+  isVerified?: Prisma.SortOrder
+  designation?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -565,12 +675,12 @@ export type UserUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
-export type EnumRoleTypeFieldUpdateOperationsInput = {
-  set?: $Enums.RoleType
-}
-
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type EnumRoleTypeFieldUpdateOperationsInput = {
+  set?: $Enums.RoleType
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -671,17 +781,22 @@ export type UserCreateWithoutTenantInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
   requestedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutRequestedByInput
   approvedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutApprovedByInput
-  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
   purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequestedByInput
@@ -691,17 +806,22 @@ export type UserUncheckedCreateWithoutTenantInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
   requestedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutRequestedByInput
   approvedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutApprovedByInput
-  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
   purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequestedByInput
@@ -740,13 +860,18 @@ export type UserScalarWhereInput = {
   id?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
   tenantId?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleTypeFilter<"User"> | $Enums.RoleType
   isActive?: Prisma.BoolFilter<"User"> | boolean
   refreshToken?: Prisma.StringNullableFilter<"User"> | string | null
   resetToken?: Prisma.StringNullableFilter<"User"> | string | null
   resetTokenExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  inviteToken?: Prisma.StringNullableFilter<"User"> | string | null
+  inviteExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  isVerified?: Prisma.BoolFilter<"User"> | boolean
+  designation?: Prisma.StringNullableFilter<"User"> | string | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
@@ -755,12 +880,17 @@ export type UserCreateWithoutEmployeeInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
@@ -775,13 +905,18 @@ export type UserUncheckedCreateWithoutEmployeeInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   tenantId: string
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   requestedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutRequestedByInput
@@ -811,12 +946,17 @@ export type UserUpdateWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
@@ -831,13 +971,18 @@ export type UserUncheckedUpdateWithoutEmployeeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   requestedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutRequestedByNestedInput
@@ -851,18 +996,23 @@ export type UserCreateWithoutAuditLogsInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
   requestedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutRequestedByInput
   approvedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutApprovedByInput
-  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
   purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequestedByInput
 }
@@ -871,18 +1021,23 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   tenantId: string
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
   requestedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutRequestedByInput
   approvedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutApprovedByInput
-  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
   purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
@@ -907,18 +1062,23 @@ export type UserUpdateWithoutAuditLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
   requestedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutRequestedByNestedInput
   approvedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutApprovedByNestedInput
-  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
   purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequestedByNestedInput
 }
@@ -927,18 +1087,23 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
   requestedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   approvedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutApprovedByNestedInput
-  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
   purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
@@ -947,18 +1112,23 @@ export type UserCreateWithoutPurchaseRequestsInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
   requestedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutRequestedByInput
   approvedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutApprovedByInput
-  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
 }
@@ -967,18 +1137,23 @@ export type UserUncheckedCreateWithoutPurchaseRequestsInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   tenantId: string
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
   requestedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutRequestedByInput
   approvedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutApprovedByInput
-  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
 }
@@ -1003,18 +1178,23 @@ export type UserUpdateWithoutPurchaseRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
   requestedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutRequestedByNestedInput
   approvedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutApprovedByNestedInput
-  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
 }
@@ -1023,18 +1203,23 @@ export type UserUncheckedUpdateWithoutPurchaseRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
   requestedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   approvedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutApprovedByNestedInput
-  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
 }
@@ -1043,17 +1228,22 @@ export type UserCreateWithoutRequestedApprovalsInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
-  approvedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutApprovedByInput
   employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  approvedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutApprovedByInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
   purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequestedByInput
@@ -1063,17 +1253,22 @@ export type UserUncheckedCreateWithoutRequestedApprovalsInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   tenantId: string
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  approvedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutApprovedByInput
   employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  approvedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutApprovedByInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
   purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequestedByInput
@@ -1088,17 +1283,22 @@ export type UserCreateWithoutApprovedApprovalsInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
-  requestedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutRequestedByInput
   employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
+  requestedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutRequestedByInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentCreateNestedManyWithoutUploadedByInput
   purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequestedByInput
@@ -1108,17 +1308,22 @@ export type UserUncheckedCreateWithoutApprovedApprovalsInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   tenantId: string
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  requestedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutRequestedByInput
   employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
+  requestedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutRequestedByInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   documents?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploadedByInput
   purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequestedByInput
@@ -1144,17 +1349,22 @@ export type UserUpdateWithoutRequestedApprovalsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
-  approvedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutApprovedByNestedInput
   employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  approvedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutApprovedByNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
   purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequestedByNestedInput
@@ -1164,17 +1374,22 @@ export type UserUncheckedUpdateWithoutRequestedApprovalsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  approvedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutApprovedByNestedInput
   employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  approvedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutApprovedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
   purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequestedByNestedInput
@@ -1195,17 +1410,22 @@ export type UserUpdateWithoutApprovedApprovalsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
-  requestedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutRequestedByNestedInput
   employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
+  requestedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutRequestedByNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
   purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequestedByNestedInput
@@ -1215,17 +1435,22 @@ export type UserUncheckedUpdateWithoutApprovedApprovalsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  requestedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
+  requestedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
   purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequestedByNestedInput
@@ -1235,18 +1460,23 @@ export type UserCreateWithoutDocumentsInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutUsersInput
+  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
   requestedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutRequestedByInput
   approvedApprovals?: Prisma.ApprovalRequestCreateNestedManyWithoutApprovedByInput
-  employee?: Prisma.EmployeeCreateNestedOneWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   purchaseRequests?: Prisma.PurchaseRequestCreateNestedManyWithoutRequestedByInput
 }
@@ -1255,18 +1485,23 @@ export type UserUncheckedCreateWithoutDocumentsInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   tenantId: string
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
   requestedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutRequestedByInput
   approvedApprovals?: Prisma.ApprovalRequestUncheckedCreateNestedManyWithoutApprovedByInput
-  employee?: Prisma.EmployeeUncheckedCreateNestedOneWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   purchaseRequests?: Prisma.PurchaseRequestUncheckedCreateNestedManyWithoutRequestedByInput
 }
@@ -1291,18 +1526,23 @@ export type UserUpdateWithoutDocumentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutUsersNestedInput
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
   requestedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutRequestedByNestedInput
   approvedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutApprovedByNestedInput
-  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequestedByNestedInput
 }
@@ -1311,18 +1551,23 @@ export type UserUncheckedUpdateWithoutDocumentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
   requestedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   approvedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutApprovedByNestedInput
-  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequestedByNestedInput
 }
@@ -1331,12 +1576,17 @@ export type UserCreateManyTenantInput = {
   id?: string
   name: string
   email: string
-  password: string
+  password?: string | null
   role: $Enums.RoleType
   isActive?: boolean
   refreshToken?: string | null
   resetToken?: string | null
   resetTokenExpiresAt?: Date | string | null
+  inviteToken?: string | null
+  inviteExpiresAt?: Date | string | null
+  isVerified?: boolean
+  designation?: string | null
+  phone?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1345,17 +1595,22 @@ export type UserUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
   requestedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutRequestedByNestedInput
   approvedApprovals?: Prisma.ApprovalRequestUpdateManyWithoutApprovedByNestedInput
-  employee?: Prisma.EmployeeUpdateOneWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUpdateManyWithoutUploadedByNestedInput
   purchaseRequests?: Prisma.PurchaseRequestUpdateManyWithoutRequestedByNestedInput
@@ -1365,17 +1620,22 @@ export type UserUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
   requestedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutRequestedByNestedInput
   approvedApprovals?: Prisma.ApprovalRequestUncheckedUpdateManyWithoutApprovedByNestedInput
-  employee?: Prisma.EmployeeUncheckedUpdateOneWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   documents?: Prisma.DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
   purchaseRequests?: Prisma.PurchaseRequestUncheckedUpdateManyWithoutRequestedByNestedInput
@@ -1385,12 +1645,17 @@ export type UserUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  inviteToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inviteExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  designation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1473,12 +1738,17 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   refreshToken?: boolean
   resetToken?: boolean
   resetTokenExpiresAt?: boolean
+  inviteToken?: boolean
+  inviteExpiresAt?: boolean
+  isVerified?: boolean
+  designation?: boolean
+  phone?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  employee?: boolean | Prisma.User$employeeArgs<ExtArgs>
   requestedApprovals?: boolean | Prisma.User$requestedApprovalsArgs<ExtArgs>
   approvedApprovals?: boolean | Prisma.User$approvedApprovalsArgs<ExtArgs>
-  employee?: boolean | Prisma.User$employeeArgs<ExtArgs>
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
   purchaseRequests?: boolean | Prisma.User$purchaseRequestsArgs<ExtArgs>
@@ -1496,6 +1766,11 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   refreshToken?: boolean
   resetToken?: boolean
   resetTokenExpiresAt?: boolean
+  inviteToken?: boolean
+  inviteExpiresAt?: boolean
+  isVerified?: boolean
+  designation?: boolean
+  phone?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1512,6 +1787,11 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   refreshToken?: boolean
   resetToken?: boolean
   resetTokenExpiresAt?: boolean
+  inviteToken?: boolean
+  inviteExpiresAt?: boolean
+  isVerified?: boolean
+  designation?: boolean
+  phone?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1528,16 +1808,21 @@ export type UserSelectScalar = {
   refreshToken?: boolean
   resetToken?: boolean
   resetTokenExpiresAt?: boolean
+  inviteToken?: boolean
+  inviteExpiresAt?: boolean
+  isVerified?: boolean
+  designation?: boolean
+  phone?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "tenantId" | "role" | "isActive" | "refreshToken" | "resetToken" | "resetTokenExpiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "tenantId" | "role" | "isActive" | "refreshToken" | "resetToken" | "resetTokenExpiresAt" | "inviteToken" | "inviteExpiresAt" | "isVerified" | "designation" | "phone" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  employee?: boolean | Prisma.User$employeeArgs<ExtArgs>
   requestedApprovals?: boolean | Prisma.User$requestedApprovalsArgs<ExtArgs>
   approvedApprovals?: boolean | Prisma.User$approvedApprovalsArgs<ExtArgs>
-  employee?: boolean | Prisma.User$employeeArgs<ExtArgs>
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   documents?: boolean | Prisma.User$documentsArgs<ExtArgs>
   purchaseRequests?: boolean | Prisma.User$purchaseRequestsArgs<ExtArgs>
@@ -1554,9 +1839,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
+    employee: Prisma.$EmployeePayload<ExtArgs> | null
     requestedApprovals: Prisma.$ApprovalRequestPayload<ExtArgs>[]
     approvedApprovals: Prisma.$ApprovalRequestPayload<ExtArgs>[]
-    employee: Prisma.$EmployeePayload<ExtArgs> | null
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
     documents: Prisma.$DocumentPayload<ExtArgs>[]
     purchaseRequests: Prisma.$PurchaseRequestPayload<ExtArgs>[]
@@ -1565,13 +1850,18 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: string
     name: string
     email: string
-    password: string
+    password: string | null
     tenantId: string
     role: $Enums.RoleType
     isActive: boolean
     refreshToken: string | null
     resetToken: string | null
     resetTokenExpiresAt: Date | null
+    inviteToken: string | null
+    inviteExpiresAt: Date | null
+    isVerified: boolean
+    designation: string | null
+    phone: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1969,9 +2259,9 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  employee<T extends Prisma.User$employeeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$employeeArgs<ExtArgs>>): Prisma.Prisma__EmployeeClient<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   requestedApprovals<T extends Prisma.User$requestedApprovalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$requestedApprovalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApprovalRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   approvedApprovals<T extends Prisma.User$approvedApprovalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$approvedApprovalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApprovalRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  employee<T extends Prisma.User$employeeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$employeeArgs<ExtArgs>>): Prisma.Prisma__EmployeeClient<runtime.Types.Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   documents<T extends Prisma.User$documentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   purchaseRequests<T extends Prisma.User$purchaseRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$purchaseRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchaseRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2014,6 +2304,11 @@ export interface UserFieldRefs {
   readonly refreshToken: Prisma.FieldRef<"User", 'String'>
   readonly resetToken: Prisma.FieldRef<"User", 'String'>
   readonly resetTokenExpiresAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly inviteToken: Prisma.FieldRef<"User", 'String'>
+  readonly inviteExpiresAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly designation: Prisma.FieldRef<"User", 'String'>
+  readonly phone: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -2417,6 +2712,25 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * User.employee
+ */
+export type User$employeeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Employee
+   */
+  select?: Prisma.EmployeeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Employee
+   */
+  omit?: Prisma.EmployeeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmployeeInclude<ExtArgs> | null
+  where?: Prisma.EmployeeWhereInput
+}
+
+/**
  * User.requestedApprovals
  */
 export type User$requestedApprovalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2462,25 +2776,6 @@ export type User$approvedApprovalsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.ApprovalRequestScalarFieldEnum | Prisma.ApprovalRequestScalarFieldEnum[]
-}
-
-/**
- * User.employee
- */
-export type User$employeeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Employee
-   */
-  select?: Prisma.EmployeeSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Employee
-   */
-  omit?: Prisma.EmployeeOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.EmployeeInclude<ExtArgs> | null
-  where?: Prisma.EmployeeWhereInput
 }
 
 /**

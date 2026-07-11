@@ -28,10 +28,12 @@ export type AggregateQuotation = {
 
 export type QuotationAvgAggregateOutputType = {
   amount: runtime.Decimal | null
+  requestedQuantity: number | null
 }
 
 export type QuotationSumAggregateOutputType = {
   amount: runtime.Decimal | null
+  requestedQuantity: number | null
 }
 
 export type QuotationMinAggregateOutputType = {
@@ -40,8 +42,13 @@ export type QuotationMinAggregateOutputType = {
   customerId: string | null
   opportunityId: string | null
   amount: runtime.Decimal | null
+  requestedQuantity: number | null
   status: $Enums.QuotationStatus | null
   validUntil: Date | null
+  approvalToken: string | null
+  approvedAt: Date | null
+  rejectedAt: Date | null
+  sentAt: Date | null
   tenantId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -53,8 +60,13 @@ export type QuotationMaxAggregateOutputType = {
   customerId: string | null
   opportunityId: string | null
   amount: runtime.Decimal | null
+  requestedQuantity: number | null
   status: $Enums.QuotationStatus | null
   validUntil: Date | null
+  approvalToken: string | null
+  approvedAt: Date | null
+  rejectedAt: Date | null
+  sentAt: Date | null
   tenantId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -66,8 +78,13 @@ export type QuotationCountAggregateOutputType = {
   customerId: number
   opportunityId: number
   amount: number
+  requestedQuantity: number
   status: number
   validUntil: number
+  approvalToken: number
+  approvedAt: number
+  rejectedAt: number
+  sentAt: number
   tenantId: number
   createdAt: number
   updatedAt: number
@@ -77,10 +94,12 @@ export type QuotationCountAggregateOutputType = {
 
 export type QuotationAvgAggregateInputType = {
   amount?: true
+  requestedQuantity?: true
 }
 
 export type QuotationSumAggregateInputType = {
   amount?: true
+  requestedQuantity?: true
 }
 
 export type QuotationMinAggregateInputType = {
@@ -89,8 +108,13 @@ export type QuotationMinAggregateInputType = {
   customerId?: true
   opportunityId?: true
   amount?: true
+  requestedQuantity?: true
   status?: true
   validUntil?: true
+  approvalToken?: true
+  approvedAt?: true
+  rejectedAt?: true
+  sentAt?: true
   tenantId?: true
   createdAt?: true
   updatedAt?: true
@@ -102,8 +126,13 @@ export type QuotationMaxAggregateInputType = {
   customerId?: true
   opportunityId?: true
   amount?: true
+  requestedQuantity?: true
   status?: true
   validUntil?: true
+  approvalToken?: true
+  approvedAt?: true
+  rejectedAt?: true
+  sentAt?: true
   tenantId?: true
   createdAt?: true
   updatedAt?: true
@@ -115,8 +144,13 @@ export type QuotationCountAggregateInputType = {
   customerId?: true
   opportunityId?: true
   amount?: true
+  requestedQuantity?: true
   status?: true
   validUntil?: true
+  approvalToken?: true
+  approvedAt?: true
+  rejectedAt?: true
+  sentAt?: true
   tenantId?: true
   createdAt?: true
   updatedAt?: true
@@ -215,8 +249,13 @@ export type QuotationGroupByOutputType = {
   customerId: string
   opportunityId: string | null
   amount: runtime.Decimal
+  requestedQuantity: number | null
   status: $Enums.QuotationStatus
   validUntil: Date
+  approvalToken: string | null
+  approvedAt: Date | null
+  rejectedAt: Date | null
+  sentAt: Date | null
   tenantId: string
   createdAt: Date
   updatedAt: Date
@@ -251,8 +290,13 @@ export type QuotationWhereInput = {
   customerId?: Prisma.StringFilter<"Quotation"> | string
   opportunityId?: Prisma.StringNullableFilter<"Quotation"> | string | null
   amount?: Prisma.DecimalFilter<"Quotation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.IntNullableFilter<"Quotation"> | number | null
   status?: Prisma.EnumQuotationStatusFilter<"Quotation"> | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFilter<"Quotation"> | Date | string
+  approvalToken?: Prisma.StringNullableFilter<"Quotation"> | string | null
+  approvedAt?: Prisma.DateTimeNullableFilter<"Quotation"> | Date | string | null
+  rejectedAt?: Prisma.DateTimeNullableFilter<"Quotation"> | Date | string | null
+  sentAt?: Prisma.DateTimeNullableFilter<"Quotation"> | Date | string | null
   tenantId?: Prisma.StringFilter<"Quotation"> | string
   createdAt?: Prisma.DateTimeFilter<"Quotation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Quotation"> | Date | string
@@ -267,8 +311,13 @@ export type QuotationOrderByWithRelationInput = {
   customerId?: Prisma.SortOrder
   opportunityId?: Prisma.SortOrderInput | Prisma.SortOrder
   amount?: Prisma.SortOrder
+  requestedQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   validUntil?: Prisma.SortOrder
+  approvalToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rejectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -280,21 +329,26 @@ export type QuotationOrderByWithRelationInput = {
 export type QuotationWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   quotationNumber?: string
+  approvalToken?: string
   AND?: Prisma.QuotationWhereInput | Prisma.QuotationWhereInput[]
   OR?: Prisma.QuotationWhereInput[]
   NOT?: Prisma.QuotationWhereInput | Prisma.QuotationWhereInput[]
   customerId?: Prisma.StringFilter<"Quotation"> | string
   opportunityId?: Prisma.StringNullableFilter<"Quotation"> | string | null
   amount?: Prisma.DecimalFilter<"Quotation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.IntNullableFilter<"Quotation"> | number | null
   status?: Prisma.EnumQuotationStatusFilter<"Quotation"> | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFilter<"Quotation"> | Date | string
+  approvedAt?: Prisma.DateTimeNullableFilter<"Quotation"> | Date | string | null
+  rejectedAt?: Prisma.DateTimeNullableFilter<"Quotation"> | Date | string | null
+  sentAt?: Prisma.DateTimeNullableFilter<"Quotation"> | Date | string | null
   tenantId?: Prisma.StringFilter<"Quotation"> | string
   createdAt?: Prisma.DateTimeFilter<"Quotation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Quotation"> | Date | string
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   opportunity?: Prisma.XOR<Prisma.OpportunityNullableScalarRelationFilter, Prisma.OpportunityWhereInput> | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
-}, "id" | "quotationNumber">
+}, "id" | "quotationNumber" | "approvalToken">
 
 export type QuotationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -302,8 +356,13 @@ export type QuotationOrderByWithAggregationInput = {
   customerId?: Prisma.SortOrder
   opportunityId?: Prisma.SortOrderInput | Prisma.SortOrder
   amount?: Prisma.SortOrder
+  requestedQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   validUntil?: Prisma.SortOrder
+  approvalToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rejectedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -323,8 +382,13 @@ export type QuotationScalarWhereWithAggregatesInput = {
   customerId?: Prisma.StringWithAggregatesFilter<"Quotation"> | string
   opportunityId?: Prisma.StringNullableWithAggregatesFilter<"Quotation"> | string | null
   amount?: Prisma.DecimalWithAggregatesFilter<"Quotation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.IntNullableWithAggregatesFilter<"Quotation"> | number | null
   status?: Prisma.EnumQuotationStatusWithAggregatesFilter<"Quotation"> | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeWithAggregatesFilter<"Quotation"> | Date | string
+  approvalToken?: Prisma.StringNullableWithAggregatesFilter<"Quotation"> | string | null
+  approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Quotation"> | Date | string | null
+  rejectedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Quotation"> | Date | string | null
+  sentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Quotation"> | Date | string | null
   tenantId?: Prisma.StringWithAggregatesFilter<"Quotation"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Quotation"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Quotation"> | Date | string
@@ -334,8 +398,13 @@ export type QuotationCreateInput = {
   id?: string
   quotationNumber: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: number | null
   status?: $Enums.QuotationStatus
   validUntil: Date | string
+  approvalToken?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  sentAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutQuotationsInput
@@ -349,8 +418,13 @@ export type QuotationUncheckedCreateInput = {
   customerId: string
   opportunityId?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: number | null
   status?: $Enums.QuotationStatus
   validUntil: Date | string
+  approvalToken?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  sentAt?: Date | string | null
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -360,8 +434,13 @@ export type QuotationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quotationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumQuotationStatusFieldUpdateOperationsInput | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutQuotationsNestedInput
@@ -375,8 +454,13 @@ export type QuotationUncheckedUpdateInput = {
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   opportunityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumQuotationStatusFieldUpdateOperationsInput | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -388,8 +472,13 @@ export type QuotationCreateManyInput = {
   customerId: string
   opportunityId?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: number | null
   status?: $Enums.QuotationStatus
   validUntil: Date | string
+  approvalToken?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  sentAt?: Date | string | null
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -399,8 +488,13 @@ export type QuotationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quotationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumQuotationStatusFieldUpdateOperationsInput | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -411,8 +505,13 @@ export type QuotationUncheckedUpdateManyInput = {
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   opportunityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumQuotationStatusFieldUpdateOperationsInput | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -434,8 +533,13 @@ export type QuotationCountOrderByAggregateInput = {
   customerId?: Prisma.SortOrder
   opportunityId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  requestedQuantity?: Prisma.SortOrder
   status?: Prisma.SortOrder
   validUntil?: Prisma.SortOrder
+  approvalToken?: Prisma.SortOrder
+  approvedAt?: Prisma.SortOrder
+  rejectedAt?: Prisma.SortOrder
+  sentAt?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -443,6 +547,7 @@ export type QuotationCountOrderByAggregateInput = {
 
 export type QuotationAvgOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+  requestedQuantity?: Prisma.SortOrder
 }
 
 export type QuotationMaxOrderByAggregateInput = {
@@ -451,8 +556,13 @@ export type QuotationMaxOrderByAggregateInput = {
   customerId?: Prisma.SortOrder
   opportunityId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  requestedQuantity?: Prisma.SortOrder
   status?: Prisma.SortOrder
   validUntil?: Prisma.SortOrder
+  approvalToken?: Prisma.SortOrder
+  approvedAt?: Prisma.SortOrder
+  rejectedAt?: Prisma.SortOrder
+  sentAt?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -464,8 +574,13 @@ export type QuotationMinOrderByAggregateInput = {
   customerId?: Prisma.SortOrder
   opportunityId?: Prisma.SortOrder
   amount?: Prisma.SortOrder
+  requestedQuantity?: Prisma.SortOrder
   status?: Prisma.SortOrder
   validUntil?: Prisma.SortOrder
+  approvalToken?: Prisma.SortOrder
+  approvedAt?: Prisma.SortOrder
+  rejectedAt?: Prisma.SortOrder
+  sentAt?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -473,6 +588,7 @@ export type QuotationMinOrderByAggregateInput = {
 
 export type QuotationSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+  requestedQuantity?: Prisma.SortOrder
 }
 
 export type QuotationCreateNestedManyWithoutTenantInput = {
@@ -601,6 +717,14 @@ export type QuotationUncheckedUpdateManyWithoutOpportunityNestedInput = {
   deleteMany?: Prisma.QuotationScalarWhereInput | Prisma.QuotationScalarWhereInput[]
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type EnumQuotationStatusFieldUpdateOperationsInput = {
   set?: $Enums.QuotationStatus
 }
@@ -609,8 +733,13 @@ export type QuotationCreateWithoutTenantInput = {
   id?: string
   quotationNumber: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: number | null
   status?: $Enums.QuotationStatus
   validUntil: Date | string
+  approvalToken?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  sentAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutQuotationsInput
@@ -623,8 +752,13 @@ export type QuotationUncheckedCreateWithoutTenantInput = {
   customerId: string
   opportunityId?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: number | null
   status?: $Enums.QuotationStatus
   validUntil: Date | string
+  approvalToken?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  sentAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -664,8 +798,13 @@ export type QuotationScalarWhereInput = {
   customerId?: Prisma.StringFilter<"Quotation"> | string
   opportunityId?: Prisma.StringNullableFilter<"Quotation"> | string | null
   amount?: Prisma.DecimalFilter<"Quotation"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.IntNullableFilter<"Quotation"> | number | null
   status?: Prisma.EnumQuotationStatusFilter<"Quotation"> | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFilter<"Quotation"> | Date | string
+  approvalToken?: Prisma.StringNullableFilter<"Quotation"> | string | null
+  approvedAt?: Prisma.DateTimeNullableFilter<"Quotation"> | Date | string | null
+  rejectedAt?: Prisma.DateTimeNullableFilter<"Quotation"> | Date | string | null
+  sentAt?: Prisma.DateTimeNullableFilter<"Quotation"> | Date | string | null
   tenantId?: Prisma.StringFilter<"Quotation"> | string
   createdAt?: Prisma.DateTimeFilter<"Quotation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Quotation"> | Date | string
@@ -675,8 +814,13 @@ export type QuotationCreateWithoutCustomerInput = {
   id?: string
   quotationNumber: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: number | null
   status?: $Enums.QuotationStatus
   validUntil: Date | string
+  approvalToken?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  sentAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   opportunity?: Prisma.OpportunityCreateNestedOneWithoutQuotationsInput
@@ -688,8 +832,13 @@ export type QuotationUncheckedCreateWithoutCustomerInput = {
   quotationNumber: string
   opportunityId?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: number | null
   status?: $Enums.QuotationStatus
   validUntil: Date | string
+  approvalToken?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  sentAt?: Date | string | null
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -725,8 +874,13 @@ export type QuotationCreateWithoutOpportunityInput = {
   id?: string
   quotationNumber: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: number | null
   status?: $Enums.QuotationStatus
   validUntil: Date | string
+  approvalToken?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  sentAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutQuotationsInput
@@ -738,8 +892,13 @@ export type QuotationUncheckedCreateWithoutOpportunityInput = {
   quotationNumber: string
   customerId: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: number | null
   status?: $Enums.QuotationStatus
   validUntil: Date | string
+  approvalToken?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  sentAt?: Date | string | null
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -777,8 +936,13 @@ export type QuotationCreateManyTenantInput = {
   customerId: string
   opportunityId?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: number | null
   status?: $Enums.QuotationStatus
   validUntil: Date | string
+  approvalToken?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  sentAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -787,8 +951,13 @@ export type QuotationUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quotationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumQuotationStatusFieldUpdateOperationsInput | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutQuotationsNestedInput
@@ -801,8 +970,13 @@ export type QuotationUncheckedUpdateWithoutTenantInput = {
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   opportunityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumQuotationStatusFieldUpdateOperationsInput | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -813,8 +987,13 @@ export type QuotationUncheckedUpdateManyWithoutTenantInput = {
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   opportunityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumQuotationStatusFieldUpdateOperationsInput | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -824,8 +1003,13 @@ export type QuotationCreateManyCustomerInput = {
   quotationNumber: string
   opportunityId?: string | null
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: number | null
   status?: $Enums.QuotationStatus
   validUntil: Date | string
+  approvalToken?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  sentAt?: Date | string | null
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -835,8 +1019,13 @@ export type QuotationUpdateWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quotationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumQuotationStatusFieldUpdateOperationsInput | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   opportunity?: Prisma.OpportunityUpdateOneWithoutQuotationsNestedInput
@@ -848,8 +1037,13 @@ export type QuotationUncheckedUpdateWithoutCustomerInput = {
   quotationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   opportunityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumQuotationStatusFieldUpdateOperationsInput | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -860,8 +1054,13 @@ export type QuotationUncheckedUpdateManyWithoutCustomerInput = {
   quotationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   opportunityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumQuotationStatusFieldUpdateOperationsInput | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -872,8 +1071,13 @@ export type QuotationCreateManyOpportunityInput = {
   quotationNumber: string
   customerId: string
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: number | null
   status?: $Enums.QuotationStatus
   validUntil: Date | string
+  approvalToken?: string | null
+  approvedAt?: Date | string | null
+  rejectedAt?: Date | string | null
+  sentAt?: Date | string | null
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -883,8 +1087,13 @@ export type QuotationUpdateWithoutOpportunityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quotationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumQuotationStatusFieldUpdateOperationsInput | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutQuotationsNestedInput
@@ -896,8 +1105,13 @@ export type QuotationUncheckedUpdateWithoutOpportunityInput = {
   quotationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumQuotationStatusFieldUpdateOperationsInput | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -908,8 +1122,13 @@ export type QuotationUncheckedUpdateManyWithoutOpportunityInput = {
   quotationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  requestedQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumQuotationStatusFieldUpdateOperationsInput | $Enums.QuotationStatus
   validUntil?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  approvalToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rejectedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -923,8 +1142,13 @@ export type QuotationSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   customerId?: boolean
   opportunityId?: boolean
   amount?: boolean
+  requestedQuantity?: boolean
   status?: boolean
   validUntil?: boolean
+  approvalToken?: boolean
+  approvedAt?: boolean
+  rejectedAt?: boolean
+  sentAt?: boolean
   tenantId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -939,8 +1163,13 @@ export type QuotationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   customerId?: boolean
   opportunityId?: boolean
   amount?: boolean
+  requestedQuantity?: boolean
   status?: boolean
   validUntil?: boolean
+  approvalToken?: boolean
+  approvedAt?: boolean
+  rejectedAt?: boolean
+  sentAt?: boolean
   tenantId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -955,8 +1184,13 @@ export type QuotationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   customerId?: boolean
   opportunityId?: boolean
   amount?: boolean
+  requestedQuantity?: boolean
   status?: boolean
   validUntil?: boolean
+  approvalToken?: boolean
+  approvedAt?: boolean
+  rejectedAt?: boolean
+  sentAt?: boolean
   tenantId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -971,14 +1205,19 @@ export type QuotationSelectScalar = {
   customerId?: boolean
   opportunityId?: boolean
   amount?: boolean
+  requestedQuantity?: boolean
   status?: boolean
   validUntil?: boolean
+  approvalToken?: boolean
+  approvedAt?: boolean
+  rejectedAt?: boolean
+  sentAt?: boolean
   tenantId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type QuotationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "quotationNumber" | "customerId" | "opportunityId" | "amount" | "status" | "validUntil" | "tenantId" | "createdAt" | "updatedAt", ExtArgs["result"]["quotation"]>
+export type QuotationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "quotationNumber" | "customerId" | "opportunityId" | "amount" | "requestedQuantity" | "status" | "validUntil" | "approvalToken" | "approvedAt" | "rejectedAt" | "sentAt" | "tenantId" | "createdAt" | "updatedAt", ExtArgs["result"]["quotation"]>
 export type QuotationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   opportunity?: boolean | Prisma.Quotation$opportunityArgs<ExtArgs>
@@ -1008,8 +1247,13 @@ export type $QuotationPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     customerId: string
     opportunityId: string | null
     amount: runtime.Decimal
+    requestedQuantity: number | null
     status: $Enums.QuotationStatus
     validUntil: Date
+    approvalToken: string | null
+    approvedAt: Date | null
+    rejectedAt: Date | null
+    sentAt: Date | null
     tenantId: string
     createdAt: Date
     updatedAt: Date
@@ -1444,8 +1688,13 @@ export interface QuotationFieldRefs {
   readonly customerId: Prisma.FieldRef<"Quotation", 'String'>
   readonly opportunityId: Prisma.FieldRef<"Quotation", 'String'>
   readonly amount: Prisma.FieldRef<"Quotation", 'Decimal'>
+  readonly requestedQuantity: Prisma.FieldRef<"Quotation", 'Int'>
   readonly status: Prisma.FieldRef<"Quotation", 'QuotationStatus'>
   readonly validUntil: Prisma.FieldRef<"Quotation", 'DateTime'>
+  readonly approvalToken: Prisma.FieldRef<"Quotation", 'String'>
+  readonly approvedAt: Prisma.FieldRef<"Quotation", 'DateTime'>
+  readonly rejectedAt: Prisma.FieldRef<"Quotation", 'DateTime'>
+  readonly sentAt: Prisma.FieldRef<"Quotation", 'DateTime'>
   readonly tenantId: Prisma.FieldRef<"Quotation", 'String'>
   readonly createdAt: Prisma.FieldRef<"Quotation", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Quotation", 'DateTime'>

@@ -32,7 +32,9 @@ class SalaryStructureController {
   createSalaryStructure = asyncHandler(
     async (req: Request, res: Response) => {
       const user = (req as any).user;
-      const salaryStructure = await salaryStructureService.createSalaryStructure({...req.body,tenantId: user.tenantId,});
+      const payload = { ...req.body, tenantId: user.tenantId };
+      console.log(payload);
+      const salaryStructure = await salaryStructureService.createSalaryStructure(payload);
       return res.status(201).json(
         successResponse(salaryStructure,"Salary structure created successfully")
       );

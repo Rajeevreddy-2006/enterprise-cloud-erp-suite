@@ -5,7 +5,7 @@ import { RoleType } from "../generated/prisma/enums";
 class NotificationRepository {
 
   async getAllNotifications(tenantId: string,role: RoleType) {
-    if (role === "SUPER_ADMIN") {
+    if (role === "TENANT_ADMIN") {
       return prisma.notification.findMany({
         include: { tenant: true, },
         orderBy: { createdAt: "desc", },
@@ -15,6 +15,23 @@ class NotificationRepository {
       where: { tenantId, },
       include: { tenant: true, },
       orderBy: { createdAt: "desc", },
+    });
+  }
+
+  async markAsRead(
+    id: string,
+    tenantId: string
+  ) {
+    return prisma.notification.update({
+      where: { id, },
+      data: { isRead: true, },
+    });
+  }
+
+  async markAllAsRead(tenantId: string) {
+    return prisma.notification.updateMany({
+      where: { tenantId, isRead: false, },
+      data: { isRead: true, },
     });
   }
 

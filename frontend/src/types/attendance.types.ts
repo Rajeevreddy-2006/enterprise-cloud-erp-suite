@@ -5,20 +5,14 @@ export enum AttendanceStatus {
     LEAVE = "LEAVE"
 }
 
+
 export interface Attendance{
     id:string;
     employeeId:string;
-    tenantId:string;
     date:string;
     status:AttendanceStatus;
-    checkIn?:string;
-    checkOut?:string;
-    createdAt:string;
-    updatedAt:string;
-    employee?:{
-        id:string;
-        name:string;
-    };
+    createdAt?:string;
+    updatedAt?:string;
 }
 
 export interface CreateAttendanceDto{
@@ -33,4 +27,12 @@ export interface UpdateAttendanceDto{
     status?:AttendanceStatus;
     checkIn?:string;
     checkOut?:string;
+}
+
+export interface AttendanceSummary{
+present:number;
+absent:number;
+leave:number;
+halfDay:number;
+paidDays:number;
 }

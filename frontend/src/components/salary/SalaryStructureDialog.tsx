@@ -4,19 +4,27 @@ import {
     DialogHeader,
     DialogTitle
 } from "@/components/ui/dialog";
-import SalaryStructureForm from "./SalaryStructureForm";
-import type { SalaryStructure } from "@/types/salary.types";
-import type { SalaryFormData } from "@/schemas/salary.schema";
+import SalaryStructureForm
+    from "./SalaryStructureForm";
 
 interface Props {
     open: boolean;
-    onOpenChange: (open: boolean) => void;
+    onOpenChange:
+    (v: boolean) => void;
+    employee: any;
     loading: boolean;
-    defaultValues?: SalaryStructure | null;
-    onSubmit: (data: SalaryFormData) => void;
+    defaultValues?: any;
+    onSubmit: (data: any) => void;
 }
 
-function SalaryStructureDialog({ open,onOpenChange,loading,defaultValues,onSubmit }: Props) {
+function SalaryStructureDialog({
+    open,
+    onOpenChange,
+    employee,
+    loading,
+    defaultValues,
+    onSubmit
+}: Props) {
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent>
@@ -25,7 +33,14 @@ function SalaryStructureDialog({ open,onOpenChange,loading,defaultValues,onSubmi
                         Salary Structure
                     </DialogTitle>
                 </DialogHeader>
-                <SalaryStructureForm onSubmit={onSubmit} loading={loading} defaultValues={defaultValues as any} />
+                <SalaryStructureForm
+                    employee={employee}
+                    loading={loading}
+                    defaultValues={
+                        defaultValues
+                    }
+                    onSubmit={ onSubmit }
+                />
             </DialogContent>
         </Dialog>
     );

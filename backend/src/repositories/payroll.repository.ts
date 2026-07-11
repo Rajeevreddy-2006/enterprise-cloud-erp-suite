@@ -5,7 +5,7 @@ import { RoleType } from "../generated/prisma/enums";
 class PayrollRepository {
 
   async getAllPayrolls(tenantId: string,role: RoleType) {
-    if (role === "SUPER_ADMIN") {
+    if (role === "TENANT_ADMIN") {
       return prisma.payroll.findMany({
         include: { employee: true, tenant: true, },
         orderBy: { createdAt: "desc", },
@@ -15,6 +15,24 @@ class PayrollRepository {
       where: { tenantId, },
       include: { employee: true, tenant: true, },
       orderBy: { createdAt: "desc", },
+    });
+  }
+
+  async employeePayrolls(employeeId: string) {
+    return prisma.payroll.findMany({
+      where: { employeeId },
+      include: { employee: true },
+      orderBy: { year: "desc" }
+    });
+  }
+
+  async getPayrollById(id:string){
+    return prisma.payroll.findUnique({
+      where:{ id },
+      include:{
+        employee:true,
+        tenant:true
+      }
     });
   }
 
@@ -44,13 +62,6 @@ class PayrollRepository {
     });
   }
 
-  async getPayrollById(id: string) {
-    return prisma.payroll.findUnique({
-      where: { id },
-      include: { employee: true, tenant: true, },
-    });
-  }
-
   async getPayrollByEmployeeMonth(employeeId: string,month: number,year: number) {
     return prisma.payroll.findFirst({
       where: { employeeId, month, year, },
@@ -72,7 +83,7 @@ class PayrollRepository {
   async getPayrollWithDetails(id: string) {
     return prisma.payroll.findUnique({
         where: { id },
-        include: { employee: true, tenant: true, },
+        include: { employee:{ include:{user:true} }, tenant: true, },
     });
   }
 

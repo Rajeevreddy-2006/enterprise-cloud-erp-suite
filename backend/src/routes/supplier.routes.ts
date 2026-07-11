@@ -1,24 +1,137 @@
 import { Router } from "express";
-import supplierController from "../controllers/supplier.controller";
-import { authenticate } from "../middleware/auth.middleware";
-import { authorize } from "../middleware/rbac.middleware";
-import { validate } from "../middleware/validate.middleware";
-import { createSupplierSchema, } from "../validators/supplier.validator";
+
+import supplierController
+
+from "../controllers/supplier.controller";
+
+import {
+
+    authenticate
+
+}
+
+from "../middleware/auth.middleware";
+
+import {
+
+    authorize
+
+}
+
+from "../middleware/rbac.middleware";
+
+import {
+
+    validate
+
+}
+
+from "../middleware/validate.middleware";
+
+import {
+
+    createSupplierSchema,
+
+    updateSupplierSchema
+
+}
+
+from "../validators/supplier.validator";
 
 const router = Router();
 
-router.use(authenticate);
+router.use(
 
-router.get("/",supplierController.getAllSuppliers);
+    authenticate
 
-router.get("/:id",supplierController.getSupplierById);
+);
 
-router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),validate(createSupplierSchema),supplierController.createSupplier);
+router.get(
 
-router.patch("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),supplierController.updateSupplier);
+    "/",
 
-router.delete("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),supplierController.deleteSupplier);
+    supplierController
 
-router.get("/:id/analytics",supplierController.getSupplierAnalytics);
+        .getAllSuppliers
+
+);
+
+router.get(
+
+    "/:id",
+
+    supplierController
+
+        .getSupplierById
+
+);
+
+router.post(
+
+    "/",
+
+    authorize([
+
+        "SUPER_ADMIN",
+
+        "TENANT_ADMIN",
+
+        "HR"
+
+    ]),
+
+    validate(
+
+        createSupplierSchema
+
+    ),
+
+    supplierController
+
+        .createSupplier
+
+);
+
+router.patch(
+
+    "/:id",
+
+    // authorize([
+
+    //     "SUPER_ADMIN",
+
+    //     "TENANT_ADMIN"
+
+    // ]),
+
+    validate(
+
+        updateSupplierSchema
+
+    ),
+
+    supplierController
+
+        .updateSupplier
+
+);
+
+router.delete(
+
+    "/:id",
+
+    authorize([
+
+        "SUPER_ADMIN",
+
+        "TENANT_ADMIN"
+
+    ]),
+
+    supplierController
+
+        .deleteSupplier
+
+);
 
 export default router;

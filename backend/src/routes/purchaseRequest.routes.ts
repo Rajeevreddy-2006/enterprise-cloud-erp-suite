@@ -17,12 +17,12 @@ router.post("/",validate(createPurchaseRequestSchema),purchaseRequestController.
 
 router.patch("/:id",purchaseRequestController.updateRequest);
 
-router.delete("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),purchaseRequestController.deleteRequest);
+router.delete("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR"]),purchaseRequestController.deleteRequest);
 
-router.patch("/:id/approve",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),purchaseRequestController.approveRequest);
+router.patch("/:id/approve",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR"]),purchaseRequestController.approveRequest);
 
-router.patch("/:id/reject",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),purchaseRequestController.rejectRequest);
+router.patch("/:id/reject",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR"]),purchaseRequestController.rejectRequest);
 
-router.post("/:id/create-po",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),purchaseRequestController.createPurchaseOrder);
+router.post("/:id/create-po",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT","HR"]),purchaseRequestController.createPurchaseOrder);
 
 export default router;

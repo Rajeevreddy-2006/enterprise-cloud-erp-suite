@@ -30,12 +30,14 @@ class AuthRepository {
     });
   }
 
-  async getUserByResetToken(token:string){
+  async getUserByResetToken(token: string) {
     return prisma.user.findFirst({
-        where:{
-            resetToken:token,
-            resetTokenExpiresAt:{ gt:new Date() }
+      where: {
+        resetToken: token,
+        resetTokenExpiresAt: {
+          gt: new Date()
         }
+      }
     });
   }
 

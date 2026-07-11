@@ -10,6 +10,22 @@ class NotificationService {
     return notificationRepository.getAllNotifications(tenantId,role);
   }
 
+  async markAsRead(id: string, tenantId: string) {
+    const notification =
+      await this.getNotificationById(
+        id
+      );
+    return notificationRepository.markAsRead(
+      id, tenantId
+    );
+  }
+
+  async markAllAsRead(tenantId: string) {
+    return notificationRepository.markAllAsRead(
+      tenantId
+    );
+  }
+
   async getNotificationById(id: string) {
     return notificationRepository.getNotificationById(id);
   }

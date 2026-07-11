@@ -9,14 +9,15 @@ const router = Router();
 
 router.use(authenticate);
 
-router.get("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),transactionController.getAllTransactions);
+router.get("/",transactionController.getAllTransactions);
 
-router.get("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),transactionController.getTransactionById);
+router.get("/:id",transactionController.getTransactionById);
 
-router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),validate(createTransactionSchema),transactionController.createTransaction);
+router.post("/",validate(createTransactionSchema),transactionController.createTransaction);
 
-router.put("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),validate(updateTransactionSchema),transactionController.updateTransaction);
+router.put("/:id",validate(updateTransactionSchema),transactionController.updateTransaction);
 
-router.delete("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),transactionController.deleteTransaction);
+router.delete("/:id",transactionController.deleteTransaction);
 
 export default router;
+//authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),

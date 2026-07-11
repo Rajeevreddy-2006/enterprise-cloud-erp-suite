@@ -40,6 +40,10 @@ import resourceAllocationRoutes from "./resourceAllocation.routes";
 import timeEntryRoutes from "./timeEntry.routes";
 import interactionLogRoutes from "./interactionLog.routes";
 import quotationRoutes from "./quotation.routes";
+import customerRoutes from "./customer.routes";
+import journalRoutes from "./journal.routes";
+import expenseRoutes from "./expense.routes";
+import customerInvitationRoutes from "./customerInvitation.routes";
 
 const router = Router();
 
@@ -84,5 +88,9 @@ router.use("/resource-allocations",resourceAllocationRoutes);
 router.use("/time-entries",timeEntryRoutes);
 router.use("/interaction-logs",interactionLogRoutes);
 router.use("/quotations",quotationRoutes);
+router.use("/customers", customerRoutes);
+router.use("/journal-entries",journalRoutes);
+router.use("/expenses",expenseRoutes);
+router.use("/customer-invitations",customerInvitationRoutes);
 
 export default router;

@@ -1,5 +1,5 @@
 import userRepository from "../repositories/user.repository";
-import { CreateUserDto, UpdateUserDto, } from "../types/user.types";
+import { CreateUserDto, UpdateUserDto, UpdateProfileDto } from "../types/user.types";
 import { RoleType } from "../generated/prisma/enums";
 import bcrypt from "bcrypt";
 
@@ -9,16 +9,22 @@ class UserService {
     return userRepository.getAllUsers(tenantId,role);
   }
 
+  async getUsers(tenantId:string){
+    return userRepository.getUsers(tenantId);
+  }
+
   async getUserById(id: string) {
     return userRepository.getUserById(id);
   }
 
   async createUser(data: CreateUserDto) {
-    const hashedPassword = await bcrypt.hash(data.password,10);
     return userRepository.createUser({
         ...data,
-        password: hashedPassword,
     });
+  }
+
+  async updateProfile(id: string,data: UpdateProfileDto){
+    return userRepository.updateProfile(id,data); 
   }
 
   async updateUser(id: string,data: UpdateUserDto) {

@@ -4,7 +4,7 @@ import { RoleType } from "../generated/prisma/enums";
 class ReportRepository {
 
   async getFinancialSummary(tenantId: string,role: RoleType) {
-    const whereClause = role === "SUPER_ADMIN"? {}: { tenantId };
+    const whereClause = role === "TENANT_ADMIN"? {}: { tenantId };
     const accounts = await prisma.account.findMany({where: whereClause,});
 
     let assetBalance = 0;

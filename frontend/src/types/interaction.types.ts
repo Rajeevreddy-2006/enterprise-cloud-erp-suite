@@ -1,0 +1,39 @@
+export enum InteractionType{
+    CALL="CALL",
+    EMAIL="EMAIL",
+    MEETING="MEETING",
+    FOLLOW_UP="FOLLOW_UP",
+    NOTE="NOTE"
+}
+
+export interface Interaction{
+    id:string;
+    interactionType:InteractionType;
+    subject:string;
+    notes?:string;
+    interactionDate:string;
+    customerId:string;
+    leadId?:string;
+    opportunityId?:string;
+    employeeId?:string;
+    tenantId:string;
+    createdAt:string;
+    updatedAt:string;
+    customer?:{
+        id:string;
+        name:string;
+    };
+    lead?:{
+        id:string;
+        title:string;
+    };
+    opportunity?:{
+        id:string;
+        title:string;
+    };
+    employee?:{
+        id:string;
+        firstName:string;
+        lastName:string;
+    };
+}

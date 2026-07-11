@@ -24,7 +24,16 @@ class PurchaseRequestRepository {
   }
 
   async createRequest(data: CreatePurchaseRequestDto) {
-    return prisma.purchaseRequest.create({ data, });
+    return prisma.purchaseRequest.create({
+      data: {
+        title: data.title,
+        description: data.description,
+        quantity: data.quantity,
+        inventoryItemId: data.inventoryItemId,
+        requestedById: data.requestedById,
+        tenantId: data.tenantId,
+      },
+    });
   }
 
   async updateRequest(id: string,data: UpdatePurchaseRequestDto) {

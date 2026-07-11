@@ -16,6 +16,61 @@ class PayrollController {
     }
   );
 
+  employeePayrolls = async (req: any, res: any) => {
+    const data = await payrollService
+      .employeePayrolls(
+        req.params.id
+      );
+    res.json({success: true,data});
+  };
+
+  getPayroll = async (req: any,res: any) => {
+    const data = await payrollService
+        .getPayroll(req.params.id);
+    res.json({
+      success: true,
+      data
+    });
+  };
+
+  processPayroll = asyncHandler(
+    async (req: Request,res: Response) => {
+      const payroll =
+        await payrollService.processPayroll(
+          req.params.id as string,
+          (req as any).user
+        );
+      return res.status(200).json(
+        successResponse(
+          payroll,
+          "Payroll processed successfully"
+        )
+      );
+    }
+  );
+
+  getPayrollSummary = asyncHandler(
+    async (req: Request, res: Response) => {
+        const {
+            employeeId,
+            month,
+            year
+        } = req.query;
+        const data =
+            await payrollService.getPayrollSummary(
+                employeeId as string,
+                Number(month),
+                Number(year)
+            );
+        return res.status(200).json(
+            successResponse(
+                data,
+                "Payroll summary fetched"
+            )
+        );
+    }
+  );
+
   generatePayslip = asyncHandler(
     async (req: Request, res: Response) => {
         const payroll = await payrollService.generatePayslip(req.params.id as string);
@@ -25,13 +80,51 @@ class PayrollController {
     }
   );
 
+  // downloadPayslip = asyncHandler(
+  //   async (req: Request,res: Response) => {
+  //       const pdf = await payrollService.generatePayslipPdf(req.params.id as string);
+  //       res.setHeader("Content-Type","application/pdf");
+  //       res.setHeader("Content-Disposition",`attachment; filename=payslip-${req.params.id}.pdf`);
+  //       res.send(pdf);
+  //   }
+  // );
   downloadPayslip = asyncHandler(
-    async (req: Request,res: Response) => {
-        const pdf = await payrollService.generatePayslipPdf(req.params.id as string);
-        res.setHeader("Content-Type","application/pdf");
-        res.setHeader("Content-Disposition",`attachment; filename=payslip-${req.params.id}.pdf`);
-        res.send(pdf);
+
+    async (req,res) => {
+
+      const pdf =
+
+        await payrollService
+
+          .generatePayslipPdf(
+
+            req.params.id as string
+
+          );
+
+      res.setHeader(
+
+        "Content-Type",
+
+        "application/pdf"
+
+      );
+
+      const payrollId = String(req.params.id).trim();
+
+      res.setHeader(
+        "Content-Disposition",
+        `attachment; filename="payslip-${payrollId}.pdf"`
+      );
+
+      res.send(
+
+        pdf
+
+      );
+
     }
+
   );
 
   getPayrollById = asyncHandler(

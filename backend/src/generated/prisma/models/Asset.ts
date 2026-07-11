@@ -46,6 +46,7 @@ export type AssetMinAggregateOutputType = {
   purchaseCost: runtime.Decimal | null
   currentValue: runtime.Decimal | null
   status: $Enums.AssetStatus | null
+  supplierId: string | null
   tenantId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -61,6 +62,7 @@ export type AssetMaxAggregateOutputType = {
   purchaseCost: runtime.Decimal | null
   currentValue: runtime.Decimal | null
   status: $Enums.AssetStatus | null
+  supplierId: string | null
   tenantId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -76,6 +78,7 @@ export type AssetCountAggregateOutputType = {
   purchaseCost: number
   currentValue: number
   status: number
+  supplierId: number
   tenantId: number
   createdAt: number
   updatedAt: number
@@ -103,6 +106,7 @@ export type AssetMinAggregateInputType = {
   purchaseCost?: true
   currentValue?: true
   status?: true
+  supplierId?: true
   tenantId?: true
   createdAt?: true
   updatedAt?: true
@@ -118,6 +122,7 @@ export type AssetMaxAggregateInputType = {
   purchaseCost?: true
   currentValue?: true
   status?: true
+  supplierId?: true
   tenantId?: true
   createdAt?: true
   updatedAt?: true
@@ -133,6 +138,7 @@ export type AssetCountAggregateInputType = {
   purchaseCost?: true
   currentValue?: true
   status?: true
+  supplierId?: true
   tenantId?: true
   createdAt?: true
   updatedAt?: true
@@ -229,12 +235,13 @@ export type AssetGroupByOutputType = {
   id: string
   assetCode: string
   name: string
-  serialNumber: string
+  serialNumber: string | null
   category: $Enums.AssetCategory
   purchaseDate: Date
   purchaseCost: runtime.Decimal
   currentValue: runtime.Decimal
   status: $Enums.AssetStatus
+  supplierId: string | null
   tenantId: string
   createdAt: Date
   updatedAt: Date
@@ -267,15 +274,17 @@ export type AssetWhereInput = {
   id?: Prisma.StringFilter<"Asset"> | string
   assetCode?: Prisma.StringFilter<"Asset"> | string
   name?: Prisma.StringFilter<"Asset"> | string
-  serialNumber?: Prisma.StringFilter<"Asset"> | string
+  serialNumber?: Prisma.StringNullableFilter<"Asset"> | string | null
   category?: Prisma.EnumAssetCategoryFilter<"Asset"> | $Enums.AssetCategory
   purchaseDate?: Prisma.DateTimeFilter<"Asset"> | Date | string
   purchaseCost?: Prisma.DecimalFilter<"Asset"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue?: Prisma.DecimalFilter<"Asset"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumAssetStatusFilter<"Asset"> | $Enums.AssetStatus
+  supplierId?: Prisma.StringNullableFilter<"Asset"> | string | null
   tenantId?: Prisma.StringFilter<"Asset"> | string
   createdAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
+  supplier?: Prisma.XOR<Prisma.SupplierNullableScalarRelationFilter, Prisma.SupplierWhereInput> | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   assignments?: Prisma.AssetAssignmentListRelationFilter
 }
@@ -284,15 +293,17 @@ export type AssetOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   assetCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  serialNumber?: Prisma.SortOrder
+  serialNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
   purchaseDate?: Prisma.SortOrder
   purchaseCost?: Prisma.SortOrder
   currentValue?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  supplierId?: Prisma.SortOrderInput | Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  supplier?: Prisma.SupplierOrderByWithRelationInput
   tenant?: Prisma.TenantOrderByWithRelationInput
   assignments?: Prisma.AssetAssignmentOrderByRelationAggregateInput
 }
@@ -310,9 +321,11 @@ export type AssetWhereUniqueInput = Prisma.AtLeast<{
   purchaseCost?: Prisma.DecimalFilter<"Asset"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue?: Prisma.DecimalFilter<"Asset"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumAssetStatusFilter<"Asset"> | $Enums.AssetStatus
+  supplierId?: Prisma.StringNullableFilter<"Asset"> | string | null
   tenantId?: Prisma.StringFilter<"Asset"> | string
   createdAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
+  supplier?: Prisma.XOR<Prisma.SupplierNullableScalarRelationFilter, Prisma.SupplierWhereInput> | null
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   assignments?: Prisma.AssetAssignmentListRelationFilter
 }, "id" | "assetCode" | "serialNumber">
@@ -321,12 +334,13 @@ export type AssetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   assetCode?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  serialNumber?: Prisma.SortOrder
+  serialNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.SortOrder
   purchaseDate?: Prisma.SortOrder
   purchaseCost?: Prisma.SortOrder
   currentValue?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  supplierId?: Prisma.SortOrderInput | Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -344,12 +358,13 @@ export type AssetScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Asset"> | string
   assetCode?: Prisma.StringWithAggregatesFilter<"Asset"> | string
   name?: Prisma.StringWithAggregatesFilter<"Asset"> | string
-  serialNumber?: Prisma.StringWithAggregatesFilter<"Asset"> | string
+  serialNumber?: Prisma.StringNullableWithAggregatesFilter<"Asset"> | string | null
   category?: Prisma.EnumAssetCategoryWithAggregatesFilter<"Asset"> | $Enums.AssetCategory
   purchaseDate?: Prisma.DateTimeWithAggregatesFilter<"Asset"> | Date | string
   purchaseCost?: Prisma.DecimalWithAggregatesFilter<"Asset"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue?: Prisma.DecimalWithAggregatesFilter<"Asset"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumAssetStatusWithAggregatesFilter<"Asset"> | $Enums.AssetStatus
+  supplierId?: Prisma.StringNullableWithAggregatesFilter<"Asset"> | string | null
   tenantId?: Prisma.StringWithAggregatesFilter<"Asset"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Asset"> | Date | string
@@ -359,7 +374,7 @@ export type AssetCreateInput = {
   id?: string
   assetCode: string
   name: string
-  serialNumber: string
+  serialNumber?: string | null
   category: $Enums.AssetCategory
   purchaseDate: Date | string
   purchaseCost: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -367,6 +382,7 @@ export type AssetCreateInput = {
   status?: $Enums.AssetStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  supplier?: Prisma.SupplierCreateNestedOneWithoutAssetsInput
   tenant: Prisma.TenantCreateNestedOneWithoutAssetsInput
   assignments?: Prisma.AssetAssignmentCreateNestedManyWithoutAssetInput
 }
@@ -375,12 +391,13 @@ export type AssetUncheckedCreateInput = {
   id?: string
   assetCode: string
   name: string
-  serialNumber: string
+  serialNumber?: string | null
   category: $Enums.AssetCategory
   purchaseDate: Date | string
   purchaseCost: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.AssetStatus
+  supplierId?: string | null
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -391,7 +408,7 @@ export type AssetUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   assetCode?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAssetCategoryFieldUpdateOperationsInput | $Enums.AssetCategory
   purchaseDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchaseCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -399,6 +416,7 @@ export type AssetUpdateInput = {
   status?: Prisma.EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supplier?: Prisma.SupplierUpdateOneWithoutAssetsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutAssetsNestedInput
   assignments?: Prisma.AssetAssignmentUpdateManyWithoutAssetNestedInput
 }
@@ -407,12 +425,13 @@ export type AssetUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   assetCode?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAssetCategoryFieldUpdateOperationsInput | $Enums.AssetCategory
   purchaseDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchaseCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -423,12 +442,13 @@ export type AssetCreateManyInput = {
   id?: string
   assetCode: string
   name: string
-  serialNumber: string
+  serialNumber?: string | null
   category: $Enums.AssetCategory
   purchaseDate: Date | string
   purchaseCost: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.AssetStatus
+  supplierId?: string | null
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -438,7 +458,7 @@ export type AssetUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   assetCode?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAssetCategoryFieldUpdateOperationsInput | $Enums.AssetCategory
   purchaseDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchaseCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -452,12 +472,13 @@ export type AssetUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   assetCode?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAssetCategoryFieldUpdateOperationsInput | $Enums.AssetCategory
   purchaseDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchaseCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -483,6 +504,7 @@ export type AssetCountOrderByAggregateInput = {
   purchaseCost?: Prisma.SortOrder
   currentValue?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  supplierId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -503,6 +525,7 @@ export type AssetMaxOrderByAggregateInput = {
   purchaseCost?: Prisma.SortOrder
   currentValue?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  supplierId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -518,6 +541,7 @@ export type AssetMinOrderByAggregateInput = {
   purchaseCost?: Prisma.SortOrder
   currentValue?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  supplierId?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -597,11 +621,53 @@ export type AssetUpdateOneRequiredWithoutAssignmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AssetUpdateToOneWithWhereWithoutAssignmentsInput, Prisma.AssetUpdateWithoutAssignmentsInput>, Prisma.AssetUncheckedUpdateWithoutAssignmentsInput>
 }
 
+export type AssetCreateNestedManyWithoutSupplierInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutSupplierInput, Prisma.AssetUncheckedCreateWithoutSupplierInput> | Prisma.AssetCreateWithoutSupplierInput[] | Prisma.AssetUncheckedCreateWithoutSupplierInput[]
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutSupplierInput | Prisma.AssetCreateOrConnectWithoutSupplierInput[]
+  createMany?: Prisma.AssetCreateManySupplierInputEnvelope
+  connect?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+}
+
+export type AssetUncheckedCreateNestedManyWithoutSupplierInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutSupplierInput, Prisma.AssetUncheckedCreateWithoutSupplierInput> | Prisma.AssetCreateWithoutSupplierInput[] | Prisma.AssetUncheckedCreateWithoutSupplierInput[]
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutSupplierInput | Prisma.AssetCreateOrConnectWithoutSupplierInput[]
+  createMany?: Prisma.AssetCreateManySupplierInputEnvelope
+  connect?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+}
+
+export type AssetUpdateManyWithoutSupplierNestedInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutSupplierInput, Prisma.AssetUncheckedCreateWithoutSupplierInput> | Prisma.AssetCreateWithoutSupplierInput[] | Prisma.AssetUncheckedCreateWithoutSupplierInput[]
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutSupplierInput | Prisma.AssetCreateOrConnectWithoutSupplierInput[]
+  upsert?: Prisma.AssetUpsertWithWhereUniqueWithoutSupplierInput | Prisma.AssetUpsertWithWhereUniqueWithoutSupplierInput[]
+  createMany?: Prisma.AssetCreateManySupplierInputEnvelope
+  set?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  disconnect?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  delete?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  connect?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  update?: Prisma.AssetUpdateWithWhereUniqueWithoutSupplierInput | Prisma.AssetUpdateWithWhereUniqueWithoutSupplierInput[]
+  updateMany?: Prisma.AssetUpdateManyWithWhereWithoutSupplierInput | Prisma.AssetUpdateManyWithWhereWithoutSupplierInput[]
+  deleteMany?: Prisma.AssetScalarWhereInput | Prisma.AssetScalarWhereInput[]
+}
+
+export type AssetUncheckedUpdateManyWithoutSupplierNestedInput = {
+  create?: Prisma.XOR<Prisma.AssetCreateWithoutSupplierInput, Prisma.AssetUncheckedCreateWithoutSupplierInput> | Prisma.AssetCreateWithoutSupplierInput[] | Prisma.AssetUncheckedCreateWithoutSupplierInput[]
+  connectOrCreate?: Prisma.AssetCreateOrConnectWithoutSupplierInput | Prisma.AssetCreateOrConnectWithoutSupplierInput[]
+  upsert?: Prisma.AssetUpsertWithWhereUniqueWithoutSupplierInput | Prisma.AssetUpsertWithWhereUniqueWithoutSupplierInput[]
+  createMany?: Prisma.AssetCreateManySupplierInputEnvelope
+  set?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  disconnect?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  delete?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  connect?: Prisma.AssetWhereUniqueInput | Prisma.AssetWhereUniqueInput[]
+  update?: Prisma.AssetUpdateWithWhereUniqueWithoutSupplierInput | Prisma.AssetUpdateWithWhereUniqueWithoutSupplierInput[]
+  updateMany?: Prisma.AssetUpdateManyWithWhereWithoutSupplierInput | Prisma.AssetUpdateManyWithWhereWithoutSupplierInput[]
+  deleteMany?: Prisma.AssetScalarWhereInput | Prisma.AssetScalarWhereInput[]
+}
+
 export type AssetCreateWithoutTenantInput = {
   id?: string
   assetCode: string
   name: string
-  serialNumber: string
+  serialNumber?: string | null
   category: $Enums.AssetCategory
   purchaseDate: Date | string
   purchaseCost: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -609,6 +675,7 @@ export type AssetCreateWithoutTenantInput = {
   status?: $Enums.AssetStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  supplier?: Prisma.SupplierCreateNestedOneWithoutAssetsInput
   assignments?: Prisma.AssetAssignmentCreateNestedManyWithoutAssetInput
 }
 
@@ -616,12 +683,13 @@ export type AssetUncheckedCreateWithoutTenantInput = {
   id?: string
   assetCode: string
   name: string
-  serialNumber: string
+  serialNumber?: string | null
   category: $Enums.AssetCategory
   purchaseDate: Date | string
   purchaseCost: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.AssetStatus
+  supplierId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   assignments?: Prisma.AssetAssignmentUncheckedCreateNestedManyWithoutAssetInput
@@ -660,12 +728,13 @@ export type AssetScalarWhereInput = {
   id?: Prisma.StringFilter<"Asset"> | string
   assetCode?: Prisma.StringFilter<"Asset"> | string
   name?: Prisma.StringFilter<"Asset"> | string
-  serialNumber?: Prisma.StringFilter<"Asset"> | string
+  serialNumber?: Prisma.StringNullableFilter<"Asset"> | string | null
   category?: Prisma.EnumAssetCategoryFilter<"Asset"> | $Enums.AssetCategory
   purchaseDate?: Prisma.DateTimeFilter<"Asset"> | Date | string
   purchaseCost?: Prisma.DecimalFilter<"Asset"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue?: Prisma.DecimalFilter<"Asset"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumAssetStatusFilter<"Asset"> | $Enums.AssetStatus
+  supplierId?: Prisma.StringNullableFilter<"Asset"> | string | null
   tenantId?: Prisma.StringFilter<"Asset"> | string
   createdAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Asset"> | Date | string
@@ -675,7 +744,7 @@ export type AssetCreateWithoutAssignmentsInput = {
   id?: string
   assetCode: string
   name: string
-  serialNumber: string
+  serialNumber?: string | null
   category: $Enums.AssetCategory
   purchaseDate: Date | string
   purchaseCost: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -683,6 +752,7 @@ export type AssetCreateWithoutAssignmentsInput = {
   status?: $Enums.AssetStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  supplier?: Prisma.SupplierCreateNestedOneWithoutAssetsInput
   tenant: Prisma.TenantCreateNestedOneWithoutAssetsInput
 }
 
@@ -690,12 +760,13 @@ export type AssetUncheckedCreateWithoutAssignmentsInput = {
   id?: string
   assetCode: string
   name: string
-  serialNumber: string
+  serialNumber?: string | null
   category: $Enums.AssetCategory
   purchaseDate: Date | string
   purchaseCost: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.AssetStatus
+  supplierId?: string | null
   tenantId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -721,7 +792,7 @@ export type AssetUpdateWithoutAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   assetCode?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAssetCategoryFieldUpdateOperationsInput | $Enums.AssetCategory
   purchaseDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchaseCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -729,6 +800,7 @@ export type AssetUpdateWithoutAssignmentsInput = {
   status?: Prisma.EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supplier?: Prisma.SupplierUpdateOneWithoutAssetsNestedInput
   tenant?: Prisma.TenantUpdateOneRequiredWithoutAssetsNestedInput
 }
 
@@ -736,27 +808,87 @@ export type AssetUncheckedUpdateWithoutAssignmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   assetCode?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAssetCategoryFieldUpdateOperationsInput | $Enums.AssetCategory
   purchaseDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchaseCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AssetCreateWithoutSupplierInput = {
+  id?: string
+  assetCode: string
+  name: string
+  serialNumber?: string | null
+  category: $Enums.AssetCategory
+  purchaseDate: Date | string
+  purchaseCost: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.AssetStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutAssetsInput
+  assignments?: Prisma.AssetAssignmentCreateNestedManyWithoutAssetInput
+}
+
+export type AssetUncheckedCreateWithoutSupplierInput = {
+  id?: string
+  assetCode: string
+  name: string
+  serialNumber?: string | null
+  category: $Enums.AssetCategory
+  purchaseDate: Date | string
+  purchaseCost: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.AssetStatus
+  tenantId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  assignments?: Prisma.AssetAssignmentUncheckedCreateNestedManyWithoutAssetInput
+}
+
+export type AssetCreateOrConnectWithoutSupplierInput = {
+  where: Prisma.AssetWhereUniqueInput
+  create: Prisma.XOR<Prisma.AssetCreateWithoutSupplierInput, Prisma.AssetUncheckedCreateWithoutSupplierInput>
+}
+
+export type AssetCreateManySupplierInputEnvelope = {
+  data: Prisma.AssetCreateManySupplierInput | Prisma.AssetCreateManySupplierInput[]
+  skipDuplicates?: boolean
+}
+
+export type AssetUpsertWithWhereUniqueWithoutSupplierInput = {
+  where: Prisma.AssetWhereUniqueInput
+  update: Prisma.XOR<Prisma.AssetUpdateWithoutSupplierInput, Prisma.AssetUncheckedUpdateWithoutSupplierInput>
+  create: Prisma.XOR<Prisma.AssetCreateWithoutSupplierInput, Prisma.AssetUncheckedCreateWithoutSupplierInput>
+}
+
+export type AssetUpdateWithWhereUniqueWithoutSupplierInput = {
+  where: Prisma.AssetWhereUniqueInput
+  data: Prisma.XOR<Prisma.AssetUpdateWithoutSupplierInput, Prisma.AssetUncheckedUpdateWithoutSupplierInput>
+}
+
+export type AssetUpdateManyWithWhereWithoutSupplierInput = {
+  where: Prisma.AssetScalarWhereInput
+  data: Prisma.XOR<Prisma.AssetUpdateManyMutationInput, Prisma.AssetUncheckedUpdateManyWithoutSupplierInput>
 }
 
 export type AssetCreateManyTenantInput = {
   id?: string
   assetCode: string
   name: string
-  serialNumber: string
+  serialNumber?: string | null
   category: $Enums.AssetCategory
   purchaseDate: Date | string
   purchaseCost: runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue: runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: $Enums.AssetStatus
+  supplierId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -765,7 +897,7 @@ export type AssetUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   assetCode?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAssetCategoryFieldUpdateOperationsInput | $Enums.AssetCategory
   purchaseDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchaseCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -773,6 +905,7 @@ export type AssetUpdateWithoutTenantInput = {
   status?: Prisma.EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supplier?: Prisma.SupplierUpdateOneWithoutAssetsNestedInput
   assignments?: Prisma.AssetAssignmentUpdateManyWithoutAssetNestedInput
 }
 
@@ -780,12 +913,13 @@ export type AssetUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   assetCode?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAssetCategoryFieldUpdateOperationsInput | $Enums.AssetCategory
   purchaseDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchaseCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignments?: Prisma.AssetAssignmentUncheckedUpdateManyWithoutAssetNestedInput
@@ -795,12 +929,75 @@ export type AssetUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   assetCode?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  serialNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category?: Prisma.EnumAssetCategoryFieldUpdateOperationsInput | $Enums.AssetCategory
   purchaseDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchaseCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currentValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   status?: Prisma.EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
+  supplierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AssetCreateManySupplierInput = {
+  id?: string
+  assetCode: string
+  name: string
+  serialNumber?: string | null
+  category: $Enums.AssetCategory
+  purchaseDate: Date | string
+  purchaseCost: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentValue: runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: $Enums.AssetStatus
+  tenantId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AssetUpdateWithoutSupplierInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  assetCode?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.EnumAssetCategoryFieldUpdateOperationsInput | $Enums.AssetCategory
+  purchaseDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  purchaseCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutAssetsNestedInput
+  assignments?: Prisma.AssetAssignmentUpdateManyWithoutAssetNestedInput
+}
+
+export type AssetUncheckedUpdateWithoutSupplierInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  assetCode?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.EnumAssetCategoryFieldUpdateOperationsInput | $Enums.AssetCategory
+  purchaseDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  purchaseCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  assignments?: Prisma.AssetAssignmentUncheckedUpdateManyWithoutAssetNestedInput
+}
+
+export type AssetUncheckedUpdateManyWithoutSupplierInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  assetCode?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  serialNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  category?: Prisma.EnumAssetCategoryFieldUpdateOperationsInput | $Enums.AssetCategory
+  purchaseDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  purchaseCost?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currentValue?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  status?: Prisma.EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -846,9 +1043,11 @@ export type AssetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   purchaseCost?: boolean
   currentValue?: boolean
   status?: boolean
+  supplierId?: boolean
   tenantId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  supplier?: boolean | Prisma.Asset$supplierArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   assignments?: boolean | Prisma.Asset$assignmentsArgs<ExtArgs>
   _count?: boolean | Prisma.AssetCountOutputTypeDefaultArgs<ExtArgs>
@@ -864,9 +1063,11 @@ export type AssetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   purchaseCost?: boolean
   currentValue?: boolean
   status?: boolean
+  supplierId?: boolean
   tenantId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  supplier?: boolean | Prisma.Asset$supplierArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["asset"]>
 
@@ -880,9 +1081,11 @@ export type AssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   purchaseCost?: boolean
   currentValue?: boolean
   status?: boolean
+  supplierId?: boolean
   tenantId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  supplier?: boolean | Prisma.Asset$supplierArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["asset"]>
 
@@ -896,27 +1099,32 @@ export type AssetSelectScalar = {
   purchaseCost?: boolean
   currentValue?: boolean
   status?: boolean
+  supplierId?: boolean
   tenantId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type AssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "assetCode" | "name" | "serialNumber" | "category" | "purchaseDate" | "purchaseCost" | "currentValue" | "status" | "tenantId" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
+export type AssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "assetCode" | "name" | "serialNumber" | "category" | "purchaseDate" | "purchaseCost" | "currentValue" | "status" | "supplierId" | "tenantId" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
 export type AssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  supplier?: boolean | Prisma.Asset$supplierArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   assignments?: boolean | Prisma.Asset$assignmentsArgs<ExtArgs>
   _count?: boolean | Prisma.AssetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AssetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  supplier?: boolean | Prisma.Asset$supplierArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }
 export type AssetIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  supplier?: boolean | Prisma.Asset$supplierArgs<ExtArgs>
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
 }
 
 export type $AssetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Asset"
   objects: {
+    supplier: Prisma.$SupplierPayload<ExtArgs> | null
     tenant: Prisma.$TenantPayload<ExtArgs>
     assignments: Prisma.$AssetAssignmentPayload<ExtArgs>[]
   }
@@ -924,12 +1132,13 @@ export type $AssetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id: string
     assetCode: string
     name: string
-    serialNumber: string
+    serialNumber: string | null
     category: $Enums.AssetCategory
     purchaseDate: Date
     purchaseCost: runtime.Decimal
     currentValue: runtime.Decimal
     status: $Enums.AssetStatus
+    supplierId: string | null
     tenantId: string
     createdAt: Date
     updatedAt: Date
@@ -1327,6 +1536,7 @@ readonly fields: AssetFieldRefs;
  */
 export interface Prisma__AssetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  supplier<T extends Prisma.Asset$supplierArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$supplierArgs<ExtArgs>>): Prisma.Prisma__SupplierClient<runtime.Types.Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   assignments<T extends Prisma.Asset$assignmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Asset$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssetAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1367,6 +1577,7 @@ export interface AssetFieldRefs {
   readonly purchaseCost: Prisma.FieldRef<"Asset", 'Decimal'>
   readonly currentValue: Prisma.FieldRef<"Asset", 'Decimal'>
   readonly status: Prisma.FieldRef<"Asset", 'AssetStatus'>
+  readonly supplierId: Prisma.FieldRef<"Asset", 'String'>
   readonly tenantId: Prisma.FieldRef<"Asset", 'String'>
   readonly createdAt: Prisma.FieldRef<"Asset", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Asset", 'DateTime'>
@@ -1768,6 +1979,25 @@ export type AssetDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Assets to delete.
    */
   limit?: number
+}
+
+/**
+ * Asset.supplier
+ */
+export type Asset$supplierArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Supplier
+   */
+  select?: Prisma.SupplierSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Supplier
+   */
+  omit?: Prisma.SupplierOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupplierInclude<ExtArgs> | null
+  where?: Prisma.SupplierWhereInput
 }
 
 /**

@@ -9,18 +9,86 @@ const router = Router();
 
 router.use(authenticate);
 
-router.get("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),leaveController.getAllLeaves);
+router.get(
+    "/employee/:id/balance",
+    leaveController.leaveBalance
+);
 
-router.get("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),leaveController.getLeaveById);
+router.get(
+    "/employee/:id",
+    leaveController.employeeLeaves
+);
 
-router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR","EMPLOYEE",]),validate(createLeaveSchema),leaveController.createLeave);
+router.get(
+    "/",
+    authorize([
+        "SUPER_ADMIN",
+        "TENANT_ADMIN",
+        "HR"
+    ]),
+    leaveController.getAllLeaves
+);
 
-router.put("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),validate(updateLeaveSchema),leaveController.updateLeave);
+router.get(
+    "/:id",
+    authorize([
+        "SUPER_ADMIN",
+        "TENANT_ADMIN",
+        "HR"
+    ]),
+    leaveController.getLeaveById
+);
 
-router.patch("/:id/approve",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),leaveController.approveLeave);
+router.post(
+    "/",
+    authorize([
+        "SUPER_ADMIN",
+        "TENANT_ADMIN",
+        "HR",
+        "EMPLOYEE"
+    ]),
+    validate(createLeaveSchema),
+    leaveController.createLeave
+);
 
-router.patch("/:id/reject",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),leaveController.rejectLeave);
+router.put(
+    "/:id",
+    authorize([
+        "SUPER_ADMIN",
+        "TENANT_ADMIN",
+        "HR"
+    ]),
+    validate(updateLeaveSchema),
+    leaveController.updateLeave
+);
 
-router.delete("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),leaveController.deleteLeave);
+router.patch(
+    "/:id/approve",
+    authorize([
+        "SUPER_ADMIN",
+        "TENANT_ADMIN",
+        "HR"
+    ]),
+    leaveController.approveLeave
+);
+
+router.patch(
+    "/:id/reject",
+    authorize([
+        "SUPER_ADMIN",
+        "TENANT_ADMIN",
+        "HR"
+    ]),
+    leaveController.rejectLeave
+);
+
+router.delete(
+    "/:id",
+    authorize([
+        "SUPER_ADMIN",
+        "TENANT_ADMIN"
+    ]),
+    leaveController.deleteLeave
+);
 
 export default router;

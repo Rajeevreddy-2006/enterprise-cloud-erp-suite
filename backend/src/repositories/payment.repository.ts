@@ -5,14 +5,30 @@ class PaymentRepository {
 
   async getAllPayments() {
     return prisma.payment.findMany({
-      include: { invoice: true, tenant: true, },
+      include: { invoice: {
+                include: {
+                    salesOrder: {
+                        include: {
+                          customer: true
+                        }
+                    }
+                }
+            }, tenant: true, },
     });
   }
 
   async getPaymentById(id: string) {
     return prisma.payment.findUnique({
       where: { id },
-      include: { invoice: true, tenant: true, },
+      include: { invoice: {
+                include: {
+                    salesOrder: {
+                        include: {
+                          customer: true
+                        }
+                    }
+                }
+            }, tenant: true, },
     });
   }
 

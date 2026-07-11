@@ -23,9 +23,70 @@ class SalesOrderController {
     }
   );
 
+  confirmSalesOrder = asyncHandler(
+    async (req: Request, res: Response) => {
+
+      const salesOrder =
+        await salesOrderService.confirmSalesOrder(
+          req.params.id as string
+        );
+
+      return res.status(200).json(
+        successResponse(
+          salesOrder,
+          "Sales Order confirmed successfully"
+        )
+      );
+
+    }
+  );
+
+  completeSalesOrder = asyncHandler(
+    async (req: Request, res: Response) => {
+
+      const salesOrder =
+        await salesOrderService.completeSalesOrder(
+          req.params.id as string
+        );
+
+      return res.status(200).json(
+        successResponse(
+          salesOrder,
+          "Sales Order completed successfully"
+        )
+      );
+
+    }
+  );
+
+  cancelSalesOrder = asyncHandler(
+    async (req: Request, res: Response) => {
+
+      const salesOrder =
+        await salesOrderService.cancelSalesOrder(
+          req.params.id as string
+        );
+
+      return res.status(200).json(
+        successResponse(
+          salesOrder,
+          "Sales Order cancelled successfully"
+        )
+      );
+
+    }
+  );
+
   createSalesOrder = asyncHandler(
     async (req: Request, res: Response) => {
-      const order = await salesOrderService.createSalesOrder(req.body);
+      const user = (req as any).user;
+      const orderNumber = `SO-${new Date().getFullYear()}-${Date.now()}`;
+      const order =
+        await salesOrderService.createSalesOrder({
+          ...req.body,
+          orderNumber,
+          tenantId: user.tenantId
+        });
       return res.status(201).json(
         successResponse(order,"Sales order created successfully")
       );

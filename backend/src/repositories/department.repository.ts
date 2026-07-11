@@ -3,15 +3,34 @@ import { CreateDepartmentDto, UpdateDepartmentDto } from "../types/department.ty
 import { RoleType } from "../generated/prisma/enums";
 
 class DepartmentRepositry {
-    async getAllDepartments(tenantId: string,role: RoleType) {
-        if (role === "SUPER_ADMIN") {
+    async getAllDepartments(tenantId: string, role: RoleType) {
+        if (role === "TENANT_ADMIN") {
             return prisma.department.findMany({
-                include: { tenant: true, employees: true, },
+                where: {
+                    tenantId
+                },
+                include: {
+                    tenant: true,
+                    _count: {
+                        select: {
+                            employees: true,
+                        },
+                    },
+                },
             });
         }
         return prisma.department.findMany({
-            where: { tenantId, },
-            include: { tenant: true, employees: true, },
+            where: {
+                tenantId,
+            },
+            include: {
+                tenant: true,
+                _count: {
+                    select: {
+                        employees: true,
+                    },
+                },
+            },
         });
     }
 
@@ -22,16 +41,29 @@ class DepartmentRepositry {
         });
     }
 
-    async createDepartment(data: CreateDepartmentDto) {
-        return prisma.department.create({
-            data,
+    async getFirstDepartmentByTenantId(tenantId:string){
+        return prisma.department.findFirst({
+            where: { tenantId }
         });
     }
 
-    async updateDepartment(id: string, data: UpdateDepartmentDto) {
+    async createDepartment(data: CreateDepartmentDto) {
+        return prisma.department.create({
+            data: {
+                name: data.name,
+                description: data.description,
+                tenantId: data.tenantId
+            }
+        });
+    }
+
+    async updateDepartment(id: string,data: UpdateDepartmentDto) {
         return prisma.department.update({
-            where: {id},
-            data,
+            where: { id },
+            data: {
+                name: data.name,
+                description: data.description
+            }
         });
     }
 

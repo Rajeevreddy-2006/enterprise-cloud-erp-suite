@@ -7,7 +7,8 @@ class CustomerController {
 
   getAllCustomers = asyncHandler(
     async (req: Request, res: Response) => {
-      const customers = await customerService.getAllCustomers();
+      const user = (req as any).user;
+      const customers = await customerService.getAllCustomers(user.tenantId);
       return res.status(200).json(
         successResponse(customers,"Customers fetched successfully")
       );
@@ -25,7 +26,8 @@ class CustomerController {
 
   createCustomer = asyncHandler(
     async (req: Request, res: Response) => {
-      const customer = await customerService.createCustomer(req.body);
+      const user=(req as any).user;
+      const customer = await customerService.createCustomer({...req.body,tenantId: user!.tenantId,});
       return res.status(201).json(
         successResponse(customer,"Customer created successfully")
       );

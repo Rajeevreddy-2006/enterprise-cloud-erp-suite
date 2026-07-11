@@ -19,6 +19,68 @@ class SalesOrderService {
     return order;
   }
 
+  async confirmSalesOrder(id: string) {
+    const salesOrder =
+      await this.getSalesOrderById(id);
+    if (
+      salesOrder.status !== "PENDING"
+    ) {
+      throw new AppError(
+        "Only pending orders can be confirmed",400
+      );
+    }
+    return salesOrderRepository.updateSalesOrder(
+      id,
+      {
+        status: "CONFIRMED"
+      }
+    );
+  }
+
+  async completeSalesOrder(id: string) {
+    const salesOrder =
+      await this.getSalesOrderById(id);
+    if (
+      salesOrder.status !== "CONFIRMED"
+    ) {
+      throw new AppError(
+        "Only confirmed orders can be completed",400
+      );
+    }
+    return salesOrderRepository.updateSalesOrder(
+      id,
+      {
+        status: "COMPLETED"
+      }
+    );
+  }
+
+  async cancelSalesOrder(id: string) {
+    const salesOrder =
+      await this.getSalesOrderById(id);
+    if (
+      salesOrder.status === "COMPLETED"
+    ) {
+      throw new AppError(
+        "Completed orders cannot be cancelled",400
+      );
+    }
+    if (
+      salesOrder.status === "CANCELLED"
+    ) {
+      throw new AppError(
+        "Order is already cancelled",
+        400
+      );
+    }
+    return salesOrderRepository.updateSalesOrder(
+      id,
+      {
+        status: "CANCELLED"
+      }
+    );
+  }
+
   async createSalesOrder(data: CreateSalesOrderDto) {
     const customer = await customerRepository.getCustomerById(data.customerId);
     if (!customer) {

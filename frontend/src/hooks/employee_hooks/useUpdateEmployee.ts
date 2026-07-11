@@ -9,8 +9,8 @@ const queryClient= useQueryClient();
         employeeService.updateEmployee(id,data),
         onSuccess(){
             queryClient.invalidateQueries({
-            queryKey:["employees"]
-        });
+                queryKey:["employees"]
+            });
         }
     });
 }

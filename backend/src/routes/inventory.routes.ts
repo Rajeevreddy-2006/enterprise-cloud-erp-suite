@@ -9,14 +9,16 @@ const router = Router();
 
 router.use(authenticate);
 
-router.get("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),inventoryController.getAllInventoryItems);
+router.get("/",inventoryController.getAllInventoryItems);
 
-router.get("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),inventoryController.getInventoryItemById);
+router.get("/:id",inventoryController.getInventoryItemById);
 
-router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),validate(createInventorySchema),inventoryController.createInventoryItem);
+router.post("/",validate(createInventorySchema),inventoryController.createInventoryItem);
 
-router.put("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),validate(updateInventorySchema),inventoryController.updateInventoryItem);
+router.put("/:id",validate(updateInventorySchema),inventoryController.updateInventoryItem);
 
-router.delete("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),inventoryController.deleteInventoryItem);
+router.delete("/:id",inventoryController.deleteInventoryItem);
 
 export default router;
+
+//authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),

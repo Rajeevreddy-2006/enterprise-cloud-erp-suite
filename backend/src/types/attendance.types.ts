@@ -14,3 +14,13 @@ export interface UpdateAttendanceDto {
   checkIn?: Date;
   checkOut?: Date;
 }
+
+export interface AttendanceSummary {
+    employeeId:string;
+    employeeName:string;
+    present:number;
+    leave:number;
+    absent:number;
+    halfDay:number;
+    paidDays:number;
+}

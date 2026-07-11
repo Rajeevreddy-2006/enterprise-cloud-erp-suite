@@ -6,4 +6,5 @@ export interface CreateDocumentDto {
   category: DocumentCategory;
   tenantId: string;
   uploadedById?: string;
+  employeeId?:string;
 }

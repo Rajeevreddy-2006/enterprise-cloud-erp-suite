@@ -9,14 +9,14 @@ const router = Router();
 
 router.use(authenticate);
 
-router.get("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),purchaseOrderController.getAllPurchaseOrders);
+router.get("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT","HR"]),purchaseOrderController.getAllPurchaseOrders);
 
-router.get("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),purchaseOrderController.getPurchaseOrderById);
+router.get("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT","HR"]),purchaseOrderController.getPurchaseOrderById);
 
-router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),validate(createPurchaseOrderSchema),purchaseOrderController.createPurchaseOrder);
+router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT","HR"]),validate(createPurchaseOrderSchema),purchaseOrderController.createPurchaseOrder);
 
-router.put("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),validate(updatePurchaseOrderSchema),purchaseOrderController.updatePurchaseOrder);
+router.put("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT","HR"]),validate(updatePurchaseOrderSchema),purchaseOrderController.updatePurchaseOrder);
 
-router.delete("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),purchaseOrderController.deletePurchaseOrder);
+router.delete("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR"]),purchaseOrderController.deletePurchaseOrder);
 
 export default router;

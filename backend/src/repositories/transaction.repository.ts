@@ -6,7 +6,7 @@ import { Prisma } from "../generated/prisma/client";
 class TransactionRepository {
 
   async getAllTransactions(tenantId: string,role: RoleType) {
-    if (role === "SUPER_ADMIN") {
+    if (role === "TENANT_ADMIN") {
       return prisma.transaction.findMany({
         include: { account: true, tenant: true, journalEntries: true, },
         orderBy: { createdAt: "desc", },

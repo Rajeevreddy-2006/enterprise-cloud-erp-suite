@@ -13,6 +13,8 @@ router.get("/", authorize(["SUPER_ADMIN","TENANT_ADMIN","HR","ACCOUNTANT",]), em
 
 router.get("/:id", authorize(["SUPER_ADMIN","TENANT_ADMIN","HR","ACCOUNTANT",]), employeeController.getEmployeeById);
 
+router.get("/:id/profile",authenticate,employeeController.profile);
+
 router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),validate(createEmployeeSchema),employeeController.createEmployee);
 
 router.put("/:id", authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]), employeeController.updateEmployee);

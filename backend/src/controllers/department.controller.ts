@@ -33,7 +33,12 @@ class DepartmentController {
   createDepartment = asyncHandler(
     async (req: Request, res: Response) => {
       const user = (req as any).user;
-      const department = await departmentService.createDepartment({ ...req.body, tenantId: user.tenantId, });
+      const department = await departmentService
+          .createDepartment({
+            name: req.body.name,
+            description: req.body.description,
+            tenantId: (req as any).user.tenantId
+          });
       await auditLogService.createLog(
         {
             userId: user.id,
@@ -55,7 +60,14 @@ class DepartmentController {
     async (req: Request,res: Response) => {
       const id = req.params.id as string;
       const user = (req as any).user;
-      const department = await departmentService.updateDepartment(id,req.body);
+      const department = await departmentService
+        .updateDepartment(
+          id,
+          {
+            name: req.body.name,
+            description: req.body.description
+          }
+        );
       await auditLogService.createLog(
         {
             userId: user.id,

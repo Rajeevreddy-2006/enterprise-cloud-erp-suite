@@ -1,45 +1,129 @@
-import prisma from "../config/database";
-import { CreateSupplierDto, UpdateSupplierDto, } from "../types/supplier.types";
+import prisma
+
+from "../config/database";
 
 class SupplierRepository {
 
-  async getAllSuppliers() {
-    return prisma.supplier.findMany({
-      include: { purchaseOrders: true, },
-    });
-  }
+    async getAllSuppliers() {
 
-  async getSupplierById(id: string) {
-    return prisma.supplier.findUnique({
-      where: { id },
-      include: { purchaseOrders: true, },
-    });
-  }
+        return prisma.supplier.findMany({
 
-  async getSupplierAnalytics(supplierId: string) {
-    const supplier =await prisma.supplier.findUnique({
-        where: { id: supplierId, },
-        include: { purchaseOrders: true, },
-    });
-    return supplier;
-  }
+            include: {
 
-  async createSupplier(data: CreateSupplierDto) {
-    return prisma.supplier.create({data,});
-  }
+                assets: true,
 
-  async updateSupplier(id: string,data: UpdateSupplierDto) {
-    return prisma.supplier.update({
-      where: { id },
-      data,
-    });
-  }
+                purchaseOrders: true
 
-  async deleteSupplier(id: string) {
-    return prisma.supplier.delete({
-      where: { id },
-    });
-  }
+            },
+
+            orderBy: {
+
+                createdAt: "desc"
+
+            }
+
+        });
+
+    }
+
+    async getSupplierById(
+
+        id: string
+
+    ) {
+
+        return prisma.supplier.findUnique({
+
+            where: {
+
+                id
+
+            },
+
+            include: {
+
+                assets: true,
+
+                purchaseOrders: true
+
+            }
+
+        });
+
+    }
+
+    async getSupplierByEmail(
+
+        email: string
+
+    ) {
+
+        return prisma.supplier.findUnique({
+
+            where: {
+
+                email
+
+            }
+
+        });
+
+    }
+
+    async createSupplier(
+
+        data: any
+
+    ) {
+
+        return prisma.supplier.create({
+
+            data
+
+        });
+
+    }
+
+    async updateSupplier(
+
+        id: string,
+
+        data: any
+
+    ) {
+
+        return prisma.supplier.update({
+
+            where: {
+
+                id
+
+            },
+
+            data
+
+        });
+
+    }
+
+    async deleteSupplier(
+
+        id: string
+
+    ) {
+
+        return prisma.supplier.delete({
+
+            where: {
+
+                id
+
+            }
+
+        });
+
+    }
+
 }
 
 export default new SupplierRepository();

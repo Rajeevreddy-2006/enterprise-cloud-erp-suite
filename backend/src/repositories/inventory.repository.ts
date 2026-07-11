@@ -5,7 +5,7 @@ import { RoleType } from "../generated/prisma/enums";
 class InventoryRepository {
 
   async getAllInventoryItems(tenantId: string,role: RoleType) {
-    if (role === "SUPER_ADMIN") {
+    if (role === "TENANT_ADMIN") {
       return prisma.inventoryItem.findMany({
         include: { tenant: true, purchaseOrders: true, },
         orderBy: { createdAt: "desc", },

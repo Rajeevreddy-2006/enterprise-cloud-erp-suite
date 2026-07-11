@@ -1,43 +1,46 @@
 import { z } from "zod";
 
 export const createQuotationSchema = z.object({
-  quotationNumber: z.string().min(2),
+    customerId: z.string().min(1, "Customer is required"),
 
-  customerId: z.string(),
+    opportunityId: z.string().optional(),
 
-  opportunityId: z.string().optional(),
+    amount: z
+        .coerce
+        .number()
+        .positive("Amount must be greater than 0"),
 
-  amount: z.number().positive(),
-
-  validUntil: z.coerce.date(),
-
-  status: z.enum([
-    "DRAFT",
-    "SENT",
-    "ACCEPTED",
-    "REJECTED",
-    "EXPIRED",
-  ]).optional(),
-
-  tenantId: z.string(),
+    validUntil: z.coerce.date(),
 });
 
 export const updateQuotationSchema = z.object({
-  quotationNumber: z.string().min(2).optional(),
+    customerId: z.string().optional(),
 
-  customerId: z.string().optional(),
+    opportunityId: z.string().optional(),
 
-  opportunityId: z.string().optional(),
+    amount: z
+        .coerce
+        .number()
+        .positive("Amount must be greater than 0")
+        .optional(),
 
-  amount: z.number().positive().optional(),
-
-  validUntil: z.coerce.date().optional(),
-
-  status: z.enum([
-    "DRAFT",
-    "SENT",
-    "ACCEPTED",
-    "REJECTED",
-    "EXPIRED",
-  ]).optional(),
+    validUntil: z.coerce.date().optional(),
 });
+
+export const sendQuotationSchema = z.object({
+    quotationId: z.string().cuid(),
+});
+
+export const quotationTokenSchema = z.object({
+    token: z.string().min(10),
+});
+
+export const acceptQuotationSchema = z.object({
+    requestedQuantity: z
+        .coerce
+        .number()
+        .int("Quantity must be an integer")
+        .min(1, "Quantity must be at least 1"),
+});
+
+export const rejectQuotationSchema = z.object({});

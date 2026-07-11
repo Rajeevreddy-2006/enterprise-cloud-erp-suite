@@ -1,12 +1,25 @@
 import { PaymentStatus } from "../generated/prisma/enums";
 
 export interface CreatePaymentDto {
-  invoiceId: string;
-  amount: number;
-  paymentDate: Date;
-  tenantId: string;
+
+    paymentNumber: string;
+
+    invoiceId: string;
+
+    amount: number;
+
+    paymentDate: Date;
+
+    tenantId: string;
+
+    status?: PaymentStatus;
+
 }
 
 export interface UpdatePaymentDto {
-  status?: PaymentStatus;
+
+    paymentDate?: Date;
+
+    status?: PaymentStatus;
+
 }

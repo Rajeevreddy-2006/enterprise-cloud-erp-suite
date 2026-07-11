@@ -44,3 +44,15 @@ export interface UpdateLeaveDto{
     reason?:string;
     status?:LeaveStatus;
 }
+
+export interface LeaveFormData {
+    employeeId: string;
+    leaveType:
+    "CASUAL"|
+    "SICK"|
+    "EARNED"|
+    "UNPAID";
+    startDate: string;
+    endDate: string;
+    reason?: string;
+}

@@ -11,6 +11,36 @@ router.use(authenticate);
 
 router.get("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR","ACCOUNTANT",]),payrollController.getAllPayrolls);
 
+router.get(
+
+"/:id/payslip/download",
+
+authorize([
+
+"SUPER_ADMIN",
+
+"TENANT_ADMIN",
+
+"HR",
+
+"EMPLOYEE"
+
+]),
+
+payrollController
+
+.downloadPayslip
+
+);
+
+router.get("/summary",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR"]),payrollController.getPayrollSummary);
+
+router.get("/employee/:id",payrollController.employeePayrolls);
+
+router.get("/details/:id",payrollController.getPayroll);
+
+router.patch("/:id/process",authorize(["SUPER_ADMIN"]),payrollController.processPayroll);
+
 router.get("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR","ACCOUNTANT",]),payrollController.getPayrollById);
 
 router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),validate(createPayrollSchema),payrollController.createPayroll);
@@ -21,7 +51,7 @@ router.patch("/:id/pay",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),
 
 router.get("/:id/payslip",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR","ACCOUNTANT","EMPLOYEE",]),payrollController.generatePayslip);
 
-router.get("/:id/payslip/download",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR","EMPLOYEE",]),payrollController.downloadPayslip);
+// router.get("/:id/payslip/download",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR","EMPLOYEE",]),payrollController.downloadPayslip);
 
 router.delete("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),payrollController.deletePayroll);
 
