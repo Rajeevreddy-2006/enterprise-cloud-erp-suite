@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { purchaseRequestSchema, type PurchaseRequestFormData } from "@/schemas/purchaseRequest.schema";
-import { PurchaseRequestStatus } from "@/types/purchaseRequest.types";
+import type { PurchaseRequestStatus } from "@/types/purchaseRequest.types";
 // import { useInventory } from "@/hooks/inventory_hooks/useInventoryItems";
 import {
 Select,

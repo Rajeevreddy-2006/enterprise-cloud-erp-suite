@@ -4,7 +4,7 @@ import {
     expenseSchema,
     type ExpenseFormData
 } from "@/schemas/expense.schema";
-import { ExpenseStatus } from "@/types/expense.types";
+import type { ExpenseStatus } from "@/types/expense.types";
 import { useEmployees } from "@/hooks/employee_hooks/useEmployees";
 import {
     Select,

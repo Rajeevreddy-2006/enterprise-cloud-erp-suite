@@ -4,7 +4,7 @@ import {
 purchaseSchema,
 type PurchaseFormData
 } from "@/schemas/purchase.schema";
-import { PurchaseOrderStatus } from "@/types/purchase.types";
+import type { PurchaseOrderStatus } from "@/types/purchase.types";
 // import { useInventory } from "@/hooks/inventory_hooks/useInventoryItems";
 import { Input } from "@/components/ui/input";
 import {

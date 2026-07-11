@@ -4,7 +4,7 @@ import {
     stockMovementSchema,
     type StockMovementFormData
 } from "@/schemas/stockMovement.schema";
-import {
+import type {
     StockMovementType
 } from "@/types/stockMovement.types";
 // import { useInventory } from "@/hooks/inventory_hooks/useInventoryItems";

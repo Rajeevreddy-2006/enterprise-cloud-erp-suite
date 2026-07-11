@@ -4,7 +4,7 @@ import {
     grnSchema,
     type GRNFormData
 } from "@/schemas/grn.schema";
-import { GRNStatus } from "@/types/grn.types";
+import type { GRNStatus } from "@/types/grn.types";
 import { usePurchaseOrders } from "@/hooks/purchaseOrder_hooks/usePurchaseOrders";
 import {
     Select,

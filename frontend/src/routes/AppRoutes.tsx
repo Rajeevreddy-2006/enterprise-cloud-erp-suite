@@ -152,9 +152,9 @@ import InteractionPage from "@/pages/interaction/InteractionPage";
 import QuotationPage from "@/pages/quotation/QuotationPage";
 import ExpensePage from "@/pages/expense/ExpensePage";
 import ProfilePage from "@/pages/profile/ProfilePage";
-import EmployeeProfilePage from "@/pages/EmployeeProfilePage";
-import LeaveApprovalPage from "@/pages/LeaveApprovalPage";
-import PayrollApprovalPage from "@/pages/PayrollApprovalPage";
+import EmployeeProfilePage from "@/pages/employees/EmployeeProfilePage";
+import LeaveApprovalPage from "@/pages/leave/LeaveApprovalPage";
+import PayrollApprovalPage from "@/pages/payroll/PayrollApprovalPage";
 import AssetPage from "@/pages/asset/AssetPage";
 import CustomerInvitationPage from "@/pages/customer/CustomerInvitationPage";
 
