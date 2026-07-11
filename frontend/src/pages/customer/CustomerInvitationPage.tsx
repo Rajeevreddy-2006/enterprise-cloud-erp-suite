@@ -196,7 +196,7 @@ function CustomerInvitationPage() {
                         </p>
                     ) : isError ? (
                         <p className="text-red-400">
-                            Failed to load invitations.
+                            Failed to load invitations.Only SUPER_ADMIN,SALES_MANAGER,SALES_EXECUTIVE can access the Page.
                         </p>
                     ) : (
                         <div className="overflow-x-auto rounded-lg">

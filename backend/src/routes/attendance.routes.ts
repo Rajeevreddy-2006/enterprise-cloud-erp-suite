@@ -13,14 +13,15 @@ router.get("/employee/:id",attendanceController.employeeAttendance);
 
 router.get("/employee/:id/summary",attendanceController.employeeAttendanceSummary);
 
-router.get("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),attendanceController.getAllAttendances);
+router.get("/",attendanceController.getAllAttendances);
 
-router.get("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),attendanceController.getAttendanceById);
+router.get("/:id",attendanceController.getAttendanceById);
 
-router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),validate(createAttendanceSchema),attendanceController.createAttendance);
+router.post("/",validate(createAttendanceSchema),attendanceController.createAttendance);
 
-router.put("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),validate(updateAttendanceSchema),attendanceController.updateAttendance);
+router.put("/:id",validate(updateAttendanceSchema),attendanceController.updateAttendance);
 
-router.delete("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN",]),attendanceController.deleteAttendance);
+router.delete("/:id",attendanceController.deleteAttendance);
 
 export default router;
+//authorize(["SUPER_ADMIN","TENANT_ADMIN","HR",]),

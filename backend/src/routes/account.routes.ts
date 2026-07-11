@@ -12,15 +12,14 @@ const router = Router();
 
 router.use(authenticate);
 
-router.get("/",accountController.getAllAccounts);
+router.get("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),accountController.getAllAccounts);
 
-router.get("/:id",accountController.getAccountById);
+router.get("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),accountController.getAccountById);
 
-router.post("/",validate(createAccountSchema),accountController.createAccount);
+router.post("/",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),validate(createAccountSchema),accountController.createAccount);
 
-router.put("/:id",validate(updateAccountSchema),accountController.updateAccount);
+router.put("/:id",authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",]),validate(updateAccountSchema),accountController.updateAccount);
 
 router.delete("/:id",accountController.deleteAccount);
 
 export default router;
-//authorize(["SUPER_ADMIN","TENANT_ADMIN","ACCOUNTANT",])
