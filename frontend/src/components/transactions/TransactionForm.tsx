@@ -4,7 +4,7 @@ import {
 transactionSchema,
 type TransactionFormData
 } from "@/schemas/transaction.schema";
-import { TransactionType } from "@/types/transaction.types";
+import type { TransactionType } from "@/types/transaction.types";
 import { useAccounts } from "@/hooks/account_hooks/useAccounts";
 import type { Account } from "@/types/account.types";
 import {

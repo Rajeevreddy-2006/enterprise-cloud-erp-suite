@@ -47,11 +47,7 @@ export interface UpdateLeaveDto{
 
 export interface LeaveFormData {
     employeeId: string;
-    leaveType:
-    "CASUAL"|
-    "SICK"|
-    "EARNED"|
-    "UNPAID";
+    leaveType: LeaveType;
     startDate: string;
     endDate: string;
     reason?: string;
