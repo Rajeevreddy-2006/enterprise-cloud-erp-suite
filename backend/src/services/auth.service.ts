@@ -115,33 +115,44 @@ class AuthService {
     }
     const token = crypto.randomBytes(32).toString("hex");
     const expiry = new Date(Date.now()+24*60*60*1000);
-    const user = await userRepository
-    .createInvitedUser({
-        name:data.name,
-        email:data.email,
-        password:null,
-        tenantId,
-        role:data.role,
-        designation: data.designation,
-        inviteToken:token,
-        inviteExpiresAt:expiry,
-        isVerified:false
-    });
-    const link = `${process.env.FRONTEND_URL}/accept-invite/${token}`;
-    console.log("User created");
+   const user = await userRepository.createInvitedUser({
+    name: data.name,
+    email: data.email,
+    password: null,
+    tenantId,
+    role: data.role,
+    designation: data.designation,
+    inviteToken: token,
+    inviteExpiresAt: expiry,
+    isVerified: false
+});
 
-    console.log("Sending email...");
+const link = `${process.env.FRONTEND_URL}/accept-invite/${token}`;
 
+try {
     await emailService.sendInvitation(
-      data.email,
-      data.name,
-      link
+        data.email,
+        data.name,
+        link
     );
 
-    console.log("Email sent");
-    return{
-        success:true
+    return {
+        success: true
     };
+
+} catch (err) {
+
+    await prisma.user.delete({
+        where: {
+            id: user.id
+        }
+    });
+
+    throw new AppError(
+        "Failed to send invitation email",
+        500
+    );
+}
   }
 
   async acceptInvite(data:AcceptInviteDto){
