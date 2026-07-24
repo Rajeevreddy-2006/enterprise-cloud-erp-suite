@@ -35,4 +35,4 @@ Thumbs.db
 *.tmp
 *.temp
 
-docs/*.mp4
+# docs/*.mp4

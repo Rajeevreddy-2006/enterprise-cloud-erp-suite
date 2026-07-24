@@ -955,7 +955,7 @@ http://localhost:5000/api-docs
 Watch the complete demo of the **Enterprise Cloud ERP Suite** showcasing Authentication, HRMS, Payroll, Finance, Inventory, Procurement, Sales, Reporting, and Employee Management.
 
 ▶️ **Demo Video:**  
-[📹 Watch Demo](./docs/Amdox_erp_recording.mp4)
+[📹 Watch Demo](./docs/amdox_erp_recording1.mp4)
 
 ---
 # 📌 Future Enhancements
