@@ -950,6 +950,14 @@ http://localhost:5000/api-docs
 
 ---
 
+## 🎥 Project Demo Video
+
+Watch the complete demo of the **Enterprise Cloud ERP Suite** showcasing Authentication, HRMS, Payroll, Finance, Inventory, Procurement, Sales, Reporting, and Employee Management.
+
+▶️ **Demo Video:**  
+[📹 Watch Demo](./docs/Amdox_erp_recording.mp4)
+
+---
 # 📌 Future Enhancements
 
 - Payment Gateway Integration (Stripe/Razorpay)
