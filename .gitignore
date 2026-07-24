@@ -34,3 +34,5 @@ Thumbs.db
 # Temporary Files
 *.tmp
 *.temp
+
+docs/*.mp4
